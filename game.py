@@ -1,4 +1,4 @@
-from ursina import *            # import everything we need with one line.
+from ursina import *
 
 class Spaceship(object):
 
@@ -7,16 +7,12 @@ class Spaceship(object):
         self.crew = {}
         self.equipment = {}
 
-    def add_crew(self, name, col=None, x=0, y=0):
-
-        if col is None:
-            col = color.random_color()
-
+    def add_crew(self, name, col=color.random_color(), x=0, y=0):
         self.crew[name] = Entity(model='sphere',
                                  color=col,
                                  collider='box',
                                  x=x, y=y, z=0,
-                                 scale=0.1)
+                                 scale=0.3)
 
     def set_active_crewmember(self, name):
         self.active_crewmember = self.crew[name]
@@ -68,4 +64,4 @@ def update():
     ares.active_crewmember.y += held_keys['up arrow'] * time.dt * 2
     ares.active_crewmember.y -= held_keys['down arrow'] * time.dt * 2
 
-app.run()                       # opens a window and starts the game.
+app.run()
