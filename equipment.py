@@ -1,12 +1,10 @@
-from ursina import Entity, color
+from ursina import Sprite
 
-class Equipment(Entity):
+class Equipment(Sprite):
 
-    def __init__(self, name, col=color.gray, x=0, y=0):
-        super().__init__(model='cube',
-                        color=col,
+    def __init__(self, name, x=0, y=0):
+        super().__init__("brick",
                         collider='box',
-                        x=x, y=y, z=0,
-                        scale=0.3)
+                        x=x, y=y, z=0)
         self.name = name
         self.wear = 0.0
