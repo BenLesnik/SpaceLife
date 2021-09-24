@@ -10,6 +10,10 @@ class Spaceship(object):
 
     def make_active(self, name):
         self.active = self.crew[name]
+        self.active.active = True
+        for c in self.crew.values():
+            if c is not self.active:
+                c.active = False
 
     def add_crew(self, name, x=0, y=0):
         self.crew[name] = Crew(name, x=x, y=y)
