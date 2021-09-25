@@ -1,4 +1,5 @@
 from ursina import *
+from ursina.prefabs.health_bar import HealthBar
 app = Ursina()
 
 from spaceship import Spaceship
@@ -18,6 +19,9 @@ ares.make_room("bridge")
 ares.make_room("science")
 
 ares.add_equipment("engine")
+
+timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
+timeline.value=14
 
 def input(key):
     global ares
