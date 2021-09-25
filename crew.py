@@ -74,13 +74,13 @@ class Crew(Entity):
     def update(self):
 
         if self.active:
-            if held_keys["left arrow"]:
+            if held_keys["left arrow"] or held_keys["a"]:
                 self.step_left()
-            elif held_keys["right arrow"]:
+            elif held_keys["right arrow"] or held_keys["d"]:
                 self.step_right()
-            if held_keys["up arrow"]:
+            if held_keys["up arrow"] or held_keys["w"]:
                 self.step_up()
-            elif held_keys["down arrow"]:
+            elif held_keys["down arrow"] or held_keys["d"]:
                 self.step_down()
             else:
                 self.animation.pause()
