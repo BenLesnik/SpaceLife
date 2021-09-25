@@ -23,6 +23,8 @@ class Crew(Entity):
                                 }
                             )
 
+        self.animation.pause()
+
     @property
     def animation(self):
         return self.animator.animations[self.animator.state]
