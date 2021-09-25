@@ -38,15 +38,22 @@ ares.add_bed("bed1", x=-10, y=0.5)
 ares.add_bed("bed2", x=-12, y=0.5)
 
 # Ship statistics
-Text(text="Oxygen", x=-0.85, y=0.45)
-oxygen = HealthBar(x=-0.75, y=0.45, bar_color=color.azure, roundness=.5)
+Text(text="ARES", x=-0.75, y=0.45)
+
+Text(text="Oxygen", x=-0.85, y=0.40)
+oxygen = HealthBar(x=-0.75, y=0.40, bar_color=color.azure, roundness=.5)
 oxygen.tooltip = Tooltip('oxygen')
 oxygen.value=90
 
-Text(text="Fuel", x=-0.85, y=0.4)
-fuel = HealthBar(x=-0.75, y=0.4, bar_color=color.red, roundness=.5)
+Text(text="Fuel", x=-0.85, y=0.35)
+fuel = HealthBar(x=-0.75, y=0.35, bar_color=color.red, roundness=.5)
 fuel.tooltip = Tooltip('fuel')
 fuel.value=10
+
+Text(text="Food", x=-0.85, y=0.30)
+food = HealthBar(x=-0.75, y=0.30, bar_color=color.green, roundness=.5)
+food.tooltip = Tooltip('food')
+food.value=70
 
 
 # Crew statistics
