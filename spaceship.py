@@ -1,3 +1,6 @@
+from ursina import *
+from ursina.prefabs.sprite import Sprite
+
 from crew import Crew
 from equipment import Equipment
 

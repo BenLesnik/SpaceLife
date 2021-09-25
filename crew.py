@@ -5,7 +5,7 @@ from ursina.prefabs.animator import Animator
 class Crew(Entity):
 
     def __init__(self, name, active=True, x=0, y=0):
-        super().__init__(x=x, y=y)
+        super().__init__(x=x, y=y, always_on_top=True)
         self.name = name
         self.active = active
 
