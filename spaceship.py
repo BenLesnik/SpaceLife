@@ -7,6 +7,12 @@ class Spaceship(object):
         self.active = None
         self.crew = {}
         self.equipment = {}
+    
+    def make_room(x=0, y=0, rotation=0):
+        parent = Entity(x=x, y=y, rotation_z=rotation)
+        front_airlock = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
+        body = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=5, scale_y=2)
+        back_airlock = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
 
     def make_active(self, name):
         self.active = self.crew[name]

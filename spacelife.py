@@ -7,6 +7,9 @@ camera.orthographic = True
 camera.fov = 10
 
 ares = Spaceship()
+
+ares.make_room()
+
 ares.add_crew("captain", x=4, y=1)
 ares.add_crew("doctor", x=4)
 ares.add_crew("engineer", x=4, y=-1)
