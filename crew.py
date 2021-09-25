@@ -4,10 +4,13 @@ from ursina.prefabs.animator import Animator
 
 class Crew(Entity):
 
-    def __init__(self, name, active=True, x=0, y=0):
+    def __init__(self, name, ship=None, active=True, x=0, y=0):
         super().__init__(x=x, y=y, always_on_top=True)
         self.name = name
         self.active = active
+        self.ship = ship
+
+        self.collider = SphereCollider(self, center=(0,0,0), radius=.1)
 
         # health bar states
         self.fatigue = 0.0
@@ -29,25 +32,39 @@ class Crew(Entity):
     def animation(self):
         return self.animator.animations[self.animator.state]
 
+    def inside(self):
+        inside = True
+        if not self.intersects(ignore=(self.ship.crew.values(), self.ship.equipment.values())):
+            inside = False
+        return inside
+
     def step_left(self):
-        self.animator.state = "left"
-        self.animation.start()
-        self.x -= time.dt * 2
+        self.collider.shape.setCenter(-.25, 0, 0)
+        if self.inside():
+            self.animator.state = "left"
+            self.animation.start()
+            self.x -= time.dt * 2
 
     def step_right(self):
-        self.animator.state = "right"
-        self.animation.start()
-        self.x += time.dt * 2
+        self.collider.shape.setCenter(.25, 0, 0)
+        if self.inside():
+            self.animator.state = "right"
+            self.animation.start()
+            self.x += time.dt * 2
 
     def step_up(self):
-        self.animator.state = "up"
-        self.animation.start()
-        self.y += time.dt * 2
+        self.collider.shape.setCenter(0, .45, 0)
+        if self.inside():
+            self.animator.state = "up"
+            self.animation.start()
+            self.y += time.dt * 2
 
     def step_down(self):
-        self.animator.state = "down"
-        self.animation.start()
-        self.y -= time.dt * 2
+        self.collider.shape.setCenter(0, -.45, 0)
+        if self.inside():
+            self.animator.state = "down"
+            self.animation.start()
+            self.y -= time.dt * 2
 
     def update(self):
 
