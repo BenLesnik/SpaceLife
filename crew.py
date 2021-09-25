@@ -1,6 +1,7 @@
 from ursina import *
 from ursina.prefabs.animation import Animation
 from ursina.prefabs.animator import Animator
+from ursina.prefabs.health_bar import HealthBar
 
 class Crew(Entity):
 
@@ -17,6 +18,10 @@ class Crew(Entity):
         self.hunger = 0.0
         self.mental_state = 1.0
         self.bone_density = 1.0
+
+        overall_health = HealthBar(x=-0.2, y=0.27, bar_color=color.green, roundness=.5, scale_x=0.5, scale_y=0.1, parent=self)
+        overall_health.show_text = False
+        overall_health.value = 80
 
         self.animator = Animator(   animations = {
                                     "left"  : Animation("assets/left", parent=self),

@@ -23,7 +23,6 @@ ares.make_room("engine room")
 ares.add_equipment("engine")
 
 # Ship statistics
-
 Text(text="Oxygen", x=-0.85, y=0.45)
 oxygen = HealthBar(x=-0.75, y=0.45, bar_color=color.azure, roundness=.5)
 oxygen.tooltip = Tooltip('oxygen')
@@ -33,6 +32,7 @@ Text(text="Fuel", x=-0.85, y=0.4)
 fuel = HealthBar(x=-0.75, y=0.4, bar_color=color.red, roundness=.5)
 fuel.tooltip = Tooltip('fuel')
 fuel.value=10
+
 
 # Crew statistics
 Text(text="Stress", x=0.15, y=0.45)
@@ -49,6 +49,7 @@ Text(text="Bone Density", x=0.15, y=0.35)
 bone_density = HealthBar(x=0.35, y=0.35, bar_color=color.blue, roundness=.5)
 bone_density.tooltip = Tooltip('bone density')
 bone_density.value=80
+
 
 # Travel duration
 timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
