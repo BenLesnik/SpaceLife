@@ -11,12 +11,11 @@ class Crew(Entity):
         self.active = active
         self.ship = ship
 
-        self.collider = SphereCollider(self, center=(0,0,0), radius=.1)
+        self.collider = SphereCollider(self, radius=.3)
 
         # health bar states
-        self.fatigue = 0.0
-        self.hunger = 0.0
-        self.mental_state = 1.0
+        self.stress = 0.0
+        self.tiredness = 0.0
         self.bone_density = 1.0
 
         overall_health = HealthBar(x=-0.2, y=0.27, bar_color=color.green, roundness=.5, scale_x=0.5, scale_y=0.1, parent=self)
@@ -37,54 +36,8 @@ class Crew(Entity):
     def animation(self):
         return self.animator.animations[self.animator.state]
 
-    def inside(self):
-        inside = True
-        if not self.intersects(ignore=(self.ship.crew.values(), self.ship.equipment.values())):
-            inside = False
-        return inside
-
-    def step_left(self):
-        self.collider.shape.setCenter(-.25, 0, 0)
-        if self.inside():
-            self.animator.state = "left"
-            self.animation.start()
-            self.x -= time.dt * 2
-
-    def step_right(self):
-        self.collider.shape.setCenter(.25, 0, 0)
-        if self.inside():
-            self.animator.state = "right"
-            self.animation.start()
-            self.x += time.dt * 2
-
-    def step_up(self):
-        self.collider.shape.setCenter(0, .45, 0)
-        if self.inside():
-            self.animator.state = "up"
-            self.animation.start()
-            self.y += time.dt * 2
-
-    def step_down(self):
-        self.collider.shape.setCenter(0, -.45, 0)
-        if self.inside():
-            self.animator.state = "down"
-            self.animation.start()
-            self.y -= time.dt * 2
-
-    def update(self):
-
-        if self.active:
-            if held_keys["left arrow"] or held_keys["a"]:
-                self.step_left()
-            elif held_keys["right arrow"] or held_keys["d"]:
-                self.step_right()
-            if held_keys["up arrow"] or held_keys["w"]:
-                self.step_up()
-            elif held_keys["down arrow"] or held_keys["d"]:
-                self.step_down()
-            else:
-                self.animation.pause()
-
+    def on_click(self):
+        self.ship.make_active(self.name)
 
 if __name__ == "__main__":
 

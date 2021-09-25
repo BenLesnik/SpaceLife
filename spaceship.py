@@ -2,7 +2,7 @@ from ursina import *
 from ursina.prefabs.sprite import Sprite
 
 from crew import Crew
-from equipment import Equipment
+from equipment import Bed
 
 class Spaceship(object):
 
@@ -27,12 +27,8 @@ class Spaceship(object):
             if c is not self.active:
                 c.active = False
 
-        for sf in camera.scripts:
-            camera.scripts.remove(sf)
-        camera.add_script(SmoothFollow(target=self.crew[name], offset=(0,0,-5)))
-
     def add_crew(self, name, x=0, y=0):
         self.crew[name] = Crew(name, ship=self, x=x, y=y)
 
-    def add_equipment(self, name, x=0, y=0):
-        self.equipment[name] = Equipment(name, x=x, y=y)
+    def add_bed(self, name, x=0, y=0):
+        self.equipment[name] = Bed(name, ship=self, x=x, y=y)
