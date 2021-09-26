@@ -96,7 +96,7 @@ sanity.value=15
 
 # Travel duration
 timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
-timeline.value=14
+timeline.value=1
 
 def input(key):
     global ares
@@ -123,6 +123,10 @@ def update():
         camera.y += time.dt * 4
     elif held_keys["down arrow"] or held_keys["s"]:
         camera.y -= time.dt * 4
+
+    mission_duration_int = int(ares.mission_duration)
+    if timeline.value != mission_duration_int:
+        timeline.value = mission_duration_int
 
     # update ship stats
     fuel_int = int(ares.fuel)

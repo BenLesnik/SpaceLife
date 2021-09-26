@@ -13,6 +13,8 @@ class Spaceship(Entity):
         self.crew = {}
         self.equipment = {}
 
+        # ship statistics
+        self.mission_duration = 1
         self.fuel = 100.0
     
     def make_room(self, name, x=0, y=0, rotation=0):
@@ -40,4 +42,5 @@ class Spaceship(Entity):
 
     def update(self):
 
-        self.fuel -= 1.0 * time.dt
+        self.mission_duration += (1.0/60.0) * time.dt # update every minute
+        self.fuel -= 0.1 * time.dt
