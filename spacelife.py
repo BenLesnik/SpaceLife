@@ -59,7 +59,7 @@ oxygen.value=90
 Text(text="Fuel", x=-0.85, y=0.35)
 fuel = HealthBar(x=-0.74, y=0.35, bar_color=color.red, roundness=.5)
 fuel.tooltip = Tooltip('fuel')
-fuel.value=10
+#fuel.value=10
 
 Text(text="Food", x=-0.85, y=0.30)
 food = HealthBar(x=-0.74, y=0.30, bar_color=color.green, roundness=.5)
@@ -123,6 +123,11 @@ def update():
         camera.y += time.dt * 4
     elif held_keys["down arrow"] or held_keys["s"]:
         camera.y -= time.dt * 4
+
+    # update ship stats
+    fuel_int = int(ares.fuel)
+    if fuel.value != fuel_int:
+        fuel.value = fuel_int
 
     # update character detail health bars
     if crew_label.text != ares.active.name.upper():

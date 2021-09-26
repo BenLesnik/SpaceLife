@@ -4,13 +4,16 @@ from ursina.prefabs.sprite import Sprite
 from crew import Crew
 from equipment import Bed
 
-class Spaceship(object):
+class Spaceship(Entity):
 
     def __init__(self):
+        super().__init__()
         self.active = None
         self.rooms = {}
         self.crew = {}
         self.equipment = {}
+
+        self.fuel = 100.0
     
     def make_room(self, name, x=0, y=0, rotation=0):
         offset = len(self.rooms) * 5.4
@@ -34,3 +37,7 @@ class Spaceship(object):
 
     def add_bed(self, name, x=0, y=0):
         self.equipment[name] = Bed(name, ship=self, x=x, y=y)
+
+    def update(self):
+
+        self.fuel -= 1.0 * time.dt
