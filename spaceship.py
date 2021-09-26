@@ -17,7 +17,9 @@ class Spaceship(object):
         parent = Entity(x=x-offset, y=y, rotation_z=rotation)
         front_airlock = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
         body = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=5, scale_y=2)
-        back_airlock = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
+        mid = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-5, scale_x=.2, scale_y=1.5)
+        rear = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
+        far_rear = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-5, scale_x=.2, scale_y=1.5)
         self.rooms[name] = parent
 
     def make_active(self, name):
