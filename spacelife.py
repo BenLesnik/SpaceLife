@@ -9,23 +9,29 @@ camera.fov = 10
 
 ares = Spaceship()
 
-ares.add_crew("captain")
+ares.add_crew("captain",  y=0.3)
 
 ares.crew["captain"].stress = 80
 ares.crew["captain"].tiredness = 90
 ares.crew["captain"].bone_density = 90
 
-ares.add_crew("doctor", y=0.5)
+ares.add_crew("doctor", y=0.8)
 
 ares.crew["doctor"].stress = 20
 ares.crew["doctor"].tiredness = 10
 ares.crew["doctor"].bone_density = 100
 
-ares.add_crew("engineer", y=-0.5)
+ares.add_crew("engineer", y=-0.2)
 
 ares.crew["engineer"].stress = 30
 ares.crew["engineer"].tiredness = 50
 ares.crew["engineer"].bone_density = 60
+
+ares.add_crew("bioligist", y=-0.7)
+
+ares.crew["bioligist"].stress = 2
+ares.crew["bioligist"].tiredness = 2
+ares.crew["bioligist"].bone_density = 100
 
 ares.make_active("captain")
 
@@ -41,20 +47,24 @@ ares.add_bed("bed2", x=-12, y=0.5)
 Text(text="ARES", x=-0.75, y=0.45)
 
 Text(text="Oxygen", x=-0.85, y=0.40)
-oxygen = HealthBar(x=-0.75, y=0.40, bar_color=color.azure, roundness=.5)
+oxygen = HealthBar(x=-0.74, y=0.40, bar_color=color.azure, roundness=.5)
 oxygen.tooltip = Tooltip('oxygen')
 oxygen.value=90
 
 Text(text="Fuel", x=-0.85, y=0.35)
-fuel = HealthBar(x=-0.75, y=0.35, bar_color=color.red, roundness=.5)
+fuel = HealthBar(x=-0.74, y=0.35, bar_color=color.red, roundness=.5)
 fuel.tooltip = Tooltip('fuel')
 fuel.value=10
 
 Text(text="Food", x=-0.85, y=0.30)
-food = HealthBar(x=-0.75, y=0.30, bar_color=color.green, roundness=.5)
+food = HealthBar(x=-0.74, y=0.30, bar_color=color.green, roundness=.5)
 food.tooltip = Tooltip('food')
 food.value=70
 
+Text(text="Damage", x=-0.85, y=0.25)
+repair = HealthBar(x=-0.74, y=0.25, bar_color=color.blue, roundness=.5)
+repair.tooltip = Tooltip('repair')
+repair.value=90
 
 # Crew statistics
 crew_label = Text(text="CAPTAIN", x=0.35, y=0.45)
@@ -90,6 +100,8 @@ def input(key):
         ares.make_active("doctor")
     elif key == "3":
         ares.make_active("engineer")
+    elif key == "4":
+        ares.make_active("bioligist")
 
 def update():
 
