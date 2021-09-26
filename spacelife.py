@@ -1,4 +1,4 @@
-from ursina import *
+from ursina import * 
 from ursina.prefabs.health_bar import HealthBar
 app = Ursina()
 
@@ -6,6 +6,21 @@ from spaceship import Spaceship
 
 camera.orthographic = True
 camera.fov = 10
+
+# from https://www.flickr.com/photos/webtreatsetc/5436446554/in/photostream/
+texture_offset = 0.0
+backgrounds = []
+background = Entity(model="quad", texture="assets/space2", x=20, y=30, scale_x=10, scale_y=10)
+backgrounds.append(background)
+
+# Change the camera fov to debug tiling
+tile_offset_y = 30.0
+for bg_y in range(7):
+    tile_offset_x = 20.0
+    for bg_x in range(8):
+        backgrounds.append(duplicate(background, x=tile_offset_x, y=tile_offset_y))
+        tile_offset_x -= 10.0
+    tile_offset_y -= 10.0
 
 ares = Spaceship()
 
@@ -112,7 +127,17 @@ def input(key):
     elif key == "4":
         ares.make_active("biologist")
 
+# from https://stackoverflow.com/questions/9775731/clamping-floating-numbers-in-python
+def clip(value, lower, upper):
+    return lower if value < lower else upper if value > upper else value
+
 def update():
+
+    # scroll all background tiles
+    global texture_offset
+    texture_offset += time.dt * 0.02
+    for back in backgrounds:
+        back.texture_offset = (texture_offset, 0)
 
     # camera movement
     if held_keys["left arrow"] or held_keys["a"]:
@@ -123,6 +148,10 @@ def update():
         camera.y += time.dt * 4
     elif held_keys["down arrow"] or held_keys["s"]:
         camera.y -= time.dt * 4
+
+    # stop camera moving beyond tiled texture background
+    camera.x = clip(camera.x, -30.0, 10.0)
+    camera.y = clip(camera.y, -20.0, 20.0)
 
     mission_duration_int = int(ares.mission_duration)
     if timeline.value != mission_duration_int:
