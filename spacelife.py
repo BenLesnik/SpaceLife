@@ -66,6 +66,7 @@ repair = HealthBar(x=-0.74, y=0.25, bar_color=color.blue, roundness=.5)
 repair.tooltip = Tooltip('repair')
 repair.value=90
 
+
 # Crew statistics
 crew_label = Text(text="CAPTAIN", x=0.35, y=0.45)
 
@@ -83,6 +84,7 @@ Text(text="Bone Density", x=0.15, y=0.30)
 bone_density = HealthBar(x=0.35, y=0.30, bar_color=color.blue, roundness=.5)
 bone_density.tooltip = Tooltip('bone density')
 bone_density.value=80
+
 
 
 # Travel duration
