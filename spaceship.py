@@ -24,6 +24,7 @@ class Spaceship(Entity):
     def make_room(self, name, x=0, y=0, rotation=0):
         offset = len(self.rooms) * 5.4
         parent = Entity(x=x-offset, y=y, rotation_z=rotation)
+        label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), parent=parent)
         top = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
         mid = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=5, scale_y=2)
         bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
