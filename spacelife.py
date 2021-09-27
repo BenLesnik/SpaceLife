@@ -7,20 +7,10 @@ from spaceship import Spaceship
 camera.orthographic = True
 camera.fov = 10
 
-# from https://www.flickr.com/photos/webtreatsetc/5436446554/in/photostream/
+# texture from https://www.flickr.com/photos/webtreatsetc/5436446554/in/photostream/
 texture_offset = 0.0
-backgrounds = []
-background = Entity(model="quad", texture="assets/space2", x=20, y=30, scale_x=10, scale_y=10)
-backgrounds.append(background)
-
-# Change the camera fov to debug tiling
-tile_offset_y = 30.0
-for bg_y in range(7):
-    tile_offset_x = 20.0
-    for bg_x in range(8):
-        backgrounds.append(duplicate(background, x=tile_offset_x, y=tile_offset_y))
-        tile_offset_x -= 10.0
-    tile_offset_y -= 10.0
+background = Entity(model="quad", texture="assets/space2", x=-15, scale=100)
+background.texture_scale = (10, 10) # Change the camera fov to debug tiling
 
 ares = Spaceship()
 ares.add_crew("captain",  y=0.3)
@@ -134,17 +124,16 @@ def clip(value, lower, upper):
 
 def update():
     global ares
-    
+
     if ares.mission_duration > 1.2 and ares.mission_duration < 1.4:
         ares.sound_warning(True)
     else:
         ares.sound_warning(False)
 
-    # scroll all background tiles
-    global texture_offset
+    # scroll background
+    global background, texture_offset
     texture_offset += time.dt * 0.02
-    for back in backgrounds:
-        back.texture_offset = (texture_offset, 0)
+    background.texture_offset = (texture_offset, 0)
 
     # camera movement
     if held_keys["left arrow"] or held_keys["a"]:
