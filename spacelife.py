@@ -23,7 +23,6 @@ for bg_y in range(7):
     tile_offset_y -= 10.0
 
 ares = Spaceship()
-
 ares.add_crew("captain",  y=0.3)
 
 ares.crew["captain"].stress = 80
@@ -54,11 +53,13 @@ ares.crew["biologist"].sanity = 60
 
 ares.make_active("captain")
 
-ares.make_room("front_airlock")
-ares.make_room("body")
-ares.make_room("rear")
-ares.make_room("mid")
-ares.make_room("far_rear")
+ares.make_room("cafeteria")
+ares.make_room("greenhouse")
+ares.make_room("med_bay")
+ares.make_room("safe_room")
+ares.make_room("store_room")
+ares.make_room("engine")
+ares.make_centrifuge("cenrifuge")
 
 ares.add_bed("bed1", x=-10, y=0.5)
 ares.add_bed("bed2", x=-12, y=0.5)
@@ -132,6 +133,12 @@ def clip(value, lower, upper):
     return lower if value < lower else upper if value > upper else value
 
 def update():
+    global ares
+
+    if ares.mission_duration >= 2:
+        ares.sound_warning(True)
+    elif ares.mission_duration >= 3:
+        ares.sound_warning(False)
 
     # scroll all background tiles
     global texture_offset
