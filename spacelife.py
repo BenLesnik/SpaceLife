@@ -134,10 +134,10 @@ def clip(value, lower, upper):
 
 def update():
     global ares
-
-    if ares.mission_duration >= 2:
+    
+    if ares.mission_duration > 2 and ares.mission_duration < 2.2:
         ares.sound_warning(True)
-    elif ares.mission_duration >= 3:
+    else:
         ares.sound_warning(False)
 
     # scroll all background tiles
@@ -160,9 +160,8 @@ def update():
     camera.x = clip(camera.x, -30.0, 10.0)
     camera.y = clip(camera.y, -20.0, 20.0)
 
-    mission_duration_int = int(ares.mission_duration)
-    if timeline.value != mission_duration_int:
-        timeline.value = mission_duration_int
+    if timeline.value != int(ares.mission_duration):
+        timeline.value = int(ares.mission_duration)
 
     # update ship stats
     fuel_int = int(ares.fuel)

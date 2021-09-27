@@ -18,7 +18,7 @@ class Spaceship(Entity):
         self.siren = Audio("assets/warning", loop=True, autoplay=False)
 
         # ship statistics
-        self.mission_duration = 1
+        self.mission_duration = 1.0
         self.fuel = 100.0
     
     def make_room(self, name, x=0, y=0, rotation=0):
@@ -55,16 +55,18 @@ class Spaceship(Entity):
         self.equipment[name] = Bed(name, ship=self, x=x, y=y)
 
     def sound_warning(self, state):
-        self.warning_state = state
 
-        if self.warning_state:
-            if not self.siren.playing:
-                self.siren.play()
-        elif self.warning_state:
-            if self.siren.playing:
-                self.siren.stop()
+        if self.warning_state == state:
+            return
+
+        if state:
+            self.siren.play()
+        else:
+            self.siren.pause()
+
+        self.warning_state = state
 
     def update(self):
 
-        self.mission_duration += (1.0/60.0) * time.dt # update every minute
+        self.mission_duration += (1.0/60.0) * time.dt
         self.fuel -= 0.1 * time.dt
