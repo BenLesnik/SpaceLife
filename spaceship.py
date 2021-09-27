@@ -9,9 +9,13 @@ class Spaceship(Entity):
     def __init__(self):
         super().__init__()
         self.active = None
+        self.warning_state = False
         self.rooms = {}
         self.crew = {}
         self.equipment = {}
+
+        # siren from https://mixkit.co/free-sound-effects/siren/
+        self.siren = Audio("assets/warning", loop=True, autoplay=False)
 
         # ship statistics
         self.mission_duration = 1
@@ -48,6 +52,16 @@ class Spaceship(Entity):
 
     def add_bed(self, name, x=0, y=0):
         self.equipment[name] = Bed(name, ship=self, x=x, y=y)
+
+    def sound_warning(self, state):
+        self.warning_state = state
+
+        if self.warning_state:
+            if not self.siren.playing:
+                self.siren.play()
+        elif self.warning_state:
+            if self.siren.playing:
+                self.siren.stop()
 
     def update(self):
 
