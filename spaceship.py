@@ -14,6 +14,7 @@ class Spaceship(Entity):
         self.crew = {}
         self.equipment = {}
 
+        # siren from https://mixkit.co/free-sound-effects/siren/
         self.siren = Audio("assets/warning", loop=True, autoplay=False)
 
         # ship statistics
