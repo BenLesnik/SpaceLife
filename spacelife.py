@@ -23,7 +23,6 @@ for bg_y in range(7):
     tile_offset_y -= 10.0
 
 ares = Spaceship()
-
 ares.add_crew("captain",  y=0.3)
 
 ares.crew["captain"].stress = 80
@@ -132,6 +131,12 @@ def clip(value, lower, upper):
     return lower if value < lower else upper if value > upper else value
 
 def update():
+    global ares
+
+    if ares.mission_duration >= 2:
+        ares.sound_warning(True)
+    elif ares.mission_duration >= 3:
+        ares.sound_warning(False)
 
     # scroll all background tiles
     global texture_offset
