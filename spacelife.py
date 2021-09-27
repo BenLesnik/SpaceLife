@@ -135,7 +135,7 @@ def clip(value, lower, upper):
 def update():
     global ares
     
-    if ares.mission_duration > 2 and ares.mission_duration < 2.2:
+    if ares.mission_duration > 1.2 and ares.mission_duration < 1.4:
         ares.sound_warning(True)
     else:
         ares.sound_warning(False)

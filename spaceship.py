@@ -16,6 +16,7 @@ class Spaceship(Entity):
 
         # siren from https://mixkit.co/free-sound-effects/siren/
         self.siren = Audio("assets/warning", loop=True, autoplay=False)
+        self.alarms = []
 
         # ship statistics
         self.mission_duration = 1.0
@@ -24,10 +25,10 @@ class Spaceship(Entity):
     def make_room(self, name, x=0, y=0, rotation=0):
         offset = len(self.rooms) * 5.4
         parent = Entity(x=x-offset, y=y, rotation_z=rotation)
-        label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), parent=parent)
-        top = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
-        mid = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=5, scale_y=2)
-        bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
+        parent.label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), parent=parent)
+        parent.top = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
+        parent.mid = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=5, scale_y=2)
+        parent.bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
         self.rooms[name] = parent
         return parent
 
@@ -36,10 +37,11 @@ class Spaceship(Entity):
         # bottom = self.make_room("centrifuge_bottom", x=-3, rotation=-90)
         offset = len(self.rooms) * 5.4
         parent = Entity(x=x-offset, y=y, rotation_z=rotation)
-        top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=5.1, scale_x=.2, scale_y=0.8)
-        mid = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=10, scale_y=1)
-        bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-5.1, scale_x=.2, scale_y=0.8)
+        parent.top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=5.1, scale_x=.2, scale_y=0.8)
+        parent.mid = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=10, scale_y=1)
+        parent.bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-5.1, scale_x=.2, scale_y=0.8)
         self.rooms[name] = parent
+        return parent
 
     def make_active(self, name):
         self.active = self.crew[name]
@@ -61,8 +63,22 @@ class Spaceship(Entity):
 
         if state:
             self.siren.play()
+
+            for room in self.rooms.values():
+                self.alarms.append(room.mid.blink(color.red, loop=True, duration=.5))
         else:
             self.siren.pause()
+            
+            # pause all alarms
+            for alarm in self.alarms:
+                alarm.pause()
+            
+            # reset alarms
+            self.alarms = []
+
+            # set colour back on mid section
+            for room in self.rooms.values():
+                room.mid.color = color.white
 
         self.warning_state = state
 
