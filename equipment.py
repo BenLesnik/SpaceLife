@@ -10,9 +10,8 @@ class Equipment(Sprite):
         self.ship = ship
         self.wear = 0.0
 
-    def on_click(self):
-        self.ship.active.animate_x(self.world_x, duration=1, curve=curve.linear)
-        invoke(setattr, self.ship.active, "tiredness", 0.0, delay=2.5)
+    def on_click(self, post_walk=[]):
+        return self.ship.active.move_to(self.world_position, post_walk)
 
 class Bed(Equipment):
 
@@ -21,3 +20,7 @@ class Bed(Equipment):
         super().__init__(name, ship=ship, x=x, y=y)
         self.texture = "bed"
         self.scale = 1
+
+    def on_click(self):
+        set_tiredness = [Wait(2.5), Func(setattr, self.ship.active, "tiredness", 0.0)]
+        super().on_click(post_walk=set_tiredness)

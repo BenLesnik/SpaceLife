@@ -36,8 +36,59 @@ class Crew(Entity):
     def animation(self):
         return self.animator.animations[self.animator.state]
 
+    def start_all_animations(self):
+        for anim in self.animator.animations.values():
+            anim.start()
+
+    def pause_all_animations(self):
+        for anim in self.animator.animations.values():
+            anim.pause()
+
     def on_click(self):
         self.ship.make_active(self.name)
+
+    def move_to(self, position, post_walk=[]):
+
+        s = Sequence()
+        s.append(Func(self.start_all_animations))
+
+        # move in y from current position to centre line
+        if self.world_position.y > 0:
+            s.append(Func(setattr, self.animator, "state", "down"))
+        elif self.world_position.y < 0:
+            s.append(Func(setattr, self.animator, "state", "up"))
+
+        s.append(Func(self.animate_y, 0.0, duration=self.world_position.y, curve=curve.linear))
+        s.append(self.world_position.y)
+
+        # move x direction along ship
+        distance_along = self.world_position.x - position.x
+        
+        if distance_along > 0:
+            s.append(Func(setattr, self.animator, "state", "left"))
+        elif distance_along < 0:
+            s.append(Func(setattr, self.animator, "state", "right"))
+
+        distance_along = abs(distance_along) * 0.2 # make it a bit faster
+        s.append(Func(self.animate_x, position.x, duration=distance_along, curve=curve.linear))
+        s.append(distance_along)
+
+        # move in y to position
+        if position.y > 0:
+            s.append(Func(setattr, self.animator, "state", "up"))
+        elif position.y < 0:
+            s.append(Func(setattr, self.animator, "state", "down"))
+
+        s.append(Func(self.animate_y, position.y, duration=position.y, curve=curve.linear))
+        s.append(position.y)
+
+        s.append(Func(setattr, self.animator, "state", "left"))
+        s.append(Func(self.pause_all_animations))
+        
+        for pw in post_walk:
+            s.append(pw)
+
+        s.start()
 
 if __name__ == "__main__":
 
