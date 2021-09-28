@@ -2,7 +2,7 @@ from ursina import *
 from ursina.prefabs.sprite import Sprite
 
 from crew import Crew
-from equipment import Bed
+from equipment import *
 
 class Spaceship(Entity):
 
@@ -55,6 +55,9 @@ class Spaceship(Entity):
 
     def add_bed(self, name, x=0, y=0):
         self.equipment[name] = Bed(name, ship=self, x=x, y=y)
+
+    def add_chair(self, name, x=0, y=0):
+        self.equipment[name] = Chair(name, ship=self, x=x, y=y)
 
     def sound_warning(self, state):
 

@@ -63,6 +63,10 @@ ares.make_centrifuge("cenrifuge")
 
 ares.add_bed("bed1", x=-10, y=0.5)
 ares.add_bed("bed2", x=-12, y=0.5)
+ares.add_chair("chair1", x=-15.2, y=0.6)
+ares.add_chair("chair2", x=-17.4, y=0.6)
+ares.add_chair("chair3", x=-15.2, y=-0.6)
+ares.add_chair("chair4", x=-17.4, y=-0.6)
 
 # Ship statistics
 Text(text="ARES", x=-0.75, y=0.45)

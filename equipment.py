@@ -24,3 +24,15 @@ class Bed(Equipment):
     def on_click(self):
         set_tiredness = [Wait(2.5), Func(setattr, self.ship.active, "tiredness", 0.0)]
         super().on_click(post_walk=set_tiredness)
+
+class Chair(Equipment):
+
+    def __init__(self, name, ship=None, x=0, y=0):
+
+        super().__init__(name, ship=ship, x=x, y=y)
+        self.texture = "chair"
+        self.scale = 1
+
+    def on_click(self):
+        set_tiredness = [Wait(2.5), Func(setattr, self.ship.active, "tiredness", 0.0)]
+        super().on_click(post_walk=set_tiredness)
