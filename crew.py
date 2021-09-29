@@ -6,7 +6,7 @@ from ursina.prefabs.health_bar import HealthBar
 class Crew(Entity):
 
     def __init__(self, name, ship=None, room=None, active=True, x=0, y=0):
-        super().__init__(x=x, y=y, always_on_top=True)
+        super().__init__(x=x, y=y, always_on_top=True, collider="box")
         self.z = -2
         self.name = name
         self.active = active
@@ -21,9 +21,8 @@ class Crew(Entity):
             room.crew[name] = self
             self.parent = room
 
-        self.collider = SphereCollider(self, radius=.3)
-
         # health bar states
+        self.speed = 2.0
         self.stress = 0.0
         self.tiredness = 0.0
         self.bone_density = 1.0
@@ -59,50 +58,60 @@ class Crew(Entity):
 
     def move_to(self, equipment, post_walk=[]):
 
+        # change space to the same room as the equipment
+        if self.parent != equipment.room:
+            wp = self.world_position
+            self.parent = equipment.room
+            self.world_position = wp
+
         s = Sequence()
         s.append(Func(self.start_all_animations))
 
         # move in y from current position to centre line
-        if self.world_position.y > 0:
-            s.append(Func(setattr, self.animator, "state", "down"))
-        elif self.world_position.y < 0:
-            s.append(Func(setattr, self.animator, "state", "up"))
+        distance_centre = -self.position.y
+        distance_along = equipment.position.x - self.position.x
+        distance_across = equipment.position.y
 
-        s.append(Func(self.animate_y, 0.0, duration=self.world_position.y, curve=curve.linear))
-        s.append(self.world_position.y)
+        duration = abs(distance_centre) / self.speed
 
-        # move to new room, but keep same position
-        # from this point all movement is in "room" space
-        wp = self.world_position
-        self.parent = equipment.room
-        self.world_position = wp
+        if duration != 0.0:
+            if distance_centre < 0:
+                s.append(Func(setattr, self.animator, "state", "down"))
+            elif distance_centre > 0:
+                s.append(Func(setattr, self.animator, "state", "up"))
+
+            s.append(Func(self.animate_y, 0.0, duration=duration, curve=curve.linear))
+            s.append(duration)
 
         # move x direction along ship
-        distance_along = self.position.x - equipment.position.x
+        # note that animate_x moves to this position in local space - it is not a distance
+        duration = abs(distance_along) / self.speed
         
-        if distance_along > 0:
-            s.append(Func(setattr, self.animator, "state", "left"))
-        elif distance_along < 0:
-            s.append(Func(setattr, self.animator, "state", "right"))
+        if duration != 0.0:
+            if distance_along < 0:
+                s.append(Func(setattr, self.animator, "state", "left"))
+            elif distance_along > 0:
+                s.append(Func(setattr, self.animator, "state", "right"))
 
-        distance_along *= 0.2 # speed it up a bit
-        s.append(Func(self.animate_x, equipment.position.x, duration=distance_along, curve=curve.linear))
-        s.append(abs(distance_along))
+            s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))
+            s.append(duration)
 
         # move in y to position
-        distance_across = equipment.position.y - self.position.y
+        # note that animate_y moves to this position in local space - it is not a distance
+        duration = abs(distance_across) / self.speed
 
-        if distance_across > 0:
-            s.append(Func(setattr, self.animator, "state", "up"))
-        elif distance_across < 0:
-            s.append(Func(setattr, self.animator, "state", "down"))
+        if duration != 0.0:
+            if distance_across > 0:
+                s.append(Func(setattr, self.animator, "state", "up"))
+            elif distance_across < 0:
+                s.append(Func(setattr, self.animator, "state", "down"))
 
-        s.append(Func(self.animate_y, distance_across, duration=distance_across, curve=curve.linear))
-        s.append(distance_across)
+            s.append(Func(self.animate_y, equipment.position.y, duration=duration, curve=curve.linear))
+            s.append(duration)
 
         s.append(Func(setattr, self.animator, "state", "left"))
         s.append(Func(self.pause_all_animations))
-        
+
         for pw in post_walk:
             s.append(pw)
 

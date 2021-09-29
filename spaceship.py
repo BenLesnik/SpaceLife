@@ -38,7 +38,7 @@ class Spaceship(Entity):
         super().__init__()
         self.active = None
         self.warning_state = False
-        self.shaking = False
+        self.shaking = None
         self.rooms = {}
         self.crew = {}
         self.equipment = {}

@@ -5,9 +5,9 @@ app = Ursina()
 
 from spaceship import Spaceship
 
-FLARE_WARNING_START = 1.2
-FLARE_START = 1.5
-FLARE_END = 1.8
+FLARE_WARNING_START = 2.0
+FLARE_START = 2.5
+FLARE_END = 3.0
 
 parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge')
 parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
@@ -26,7 +26,7 @@ ares = Spaceship()
 ares.siren.volume = args.volume
 
 engine = ares.make_room("engine")
-engine.add_crew("engineer", y=-0.2)
+engine.add_crew("engineer")
 
 store_room = ares.make_room("store_room")
 
@@ -47,7 +47,7 @@ greenhouse = ares.make_room2("greenhouse")
 greenhouse.add_crew("biologist", y=-0.5)
 
 cafeteria = ares.make_room2("cafeteria")
-cafeteria.add_crew("captain",  y=0.3)
+cafeteria.add_crew("captain",  y=0.5)
 
 bridge_top = ares.make_bridge_top("bridge_top")
 
@@ -154,10 +154,6 @@ def update():
         if ares.mission_duration > FLARE_START and ares.mission_duration < FLARE_END:
             if not ares.shaking:
                 ares.shaking = ares.shake(duration=FLARE_END-FLARE_START)
-        else:
-            if ares.shaking:
-                ares.shaking.pause()
-                ares.shaking = False
 
     # scroll background
     global background, texture_offset
