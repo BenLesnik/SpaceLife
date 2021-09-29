@@ -13,28 +13,46 @@ background = Entity(model="quad", texture="assets/space2", x=-15, scale=100)
 background.texture_scale = (10, 10) # Change the camera fov to debug tiling
 
 ares = Spaceship()
-ares.add_crew("captain",  y=0.3)
 
+cafeteria = ares.make_room("cafeteria")
+cafeteria.add_crew("captain",  y=0.3)
+
+greenhouse = ares.make_room("greenhouse")
+greenhouse.add_crew("biologist", y=-0.5)
+
+med_bay = ares.make_room("med_bay")
+med_bay.add_crew("doctor", y=0.5)
+med_bay.add_bed("bed1", x=-1, y=0.5)
+med_bay.add_bed("bed2", x=1, y=0.5)
+
+safe_room = ares.make_room("safe_room")
+safe_room.add_chair("chair1", x=1, y=0.6)
+safe_room.add_chair("chair2", x=-1, y=0.6)
+safe_room.add_chair("chair3", x=1, y=-0.6)
+safe_room.add_chair("chair4", x=-1, y=-0.6)
+
+store_room = ares.make_room("store_room")
+
+engine = ares.make_room("engine")
+engine.add_crew("engineer", y=-0.2)
+
+cenrifuge = ares.make_centrifuge("cenrifuge")
+
+# setup crew
 ares.crew["captain"].stress = 80
 ares.crew["captain"].tiredness = 90
 ares.crew["captain"].bone_density = 90
 ares.crew["captain"].sanity = 15
-
-ares.add_crew("doctor", y=0.8)
 
 ares.crew["doctor"].stress = 20
 ares.crew["doctor"].tiredness = 10
 ares.crew["doctor"].bone_density = 100
 ares.crew["doctor"].sanity = 50
 
-ares.add_crew("engineer", y=-0.2)
-
 ares.crew["engineer"].stress = 30
 ares.crew["engineer"].tiredness = 50
 ares.crew["engineer"].bone_density = 60
 ares.crew["engineer"].sanity = 5
-
-ares.add_crew("biologist", y=-0.7)
 
 ares.crew["biologist"].stress = 2
 ares.crew["biologist"].tiredness = 2
@@ -42,21 +60,6 @@ ares.crew["biologist"].bone_density = 100
 ares.crew["biologist"].sanity = 60
 
 ares.make_active("captain")
-
-ares.make_room("cafeteria")
-ares.make_room("greenhouse")
-ares.make_room("med_bay")
-ares.make_room("safe_room")
-ares.make_room("store_room")
-ares.make_room("engine")
-ares.make_centrifuge("cenrifuge")
-
-ares.add_bed("bed1", x=-10, y=0.5)
-ares.add_bed("bed2", x=-12, y=0.5)
-ares.add_chair("chair1", x=-15.2, y=0.6)
-ares.add_chair("chair2", x=-17.4, y=0.6)
-ares.add_chair("chair3", x=-15.2, y=-0.6)
-ares.add_chair("chair4", x=-17.4, y=-0.6)
 
 # Ship statistics
 Text(text="ARES", x=-0.75, y=0.45)
@@ -129,7 +132,7 @@ def clip(value, lower, upper):
 def update():
     global ares
 
-    if ares.mission_duration > 1.2 and ares.mission_duration < 1.4:
+    if ares.mission_duration > 1.2 and ares.mission_duration < 1.5:
         ares.sound_warning(True)
     else:
         ares.sound_warning(False)

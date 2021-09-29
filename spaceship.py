@@ -2,7 +2,31 @@ from ursina import *
 from ursina.prefabs.sprite import Sprite
 
 from crew import Crew
-from equipment import *
+from equipment import Equipment
+
+class Room(Entity):
+
+    def __init__(self, name, ship, x=0, y=0, rotation=0):
+        offset = len(ship.rooms) * 5.4
+        super().__init__(x=x-offset, y=y, rotation_z=rotation)
+        self.ship = ship
+        self.crew = {}
+        self.equipment = {}
+        
+        self.label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), parent=self)
+        self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
+        self.mid = Entity(parent=self, model='quad', color=color.light_gray, collider="box", x=0, scale_x=5, scale_y=2)
+        self.bottom = Entity(parent=self, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
+
+    def add_crew(self, name, x=0, y=0):
+        return Crew(name, ship=self.ship, room=self, x=x, y=y)
+
+    def add_bed(self, name, x=0, y=0):
+        post_walk = [] # [Wait(2.5), Func(setattr, self.ship.active, "tiredness", 0.0)]
+        return Equipment(name, texture="assets/bed", ship=self.ship, room=self, x=x, y=y, post_walk=post_walk)
+    
+    def add_chair(self, name, x=0, y=0):
+        return Equipment(name, texture="assets/chair", ship=self.ship, room=self, x=x, y=y)
 
 class Spaceship(Entity):
 
@@ -16,6 +40,7 @@ class Spaceship(Entity):
 
         # siren from https://mixkit.co/free-sound-effects/siren/
         self.siren = Audio("assets/warning", loop=True, autoplay=False)
+        self.siren.volume = 0.5
         self.alarms = []
 
         # ship statistics
@@ -23,14 +48,9 @@ class Spaceship(Entity):
         self.fuel = 100.0
     
     def make_room(self, name, x=0, y=0, rotation=0):
-        offset = len(self.rooms) * 5.4
-        parent = Entity(x=x-offset, y=y, rotation_z=rotation)
-        parent.label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), parent=parent)
-        parent.top = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
-        parent.mid = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=5, scale_y=2)
-        parent.bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
-        self.rooms[name] = parent
-        return parent
+
+        self.rooms[name] = Room(name, self, x, y, rotation)
+        return self.rooms[name]
 
     def make_centrifuge(self, name, x=3, y=0, rotation=90):
         # top = self.make_room("centrifuge_top", x=3, rotation=90)
@@ -50,15 +70,6 @@ class Spaceship(Entity):
             if c is not self.active:
                 c.active = False
 
-    def add_crew(self, name, x=0, y=0):
-        self.crew[name] = Crew(name, ship=self, x=x, y=y)
-
-    def add_bed(self, name, x=0, y=0):
-        self.equipment[name] = Bed(name, ship=self, x=x, y=y)
-
-    def add_chair(self, name, x=0, y=0):
-        self.equipment[name] = Chair(name, ship=self, x=x, y=y)
-
     def sound_warning(self, state):
 
         if self.warning_state == state:
@@ -70,7 +81,7 @@ class Spaceship(Entity):
             for room in self.rooms.values():
                 self.alarms.append(room.mid.blink(color.red, loop=True, duration=.5))
         else:
-            self.siren.pause()
+            self.siren.fade_out(duration=1)
             
             # pause all alarms
             for alarm in self.alarms:
@@ -81,7 +92,7 @@ class Spaceship(Entity):
 
             # set colour back on mid section
             for room in self.rooms.values():
-                room.mid.color = color.white
+                room.mid.color = color.light_gray
 
         self.warning_state = state
 

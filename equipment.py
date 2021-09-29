@@ -2,37 +2,29 @@ from ursina import *
 
 class Equipment(Sprite):
 
-    def __init__(self, name, ship=None, x=0, y=0):
-        super().__init__("brick",
-                        collider="box",
-                        x=x, y=y, z=-1)
+    def __init__(self, name, texture="", ship=None, room=None, post_walk=[], **kwargs):
+        super().__init__(texture, collider="box", **kwargs)
+        self.z = -1
+        self.scale = 0.8
         self.name = name
-        self.ship = ship
+        
+        if ship:
+            self.ship = ship
+            self.ship.equipment[name] = self
+
+        if room:
+            self.room = room
+            self.room.equipment[name] = self
+            self.parent = room
+
         self.wear = 0.0
-
-    def on_click(self, post_walk=[]):
-        return self.ship.active.move_to(self.world_position, post_walk)
-
-class Bed(Equipment):
-
-    def __init__(self, name, ship=None, x=0, y=0):
-
-        super().__init__(name, ship=ship, x=x, y=y)
-        self.texture = "bed"
-        self.scale = 1
+        self.post_walk = post_walk
 
     def on_click(self):
-        set_tiredness = [Wait(2.5), Func(setattr, self.ship.active, "tiredness", 0.0)]
-        super().on_click(post_walk=set_tiredness)
+        self.ship.active.move_to(self, self.post_walk)
 
-class Chair(Equipment):
+if __name__ == "__main__":
 
-    def __init__(self, name, ship=None, x=0, y=0):
-
-        super().__init__(name, ship=ship, x=x, y=y)
-        self.texture = "chair"
-        self.scale = 1
-
-    def on_click(self):
-        set_tiredness = [Wait(2.5), Func(setattr, self.ship.active, "tiredness", 0.0)]
-        super().on_click(post_walk=set_tiredness)
+    app = Ursina()
+    Equipment("test", texture="assets/chair")
+    app.run()
