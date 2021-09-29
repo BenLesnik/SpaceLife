@@ -57,13 +57,29 @@ class Spaceship(Entity):
         self.rooms[name] = Room(name, self, x, y, rotation)
         return self.rooms[name]
 
+    def make_bridge_top(self, name, x=23.5, y=5.5, rotation=0):
+        offset = len(self.rooms) * 5.4
+        parent = Entity(x=x-offset, y=y, rotation_z=rotation)
+        parent.top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=2.6, scale_x=.2, scale_y=0.8)
+        parent.mid = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=0, scale_x=5, scale_y=1)
+        parent.bottom = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=-2.6, scale_x=.2, scale_y=0.8)
+        self.rooms[name] = parent
+        return parent
+
+    def make_bridge_bottom(self, name, x=31.5, y=-6, rotation=0):
+        offset = len(self.rooms) * 5.4
+        parent = Entity(x=x-offset, y=y, rotation_z=rotation)
+        parent.top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=2.6, scale_x=.2, scale_y=0.8)
+        parent.mid = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=0, scale_x=5, scale_y=1)
+        parent.bottom = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=-2.6, scale_x=.2, scale_y=0.8)
+        self.rooms[name] = parent
+        return parent
+
     def make_centrifuge(self, name, x=2.2, y=0, rotation=90):
-        # top = self.make_room("centrifuge_top", x=3, rotation=90)
-        # bottom = self.make_room("centrifuge_bottom", x=-3, rotation=-90)
         offset = len(self.rooms) * 5.4
         parent = Entity(x=x-offset, y=y, rotation_z=rotation)
         parent.top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=5.1, scale_x=.2, scale_y=0.8)
-        parent.mid = Entity(parent=parent, model='quad', color=color.white, collider="box", x=0, scale_x=10, scale_y=1)
+        parent.mid = Entity(parent=parent, model='quad', color=color.light_gray, collider="box", x=0, scale_x=10, scale_y=1)
         parent.bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-5.1, scale_x=.2, scale_y=0.8)
         self.rooms[name] = parent
         return parent

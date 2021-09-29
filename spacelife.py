@@ -25,7 +25,7 @@ safe_room.add_chair("chair2", x=-1, y=0.6)
 safe_room.add_chair("chair3", x=1, y=-0.6)
 safe_room.add_chair("chair4", x=-1, y=-0.6)
 
-cenrifuge = ares.make_centrifuge("cenrifuge")
+cenrifuge = ares.make_centrifuge("centrifuge")
 
 med_bay = ares.make_room2("med_bay")
 med_bay.add_crew("doctor", y=0.5)
@@ -37,6 +37,10 @@ greenhouse.add_crew("biologist", y=-0.5)
 
 cafeteria = ares.make_room2("cafeteria")
 cafeteria.add_crew("captain",  y=0.3)
+
+bridge_top = ares.make_bridge_top("bridge_top")
+
+bridge_bottom = ares.make_bridge_top("bridge_top")
 
 # setup crew
 ares.crew["captain"].stress = 80
