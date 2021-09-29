@@ -22,8 +22,9 @@ class Room(Entity):
         return Crew(name, ship=self.ship, room=self, x=x, y=y)
 
     def add_bed(self, name, x=0, y=0):
-        post_walk = [] # [Wait(2.5), Func(setattr, self.ship.active, "tiredness", 0.0)]
-        return Equipment(name, texture="assets/bed", ship=self.ship, room=self, x=x, y=y, post_walk=post_walk)
+        bed = Equipment(name, texture="assets/bed", ship=self.ship, room=self, x=x, y=y)
+        bed.post_walk = [Wait(2.5), Func(bed.set_crew, "tiredness", 0.0)]
+        return bed
     
     def add_chair(self, name, x=0, y=0):
         return Equipment(name, texture="assets/chair", ship=self.ship, room=self, x=x, y=y)

@@ -59,11 +59,6 @@ class Crew(Entity):
 
     def move_to(self, equipment, post_walk=[]):
 
-        # move to new room, but keep same position
-        wp = self.world_position
-        self.parent = equipment.room
-        self.world_position = wp
-
         s = Sequence()
         s.append(Func(self.start_all_animations))
 
@@ -76,7 +71,11 @@ class Crew(Entity):
         s.append(Func(self.animate_y, 0.0, duration=self.world_position.y, curve=curve.linear))
         s.append(self.world_position.y)
 
+        # move to new room, but keep same position
         # from this point all movement is in "room" space
+        wp = self.world_position
+        self.parent = equipment.room
+        self.world_position = wp
 
         # move x direction along ship
         distance_along = self.position.x - equipment.position.x
@@ -86,18 +85,20 @@ class Crew(Entity):
         elif distance_along < 0:
             s.append(Func(setattr, self.animator, "state", "right"))
 
-        distance_along = abs(distance_along) * 0.2 # make it a bit faster
+        distance_along *= 0.2 # speed it up a bit
         s.append(Func(self.animate_x, equipment.position.x, duration=distance_along, curve=curve.linear))
-        s.append(distance_along)
+        s.append(abs(distance_along))
 
         # move in y to position
-        if equipment.position.y > 0:
+        distance_across = equipment.position.y - self.position.y
+
+        if distance_across > 0:
             s.append(Func(setattr, self.animator, "state", "up"))
-        elif equipment.position.y < 0:
+        elif distance_across < 0:
             s.append(Func(setattr, self.animator, "state", "down"))
 
-        s.append(Func(self.animate_y, equipment.position.y, duration=equipment.position.y, curve=curve.linear))
-        s.append(equipment.position.y)
+        s.append(Func(self.animate_y, distance_across, duration=distance_across, curve=curve.linear))
+        s.append(distance_across)
 
         s.append(Func(setattr, self.animator, "state", "left"))
         s.append(Func(self.pause_all_animations))
