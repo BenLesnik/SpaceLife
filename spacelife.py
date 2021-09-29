@@ -9,7 +9,7 @@ FLARE_WARNING_START = 2.0
 FLARE_START = 2.5
 FLARE_END = 3.0
 
-parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge')
+parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge 2021')
 parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
 parser.add_argument('-v', dest='volume', type=float, default=1.0, help='Set the warning siren volume')
 args = parser.parse_args()
