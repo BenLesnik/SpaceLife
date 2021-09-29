@@ -56,6 +56,10 @@ class Crew(Entity):
     def on_click(self):
         self.ship.make_active(self.name)
 
+    def update(self):
+
+        self.tiredness += 0.1 * time.dt
+
     def move_to(self, equipment, post_walk=[]):
 
         # change space to the same room as the equipment
