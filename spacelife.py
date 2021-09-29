@@ -1,4 +1,4 @@
-from ursina import * 
+from ursina import *
 from ursina.prefabs.health_bar import HealthBar
 app = Ursina()
 
@@ -125,10 +125,6 @@ def input(key):
     elif key == "4":
         ares.make_active("biologist")
 
-# from https://stackoverflow.com/questions/9775731/clamping-floating-numbers-in-python
-def clip(value, lower, upper):
-    return lower if value < lower else upper if value > upper else value
-
 def update():
     global ares
 
@@ -153,8 +149,8 @@ def update():
         camera.y -= time.dt * 4
 
     # stop camera moving beyond tiled texture background
-    camera.x = clip(camera.x, -30.0, 10.0)
-    camera.y = clip(camera.y, -20.0, 20.0)
+    camera.x = clamp(camera.x, -30.0, 10.0)
+    camera.y = clamp(camera.y, -20.0, 20.0)
 
     if timeline.value != int(ares.mission_duration):
         timeline.value = int(ares.mission_duration)
