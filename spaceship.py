@@ -9,7 +9,10 @@ class Room(Entity):
     def __init__(self, name, ship, x=0, y=0, rotation=0):
         offset = len(ship.rooms) * 5.4
         super().__init__(x=x-offset, y=y, rotation_z=rotation)
+        
         self.ship = ship
+        self.parent=ship
+
         self.crew = {}
         self.equipment = {}
         
@@ -35,6 +38,7 @@ class Spaceship(Entity):
         super().__init__()
         self.active = None
         self.warning_state = False
+        self.shaking = False
         self.rooms = {}
         self.crew = {}
         self.equipment = {}

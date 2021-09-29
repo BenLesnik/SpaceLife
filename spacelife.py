@@ -7,9 +7,11 @@ from spaceship import Spaceship
 
 FLARE_WARNING_START = 1.2
 FLARE_START = 1.5
+FLARE_END = 1.8
 
 parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge')
 parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
+parser.add_argument('-v', dest='volume', type=float, default=1.0, help='Set the warning siren volume')
 args = parser.parse_args()
 
 camera.orthographic = True
@@ -21,6 +23,7 @@ background = Entity(model="quad", texture="assets/space2", x=-15, scale=100)
 background.texture_scale = (10, 10) # Change the camera fov to debug tiling
 
 ares = Spaceship()
+ares.siren.volume = args.volume
 
 engine = ares.make_room("engine")
 engine.add_crew("engineer", y=-0.2)
@@ -141,10 +144,20 @@ def update():
     global ares
 
     if args.flare:
+        
+        # flare warning
         if ares.mission_duration > FLARE_WARNING_START and ares.mission_duration < FLARE_START:
             ares.sound_warning(True)
         else:
             ares.sound_warning(False)
+
+        if ares.mission_duration > FLARE_START and ares.mission_duration < FLARE_END:
+            if not ares.shaking:
+                ares.shaking = ares.shake(duration=FLARE_END-FLARE_START)
+        else:
+            if ares.shaking:
+                ares.shaking.pause()
+                ares.shaking = False
 
     # scroll background
     global background, texture_offset
