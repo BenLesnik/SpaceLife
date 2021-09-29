@@ -47,12 +47,17 @@ class Spaceship(Entity):
         self.mission_duration = 1.0
         self.fuel = 100.0
     
+    def make_room2(self, name, x=4.4, y=0, rotation=0):
+
+        self.rooms[name] = Room(name, self, x, y, rotation)
+        return self.rooms[name]
+
     def make_room(self, name, x=0, y=0, rotation=0):
 
         self.rooms[name] = Room(name, self, x, y, rotation)
         return self.rooms[name]
 
-    def make_centrifuge(self, name, x=3, y=0, rotation=90):
+    def make_centrifuge(self, name, x=2.2, y=0, rotation=90):
         # top = self.make_room("centrifuge_top", x=3, rotation=90)
         # bottom = self.make_room("centrifuge_bottom", x=-3, rotation=-90)
         offset = len(self.rooms) * 5.4
