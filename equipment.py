@@ -23,7 +23,7 @@ class Equipment(Sprite):
     def on_click(self):
         self.ship.active.move_to(self, self.post_walk)
 
-    def set_crew(self, attr, value):
+    def set_crew_attr(self, attr, value):
         setattr(self.ship.active, attr, value)
 
 if __name__ == "__main__":

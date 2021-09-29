@@ -1,8 +1,16 @@
+import argparse
 from ursina import *
 from ursina.prefabs.health_bar import HealthBar
 app = Ursina()
 
 from spaceship import Spaceship
+
+FLARE_WARNING_START = 1.2
+FLARE_START = 1.5
+
+parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge')
+parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
+args = parser.parse_args()
 
 camera.orthographic = True
 camera.fov = 10
@@ -132,10 +140,11 @@ def input(key):
 def update():
     global ares
 
-    if ares.mission_duration > 1.2 and ares.mission_duration < 1.5:
-        ares.sound_warning(True)
-    else:
-        ares.sound_warning(False)
+    if args.flare:
+        if ares.mission_duration > FLARE_WARNING_START and ares.mission_duration < FLARE_START:
+            ares.sound_warning(True)
+        else:
+            ares.sound_warning(False)
 
     # scroll background
     global background, texture_offset
