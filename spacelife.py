@@ -14,16 +14,10 @@ background.texture_scale = (10, 10) # Change the camera fov to debug tiling
 
 ares = Spaceship()
 
-cafeteria = ares.make_room("cafeteria")
-cafeteria.add_crew("captain",  y=0.3)
+engine = ares.make_room("engine")
+engine.add_crew("engineer", y=-0.2)
 
-greenhouse = ares.make_room("greenhouse")
-greenhouse.add_crew("biologist", y=-0.5)
-
-med_bay = ares.make_room("med_bay")
-med_bay.add_crew("doctor", y=0.5)
-med_bay.add_bed("bed1", x=-1, y=0.5)
-med_bay.add_bed("bed2", x=1, y=0.5)
+store_room = ares.make_room("store_room")
 
 safe_room = ares.make_room("safe_room")
 safe_room.add_chair("chair1", x=1, y=0.6)
@@ -31,17 +25,27 @@ safe_room.add_chair("chair2", x=-1, y=0.6)
 safe_room.add_chair("chair3", x=1, y=-0.6)
 safe_room.add_chair("chair4", x=-1, y=-0.6)
 
-store_room = ares.make_room("store_room")
+cenrifuge = ares.make_centrifuge("centrifuge")
 
-engine = ares.make_room("engine")
-engine.add_crew("engineer", y=-0.2)
+med_bay = ares.make_room2("med_bay")
+med_bay.add_crew("doctor", y=0.5)
+med_bay.add_bed("bed1", x=-1, y=0.5)
+med_bay.add_bed("bed2", x=1, y=0.5)
 
-cenrifuge = ares.make_centrifuge("cenrifuge")
+greenhouse = ares.make_room2("greenhouse")
+greenhouse.add_crew("biologist", y=-0.5)
+
+cafeteria = ares.make_room2("cafeteria")
+cafeteria.add_crew("captain",  y=0.3)
+
+bridge_top = ares.make_bridge_top("bridge_top")
+
+bridge_bottom = ares.make_bridge_top("bridge_top")
 
 # setup crew
 ares.crew["captain"].stress = 80
 ares.crew["captain"].tiredness = 90
-ares.crew["captain"].bone_density = 90
+ares.crew["captain"].bone_density = 0
 ares.crew["captain"].sanity = 15
 
 ares.crew["doctor"].stress = 20
