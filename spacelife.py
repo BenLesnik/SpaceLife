@@ -32,6 +32,7 @@ background.texture_scale = (10, 10) # Change the camera fov to debug tiling
 
 ares = Spaceship()
 ares.siren.volume = args.volume
+ares.mission_duration = args.time
 
 engine = ares.make_room("engine")
 engine.add_crew("engineer")
