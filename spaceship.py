@@ -50,7 +50,11 @@ class Spaceship(Entity):
 
         # ship statistics
         self.mission_duration = 1.0
+        self.oxygen = 100.0
         self.fuel = 100.0
+        self.food = 100.0
+        self.damage = 0.0
+        self.radiation = 0.0
     
     def make_room2(self, name, x=4.4, y=0, rotation=0):
 

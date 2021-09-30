@@ -5,14 +5,21 @@ app = Ursina()
 
 from spaceship import Spaceship
 
-FLARE_WARNING_START = 2.0
-FLARE_START = 2.5
-FLARE_END = 3.0
-
 parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge 2021')
-parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
+
+parser.add_argument('-w', dest='warning_time', type=float, default=0.5, help='Set the alarm time before the flare event occurs')
 parser.add_argument('-v', dest='volume', type=float, default=1.0, help='Set the warning siren volume')
+
+parser.add_argument('-ft', dest='flare_start', type=float, default=2.5, help='Set the time the flare event occurs')
+parser.add_argument('-fd', dest='flare_duration', type=float, default=0.5, help='Set how long the flare event occurs')
+parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
+
+parser.add_argument('-t', dest='time', type=float, default=1.0, help='Set the current mission duration time')
 args = parser.parse_args()
+
+FLARE_WARNING_START = args.flare_start - args.warning_time
+FLARE_START = args.flare_start
+FLARE_END = args.flare_start + args.flare_duration
 
 camera.orthographic = True
 camera.fov = 10
@@ -80,24 +87,29 @@ ares.make_active("captain")
 Text(text="ARES", x=-0.75, y=0.45)
 
 Text(text="Oxygen", x=-0.85, y=0.40)
-oxygen = HealthBar(x=-0.74, y=0.40, bar_color=color.azure, roundness=.5)
+oxygen = HealthBar(x=-0.7, y=0.40, bar_color=color.azure, roundness=.5)
 oxygen.tooltip = Tooltip('oxygen')
 oxygen.value=90
 
 Text(text="Fuel", x=-0.85, y=0.35)
-fuel = HealthBar(x=-0.74, y=0.35, bar_color=color.red, roundness=.5)
+fuel = HealthBar(x=-0.7, y=0.35, bar_color=color.red, roundness=.5)
 fuel.tooltip = Tooltip('fuel')
 #fuel.value=10
 
 Text(text="Food", x=-0.85, y=0.30)
-food = HealthBar(x=-0.74, y=0.30, bar_color=color.green, roundness=.5)
+food = HealthBar(x=-0.7, y=0.30, bar_color=color.green, roundness=.5)
 food.tooltip = Tooltip('food')
 food.value=70
 
 Text(text="Damage", x=-0.85, y=0.25)
-repair = HealthBar(x=-0.74, y=0.25, bar_color=color.blue, roundness=.5)
+repair = HealthBar(x=-0.7, y=0.25, bar_color=color.blue, roundness=.5)
 repair.tooltip = Tooltip('repair')
 repair.value=90
+
+Text(text="Radiation", x=-0.85, y=0.20)
+ship_radiation = HealthBar(x=-0.7, y=0.20, bar_color=color.lime.tint(-0.25), roundness=.5)
+ship_radiation.tooltip = Tooltip('radiation')
+ship_radiation.value=10.0
 
 # Crew statistics
 crew_label = Text(text="CAPTAIN", x=0.35, y=0.45)
@@ -121,6 +133,11 @@ Text(text="Sanity", x=0.15, y=0.25)
 sanity = HealthBar(x=0.35, y=0.25, bar_color=color.red, roundness=.5)
 sanity.tooltip = Tooltip('sanity')
 sanity.value=15
+
+Text(text="Radiation", x=0.15, y=0.20)
+radiation = HealthBar(x=0.35, y=0.20, bar_color=color.lime.tint(-.25), roundness=.5)
+radiation.tooltip = Tooltip('radiation')
+radiation.value=10
 
 # Travel duration
 timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
@@ -154,6 +171,9 @@ def update():
         if ares.mission_duration > FLARE_START and ares.mission_duration < FLARE_END:
             if not ares.shaking:
                 ares.shaking = ares.shake(duration=FLARE_END-FLARE_START)
+            ares.radiation = 93.0
+        else:
+            ares.radiation = 11.0
 
     # scroll background
     global background, texture_offset
@@ -181,6 +201,10 @@ def update():
     fuel_int = int(ares.fuel)
     if fuel.value != fuel_int:
         fuel.value = fuel_int
+
+    ship_radiation_int = int(ares.radiation)
+    if ship_radiation.value != ship_radiation_int:
+        ship_radiation.value = ship_radiation_int
 
     # update character detail health bars
     if crew_label.text != ares.active.name.upper():

@@ -26,6 +26,7 @@ class Crew(Entity):
         self.stress = 0.0
         self.tiredness = 0.0
         self.bone_density = 1.0
+        self.radiation = 0.0
 
         overall_health = HealthBar(x=-0.2, y=0.27, bar_color=color.green, roundness=.5, scale_x=0.5, scale_y=0.1, parent=self)
         overall_health.show_text = False
