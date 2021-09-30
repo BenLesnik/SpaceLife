@@ -1,9 +1,6 @@
 import argparse
 from ursina import *
 from ursina.prefabs.health_bar import HealthBar
-app = Ursina()
-
-from spaceship import Spaceship
 
 parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge 2021')
 
@@ -20,6 +17,10 @@ args = parser.parse_args()
 FLARE_WARNING_START = args.flare_start - args.warning_time
 FLARE_START = args.flare_start
 FLARE_END = args.flare_start + args.flare_duration
+
+app = Ursina()
+
+from spaceship import Spaceship
 
 camera.orthographic = True
 camera.fov = 10
