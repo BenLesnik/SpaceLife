@@ -1,4 +1,6 @@
 from ursina import *
+import glob
+from collections import OrderedDict
 from ursina.prefabs.sprite import Sprite
 
 from crew import Crew
@@ -6,20 +8,44 @@ from equipment import Equipment
 
 class Room(Entity):
 
-    def __init__(self, name, ship, x=0, y=0, rotation=0):
-        offset = len(ship.rooms) * 5.4
-        super().__init__(x=x-offset, y=y, rotation_z=rotation)
-        
-        self.ship = ship
-        self.parent=ship
+    def __init__(self, name, ship, length=5.0, y=0, rotation=0, parent=None):
 
+        super().__init__(x=0, y=y)
+
+        self.name = name
+        self.ship = ship
         self.crew = {}
         self.equipment = {}
-        
-        self.label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), parent=self)
-        self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
-        self.mid = Entity(parent=self, model='quad', color=color.light_gray, collider="box", x=0, scale_x=5, scale_y=2)
-        self.bottom = Entity(parent=self, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
+
+        if parent is not None:
+            self.parent = parent
+            print(f"{name} setting parent to {self.parent}")
+            self.x = 0.0
+        else:
+            # first room
+            if len(self.ship.rooms) == 0:
+                self.parent = self.ship
+                self.x = 0.0
+            else:
+                if self.ship.rooms[-1].mid.rotation_z != 0.0:
+                    self.parent = self.ship.rooms[-1]
+                    self.x = 3.0 # width of centrifuge (2.0) + origin to one size aka width/2 (1.0)
+                else:
+                    self.parent = self.ship.rooms[-1]
+                    self.x = length
+
+        self.label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), rotation_z=rotation, parent=self)
+        # self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
+        self.mid = Entity(parent=self, model='quad', color=color.white, collider="box", x=0, scale_x=length, scale_y=2, rotation_z=rotation)
+        # self.bottom = Entity(parent=self, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
+
+        if self.mid.rotation_z != 0.0:
+            self.x = 3.0 # width of centrifuge (2.0) + origin to one size aka width/2 (1.0)
+
+        if glob.glob(f"assets/{name}.*"):
+            self.mid.texture = f"assets/{name}"
+
+        self.ship.rooms.append(self)
 
     def add_crew(self, name, x=0, y=0):
         return Crew(name, ship=self.ship, room=self, x=x, y=y)
@@ -36,12 +62,13 @@ class Spaceship(Entity):
 
     def __init__(self):
         super().__init__()
+        self.x -= 20
         self.active = None
         self.warning_state = False
         self.shaking = None
-        self.rooms = {}
-        self.crew = {}
-        self.equipment = {}
+        self.rooms = []
+        self.crew = OrderedDict()
+        self.equipment = OrderedDict()
 
         # siren from https://mixkit.co/free-sound-effects/siren/
         self.siren = Audio("assets/warning", loop=True, autoplay=False)
@@ -56,42 +83,8 @@ class Spaceship(Entity):
         self.damage = 0.0
         self.radiation = 0.0
     
-    def make_room2(self, name, x=4.4, y=0, rotation=0):
-
-        self.rooms[name] = Room(name, self, x, y, rotation)
-        return self.rooms[name]
-
-    def make_room(self, name, x=0, y=0, rotation=0):
-
-        self.rooms[name] = Room(name, self, x, y, rotation)
-        return self.rooms[name]
-
-    def make_bridge_top(self, name, x=23.5, y=5.5, rotation=0):
-        offset = len(self.rooms) * 5.4
-        parent = Entity(x=x-offset, y=y, rotation_z=rotation)
-        parent.top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=2.6, scale_x=.2, scale_y=0.8)
-        parent.mid = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=0, scale_x=5, scale_y=1)
-        parent.bottom = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=-2.6, scale_x=.2, scale_y=0.8)
-        self.rooms[name] = parent
-        return parent
-
-    def make_bridge_bottom(self, name, x=31.5, y=-6, rotation=0):
-        offset = len(self.rooms) * 5.4
-        parent = Entity(x=x-offset, y=y, rotation_z=rotation)
-        parent.top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=2.6, scale_x=.2, scale_y=0.8)
-        parent.mid = Entity(parent=parent, model='quad', color=color.gray, collider="box", x=0, scale_x=5, scale_y=1)
-        parent.bottom = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=-2.6, scale_x=.2, scale_y=0.8)
-        self.rooms[name] = parent
-        return parent
-
-    def make_centrifuge(self, name, x=2.2, y=0, rotation=90):
-        offset = len(self.rooms) * 5.4
-        parent = Entity(x=x-offset, y=y, rotation_z=rotation)
-        parent.top = Entity(parent=parent, model='quad', color=color.blue, collider="box", x=5.1, scale_x=.2, scale_y=0.8)
-        parent.mid = Entity(parent=parent, model='quad', color=color.light_gray, collider="box", x=0, scale_x=10, scale_y=1)
-        parent.bottom = Entity(parent=parent, model='quad', color=color.red, collider="box", x=-5.1, scale_x=.2, scale_y=0.8)
-        self.rooms[name] = parent
-        return parent
+    def make_room(self, name, length=5.0, y=0, rotation=0, parent=None):
+        return Room(name, self, length, y, rotation, parent=parent)
 
     def make_active(self, name):
         self.active = self.crew[name]
@@ -108,7 +101,7 @@ class Spaceship(Entity):
         if state:
             self.siren.play()
 
-            for room in self.rooms.values():
+            for room in self.rooms:
                 self.alarms.append(room.mid.blink(color.red, loop=True, duration=.5))
         else:
             self.siren.fade_out(duration=1)
