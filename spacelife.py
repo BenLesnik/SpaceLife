@@ -2,6 +2,8 @@ import argparse
 from ursina import *
 from ursina.prefabs.health_bar import HealthBar
 
+from util import updateHealthBarColor
+
 parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge 2021')
 
 parser.add_argument('-w', dest='warning_time', type=float, default=0.5, help='Set the alarm time before the flare event occurs')
@@ -65,25 +67,17 @@ sleeping = ares.make_room("sleeping", y=6, parent=centrifuge)
 gym = ares.make_room("gym", y=-6, parent=centrifuge)
 
 # setup crew
-ares.crew["captain"].stress = 80
-ares.crew["captain"].tiredness = 10
-ares.crew["captain"].bone_density = 100
-ares.crew["captain"].sanity = 15
+ares.crew["captain"].stress = 8
+ares.crew["captain"].tiredness = 4
 
-ares.crew["doctor"].stress = 20
+ares.crew["doctor"].stress = 6
 ares.crew["doctor"].tiredness = 8
-ares.crew["doctor"].bone_density = 100
-ares.crew["doctor"].sanity = 50
 
-ares.crew["engineer"].stress = 30
-ares.crew["engineer"].tiredness = 20
-ares.crew["engineer"].bone_density = 100
-ares.crew["engineer"].sanity = 5
+ares.crew["engineer"].stress = 3
+ares.crew["engineer"].tiredness = 3
 
 ares.crew["biologist"].stress = 2
 ares.crew["biologist"].tiredness = 2
-ares.crew["biologist"].bone_density = 100
-ares.crew["biologist"].sanity = 60
 
 ares.make_active("captain")
 
@@ -91,57 +85,48 @@ ares.make_active("captain")
 Text(text="ARES", x=-0.75, y=0.45)
 
 Text(text="Oxygen", x=-0.85, y=0.40)
-oxygen = HealthBar(x=-0.7, y=0.40, bar_color=color.azure, roundness=.5)
+oxygen = HealthBar(x=-0.7, y=0.40)
 oxygen.tooltip = Tooltip('oxygen')
-oxygen.value=90
 
 Text(text="Fuel", x=-0.85, y=0.35)
-fuel = HealthBar(x=-0.7, y=0.35, bar_color=color.red, roundness=.5)
+fuel = HealthBar(x=-0.7, y=0.35)
 fuel.tooltip = Tooltip('fuel')
-#fuel.value=10
 
 Text(text="Food", x=-0.85, y=0.30)
-food = HealthBar(x=-0.7, y=0.30, bar_color=color.green, roundness=.5)
+food = HealthBar(x=-0.7, y=0.30)
 food.tooltip = Tooltip('food')
-food.value=70
 
 Text(text="Damage", x=-0.85, y=0.25)
-repair = HealthBar(x=-0.7, y=0.25, bar_color=color.blue, roundness=.5)
-repair.tooltip = Tooltip('repair')
-repair.value=90
+damage = HealthBar(x=-0.7, y=0.25)
+damage.tooltip = Tooltip('damage')
 
 Text(text="Radiation", x=-0.85, y=0.20)
-ship_radiation = HealthBar(x=-0.7, y=0.20, bar_color=color.lime.tint(-0.25), roundness=.5)
+ship_radiation = HealthBar(x=-0.7, y=0.20)
 ship_radiation.tooltip = Tooltip('radiation')
-ship_radiation.value=10.0
 
 # Crew statistics
 crew_label = Text(text="CAPTAIN", x=0.35, y=0.45)
 
 Text(text="Stress", x=0.15, y=0.40)
-stress = HealthBar(x=0.35, y=0.40, bar_color=color.yellow, roundness=.5)
+stress = HealthBar(x=0.35, y=0.40)
 stress.tooltip = Tooltip('stress')
-stress.value=50
 
 Text(text="Tiredness", x=0.15, y=0.35)
-tiredness = HealthBar(x=0.35, y=0.35, bar_color=color.pink, roundness=.5)
+tiredness = HealthBar(x=0.35, y=0.35)
 tiredness.tooltip = Tooltip('tiredness')
-tiredness.value=80
 
 Text(text="Bone Density", x=0.15, y=0.30)
-bone_density = HealthBar(x=0.35, y=0.30, bar_color=color.blue, roundness=.5)
+bone_density = HealthBar(x=0.35, y=0.30)
 bone_density.tooltip = Tooltip('bone density')
-bone_density.value=80
 
-Text(text="Sanity", x=0.15, y=0.25)
-sanity = HealthBar(x=0.35, y=0.25, bar_color=color.red, roundness=.5)
-sanity.tooltip = Tooltip('sanity')
-sanity.value=15
+# Text(text="Sanity", x=0.15, y=0.25)
+# sanity = HealthBar(x=0.35, y=0.25, bar_color=color.red, roundness=.5)
+# sanity.tooltip = Tooltip('sanity')
+# sanity.value=15
 
-Text(text="Radiation", x=0.15, y=0.20)
-radiation = HealthBar(x=0.35, y=0.20, bar_color=color.lime.tint(-.25), roundness=.5)
+Text(text="Radiation", x=0.15, y=0.25)
+radiation = HealthBar(x=0.35, y=0.25)
 radiation.tooltip = Tooltip('radiation')
-radiation.value=10
 
 # Travel duration
 timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
@@ -202,13 +187,30 @@ def update():
         timeline.value = int(ares.mission_duration)
 
     # update ship stats
+    oxygen_int = int(ares.oxygen)
+    if oxygen.value != oxygen_int:
+        oxygen.value = oxygen_int
+    updateHealthBarColor(oxygen, good_level = 70.0, bad_level = 30.0)
+
     fuel_int = int(ares.fuel)
     if fuel.value != fuel_int:
         fuel.value = fuel_int
+    updateHealthBarColor(fuel, good_level = 70.0, bad_level = 30.0)
+
+    food_int = int(ares.food)
+    if food.value != food_int:
+        food.value = food_int
+    updateHealthBarColor(food, good_level = 70.0, bad_level = 30.0)
+
+    damage_int = int(ares.damage)
+    if damage.value != damage_int:
+        damage.value = damage_int
+    updateHealthBarColor(damage, good_level = 30.0, bad_level = 70.0, high="bad")
 
     ship_radiation_int = int(ares.radiation)
     if ship_radiation.value != ship_radiation_int:
         ship_radiation.value = ship_radiation_int
+    updateHealthBarColor(ship_radiation, good_level = 12.0, bad_level = 30.0, high="bad")
 
     # update character detail health bars
     if crew_label.text != ares.active.name.upper():
@@ -216,12 +218,19 @@ def update():
 
     if stress.value != ares.active.stress:
         stress.value = ares.active.stress
+    updateHealthBarColor(stress, good_level = 10.0, bad_level = 40.0, high="bad")
     
     if tiredness.value != int(ares.active.tiredness):
         tiredness.value = int(ares.active.tiredness)
+    updateHealthBarColor(tiredness, good_level = 10.0, bad_level = 40.0, high="bad")
 
     if bone_density.value != int(ares.active.bone_density):
         bone_density.value = int(ares.active.bone_density)
+    updateHealthBarColor(bone_density, good_level = 10.0, bad_level = 40.0)
+
+    if radiation.value != int(ares.active.radiation):
+        radiation.value = int(ares.active.radiation)
+    updateHealthBarColor(radiation, good_level = 10.0, bad_level = 40.0, high="bad")
 
 app.run()
 

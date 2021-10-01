@@ -82,7 +82,7 @@ class Spaceship(Entity):
         self.fuel = 100.0
         self.food = 100.0
         self.damage = 0.0
-        self.radiation = 0.0
+        self.radiation = 5.0
     
     def make_room(self, name, length=5.0, y=0, rotation=0, parent=None):
         return Room(name, self, length, y, rotation, parent=parent)
@@ -115,8 +115,8 @@ class Spaceship(Entity):
             self.alarms = []
 
             # set colour back on mid section
-            for room in self.rooms.values():
-                room.mid.color = color.light_gray
+            for room in self.rooms:
+                room.mid.color = color.white
 
         self.warning_state = state
 

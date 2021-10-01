@@ -3,6 +3,8 @@ from ursina.prefabs.animation import Animation
 from ursina.prefabs.animator import Animator
 from ursina.prefabs.health_bar import HealthBar
 
+from util import updateHealthBarColor
+
 class Crew(Entity):
 
     def __init__(self, name, ship=None, room=None, active=True, x=0, y=0):
@@ -21,16 +23,16 @@ class Crew(Entity):
             room.crew[name] = self
             self.parent = room
 
-        # health bar states
         self.speed = 2.0
+
+        # health bar states
         self.stress = 0.0
         self.tiredness = 0.0
-        self.bone_density = 1.0
+        self.bone_density = 100.0
         self.radiation = 0.0
 
-        overall_health = HealthBar(x=-0.2, y=0.27, bar_color=color.green, roundness=.5, scale_x=0.5, scale_y=0.1, parent=self)
-        overall_health.show_text = False
-        overall_health.value = 80
+        self.overall_health = HealthBar(x=-0.2, y=0.27, scale_x=0.5, scale_y=0.1, parent=self)
+        self.overall_health.show_text = False
 
         self.animator = Animator(   animations = {
                                     "left"  : Animation("assets/left", parent=self),
@@ -57,10 +59,19 @@ class Crew(Entity):
     def on_click(self):
         self.ship.make_active(self.name)
 
+    def calculate_health(self):
+        return (self.bone_density + (100.0 - self.stress)  + (100.0 - self.tiredness)  + (100.0 - self.radiation)) * 0.25
+
     def update(self):
 
         self.tiredness += 0.1 * time.dt
         self.bone_density -= 0.1 * time.dt
+
+        health = self.calculate_health()
+        if self.overall_health.value != health:
+            self.overall_health.value = health
+
+        updateHealthBarColor(self.overall_health, good_level = 80.0, bad_level = 20.0)
 
     def move_to(self, equipment, post_walk=[]):
 
