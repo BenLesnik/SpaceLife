@@ -60,6 +60,7 @@ class Crew(Entity):
     def update(self):
 
         self.tiredness += 0.1 * time.dt
+        self.bone_density -= 0.1 * time.dt
 
     def move_to(self, equipment, post_walk=[]):
 

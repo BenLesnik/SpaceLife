@@ -65,7 +65,7 @@ bridge_bottom = ares.make_bridge_top("bridge_top")
 # setup crew
 ares.crew["captain"].stress = 80
 ares.crew["captain"].tiredness = 10
-ares.crew["captain"].bone_density = 0
+ares.crew["captain"].bone_density = 100
 ares.crew["captain"].sanity = 15
 
 ares.crew["doctor"].stress = 20
@@ -75,7 +75,7 @@ ares.crew["doctor"].sanity = 50
 
 ares.crew["engineer"].stress = 30
 ares.crew["engineer"].tiredness = 20
-ares.crew["engineer"].bone_density = 60
+ares.crew["engineer"].bone_density = 100
 ares.crew["engineer"].sanity = 5
 
 ares.crew["biologist"].stress = 2
@@ -218,8 +218,8 @@ def update():
     if tiredness.value != int(ares.active.tiredness):
         tiredness.value = int(ares.active.tiredness)
 
-    if bone_density.value != ares.active.bone_density:
-        bone_density.value = ares.active.bone_density
+    if bone_density.value != int(ares.active.bone_density):
+        bone_density.value = int(ares.active.bone_density)
 
 app.run()
 
