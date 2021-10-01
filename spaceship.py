@@ -115,7 +115,7 @@ class Spaceship(Entity):
             self.alarms = []
 
             # set colour back on mid section
-            for room in self.rooms.values():
+            for room in self.rooms:
                 room.mid.color = color.light_gray
 
         self.warning_state = state
