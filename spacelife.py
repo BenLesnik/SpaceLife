@@ -45,22 +45,24 @@ safe_room.add_chair("chair2", x=-1, y=0.6)
 safe_room.add_chair("chair3", x=1, y=-0.6)
 safe_room.add_chair("chair4", x=-1, y=-0.6)
 
-cenrifuge = ares.make_centrifuge("centrifuge")
+centrifuge = ares.make_room("centrifuge", rotation=90, length=10)
 
-med_bay = ares.make_room2("med_bay")
+med_bay = ares.make_room("med_bay")
 med_bay.add_crew("doctor", y=0.5)
 med_bay.add_bed("bed1", x=-1, y=0.5)
 med_bay.add_bed("bed2", x=1, y=0.5)
 
-greenhouse = ares.make_room2("greenhouse")
+greenhouse = ares.make_room("greenhouse")
 greenhouse.add_crew("biologist", y=-0.5)
 
-cafeteria = ares.make_room2("cafeteria")
+cafeteria = ares.make_room("cafeteria")
 cafeteria.add_crew("captain",  y=0.5)
 
-bridge_top = ares.make_bridge_top("bridge_top")
+bridge_top = ares.make_room("bridge_top", y=2, parent=cafeteria)
+bridge_bottom = ares.make_room("bridge_bottom", y=-2, parent=cafeteria)
 
-bridge_bottom = ares.make_bridge_top("bridge_top")
+sleeping = ares.make_room("sleeping", y=6, parent=centrifuge)
+gym = ares.make_room("gym", y=-6, parent=centrifuge)
 
 # setup crew
 ares.crew["captain"].stress = 80
