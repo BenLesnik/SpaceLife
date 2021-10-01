@@ -4,6 +4,7 @@ from ursina.prefabs.sprite import Sprite
 from crew import Crew
 from equipment import Equipment
 
+
 class Room(Entity):
 
     def __init__(self, name, ship, x=0, y=0, rotation=0):
@@ -17,9 +18,10 @@ class Room(Entity):
         self.equipment = {}
         
         self.label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), parent=self)
-        self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
+        self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=0.8)
         self.mid = Entity(parent=self, model='quad', color=color.light_gray, collider="box", x=0, scale_x=5, scale_y=2)
-        self.bottom = Entity(parent=self, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
+        self.mid.texture = "assets/medbay"
+        self.bottom = Entity(parent=self, model='quad', color=color.gray, collider="box", x=-2.6, scale_x=.2, scale_y=0.8)
 
     def add_crew(self, name, x=0, y=0):
         return Crew(name, ship=self.ship, room=self, x=x, y=y)
