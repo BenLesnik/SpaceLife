@@ -56,8 +56,8 @@ class Crew(Entity):
             down_images = f"assets/{name}_down"
 
         self.animator = Animator(   animations = {
-                                    "left"  : Animation(left_images, parent=self),
                                     "right" : Animation(right_images, parent=self),
+                                    "left"  : Animation(left_images, parent=self),
                                     "up"    : Animation(up_images, parent=self),
                                     "down"  : Animation(down_images, parent=self),
                                 }
