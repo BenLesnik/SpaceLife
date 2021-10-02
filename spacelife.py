@@ -107,7 +107,8 @@ stats_round = 0
 
 ####################################
 # Travel duration
-timeline = HealthBar(x=-0.48, y=0.48, scale_x=0.4, scale_y=.03, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
+
+timeline = HealthBar(x=-0.85, y=0.48, scale_x=0.77, scale_y=.03, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
 timeline.value=1
 
 
