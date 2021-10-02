@@ -52,7 +52,6 @@ safe_room.add_chair("chair1", x=0.5, y=0.5)
 safe_room.add_chair("chair2", x=1.5, y=0.5)
 safe_room.add_chair("chair3", x=-0.5, y=0.5)
 safe_room.add_chair("chair4", x=-1.5, y=0.5)
-
 safe_room.add_chair("chair5", x=0.5, y=-0.3)
 safe_room.add_chair("chair6", x=1.5, y=-0.3)
 safe_room.add_chair("chair7", x=-0.5, y=-0.3)
@@ -70,6 +69,7 @@ greenhouse = ares.make_room("greenhouse")
 greenhouse.add_crew("biologist", y=-0.5)
 
 cafeteria = ares.make_room("cafeteria")
+cafeteria.add_sofa("sofa1", x=1.5)
 
 bridge_top = ares.make_room("bridge_top", y=1.7, parent=cafeteria)
 bridge_top.add_chair("commanders_chair")
