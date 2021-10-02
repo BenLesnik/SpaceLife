@@ -183,7 +183,7 @@ class Crew(Entity):
             s.append(Func(self.animate_y, equipment.position.y, duration=duration, curve=curve.linear))
             s.append(duration)
 
-        s.append(Func(setattr, self.animator, "state", "left"))
+        s.append(Func(setattr, self.animator, "state", "right"))
         s.append(Func(self.pause_all_animations))
 
         for pw in post_walk:
