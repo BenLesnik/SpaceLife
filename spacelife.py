@@ -65,9 +65,13 @@ med_bay = ares.make_room("med_bay")
 med_bay.add_crew("doctor", y=0.5)
 med_bay.add_medicalbed("bed1", x=-1, y=0.5)
 med_bay.add_medicalbed("bed2", x=1, y=0.5)
+med_bay.add_medicalbed("bed3", x=-1, y=-0.3)
+med_bay.add_medicalbed("bed4", x=1, y=-0.3)
 
 greenhouse = ares.make_room("greenhouse")
 greenhouse.add_crew("biologist", y=-0.5)
+greenhouse.add_plant("plant1", x=1, y=-0.3)
+greenhouse.add_plant("plant2", x=1.5, y=-0.3)
 
 cafeteria = ares.make_room("cafeteria")
 cafeteria.add_sofa("sofa1", x=1.5)
