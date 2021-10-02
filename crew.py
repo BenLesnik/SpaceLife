@@ -1,3 +1,5 @@
+import glob
+
 from ursina import *
 from ursina.prefabs.animation import Animation
 from ursina.prefabs.animator import Animator
@@ -34,11 +36,29 @@ class Crew(Entity):
         self.overall_health = HealthBar(x=-0.2, y=0.27, scale_x=0.5, scale_y=0.1, parent=self)
         self.overall_health.show_text = False
 
+        left_images = "assets/left"
+        right_images = "assets/right"
+        up_images = "assets/up"
+        down_images = "assets/down"
+
+        if glob.glob(f"assets/{name}_left*"):
+            self.scale = 0.15
+            left_images = f"assets/{name}_left"
+
+        if glob.glob(f"assets/{name}_right*"):
+            right_images = f"assets/{name}_right"
+
+        if glob.glob(f"assets/{name}_up*"):
+            up_images = f"assets/{name}_up"
+
+        if glob.glob(f"assets/{name}_down*"):
+            down_images = f"assets/{name}_down"
+
         self.animator = Animator(   animations = {
-                                    "left"  : Animation("assets/left", parent=self),
-                                    "right" : Animation("assets/right", parent=self),
-                                    "up"    : Animation("assets/up", parent=self),
-                                    "down"  : Animation("assets/down", parent=self),
+                                    "left"  : Animation(left_images, parent=self),
+                                    "right" : Animation(right_images, parent=self),
+                                    "up"    : Animation(up_images, parent=self),
+                                    "down"  : Animation(down_images, parent=self),
                                 }
                             )
 
