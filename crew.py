@@ -43,7 +43,7 @@ class Crew(Entity):
         down_images = "assets/down"
 
         if glob.glob(f"assets/{name}_left*"):
-            self.scale = 0.17
+            self.scale = 0.18
             left_images = f"assets/{name}_left"
 
         if glob.glob(f"assets/{name}_right*"):
