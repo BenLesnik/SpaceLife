@@ -129,6 +129,15 @@ stats_round = 0
 ####################################
 # InfoBox
 
+intro = """
+Welcome to the Ares - Space Apps Challenge 2021
+
+Your job to to keep the crew alive and healthy on their 28 week 
+mission to Mars.
+
+Click on a health bar to get more information.
+"""
+
 # Ship Info
 
 ship_oxygen_info = """
@@ -196,15 +205,6 @@ During a solar flare the crew needs to shelter in the
 Safe Room to avoid high radiation exposure.
 They can reduce their exposure by visiting the medical bay
 for anti-radiation drugs.
-"""
-
-intro = """
-Welcome to the Ares
-
-Your job to to keep the crew alive and healthy on their 28 week 
-mission to Mars.
-
-Space Apps Challenge 2021
 """
 
 info_box = Text(intro, x= 0.05, y=0.48, background=True)
