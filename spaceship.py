@@ -20,7 +20,6 @@ class Room(Entity):
 
         if parent is not None:
             self.parent = parent
-            print(f"{name} setting parent to {self.parent}")
             self.x = 0.0
         else:
             # first room
@@ -53,7 +52,6 @@ class Room(Entity):
 
     def add_bed(self, name, x=0, y=0):
         bed = Equipment(name, texture="assets/bed", ship=self.ship, room=self, x=x, y=y)
-        bed.post_walk = [Wait(2.5), Func(bed.set_crew_attr, "tiredness", 0.0)]
         return bed
     
     def add_chair(self, name, x=0, y=0):
