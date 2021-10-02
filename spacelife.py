@@ -166,6 +166,8 @@ radiation.tooltip = Tooltip('radiation')
 
 ####################################
 # InfoBox
+
+from textbox import Textbox
 info_box_text = " This will be replaced by a method output based on whatever the last tooptip infobutton was clicked"
 
 aaa = Text(text= info_box_text, x= 0.05, y=stats_y_top, background=True, width = 0.2)#, height = 0.3, wordwrap = 0.7)
