@@ -92,7 +92,12 @@ class Crew(Entity):
         else:
             self.tiredness += 0.1 * time.dt
 
-        self.bone_density -= 0.1 * time.dt
+        if self.room.name == "gym":
+            self.bone_density += 0.1 *time.dt
+        else:
+            self.bone_density -= 0.1 * time.dt
+
+
 
         health = self.calculate_health()
         if self.overall_health.value != health:
@@ -114,9 +119,9 @@ class Crew(Entity):
         s.append(Func(self.start_all_animations))
 
         # move in y from current position to centre line
-        distance_centre = pos_old_room.y
+        distance_centre = self.world_position.y - self.ship.world_position.y
         distance_along = equipment.position.x - self.position.x
-        distance_across = equipment.position.y
+        distance_across = equipment.position.y - (self.position.y + distance_centre)
 
         duration = abs(distance_centre) / self.speed
 
@@ -126,7 +131,7 @@ class Crew(Entity):
             elif distance_centre > 0:
                 s.append(Func(setattr, self.animator, "state", "up"))
 
-            s.append(Func(self.animate_y, -equipment.room.y, duration=duration, curve=curve.linear))
+            s.append(Func(self.animate_y, self.position.y - distance_centre, duration=duration, curve=curve.linear))
             s.append(duration)
 
         # move x direction along ship

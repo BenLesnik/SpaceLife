@@ -76,6 +76,7 @@ sleeping.add_bed("bed2", x=0, y=0.5)
 sleeping.add_bed("bed3", x=1.5, y=0.5)
 
 gym = ares.make_room("gym", y=-6, parent=centrifuge)
+gym.add_treadmill("treadmill1", x=0, y=0)
 
 # setup crew
 ares.crew["captain"].stress = 8
