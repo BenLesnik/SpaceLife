@@ -47,10 +47,10 @@ engine.add_crew("engineer")
 store_room = ares.make_room("store_room")
 
 safe_room = ares.make_room("safe_room")
-safe_room.add_chair("chair1", x=1, y=0.6)
-safe_room.add_chair("chair2", x=-1, y=0.6)
-safe_room.add_chair("chair3", x=1, y=-0.6)
-safe_room.add_chair("chair4", x=-1, y=-0.6)
+safe_room.add_chair("chair1", x=1, y=0.5)
+safe_room.add_chair("chair2", x=-1, y=0.5)
+safe_room.add_chair("chair3", x=1, y=-0.3)
+safe_room.add_chair("chair4", x=-1, y=-0.3)
 
 centrifuge = ares.make_room("centrifuge", rotation=90, length=10)
 
