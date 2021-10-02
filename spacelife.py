@@ -132,22 +132,34 @@ stats_round = 0
 # Ship Info
 
 ship_oxygen_info = """
-ship_oxygen_info
+Oxygen is vital for the crew to breath, but
+as there is no oxygen in space, the crew need
+to bring it with them.
 """
 ship_fuel_info = """
-ship_fuel_info
+Fuel is needed to leave orbit around the Earth
+and for decellerating once the ship arrives at
+Mars to put it into orbit.
 """
 ship_food_info = """
-ship_food_info
+The crew need to bring all of the food with them
+except what they can grow in the greenhouse.
+Click on a plant in the greenhouse to start
+harvesting vegetables they have grown (food will increase).
 """
 ship_damage_info = """
-ship_damage_info
+The ship can be damaged by micrometeorites and 
+from gamma radiation as it will be travelling outside the
+Earth's protective magnetosphere.
 """
 ship_radiation_info = """
-ship_radiation_info
+There are many sources of radiation in space, such as
+gamma rays and solar flare events. The ship has a warning 
+alarm to inform the crew of incoming dangerous solar flares,
+but it can only give them a few minutes warning.
 """
 ship_mission_duration_info = """
-ship_mission_duration_info
+This shows the duration of the mission in weeks.
 """
 
 # Crew Info
@@ -165,7 +177,10 @@ crew_mood_info = """
 crew_mood_info
 """
 crew_radiation_info = """
-crew_radiation_info
+During a solar flare the crew needs to shelter in the
+Safe Room to avoid high radiation exposure.
+They can reduce their exposure by visiting the medical bay
+for anti-radiation drugs.
 """
 
 intro = """
