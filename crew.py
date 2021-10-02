@@ -128,24 +128,10 @@ class Crew(Entity):
 
         updateHealthBarColor(self.overall_health, good_level = 80.0, bad_level = 20.0)
 
-    def move_to(self, equipment, post_walk=[]):
-
-        pos_old_room = self.position
-
-        # change space to the same room as the equipment
-        if self.parent != equipment.room:
-            wp = self.world_position
-            self.parent = equipment.room
-            self.world_position = wp
-
-        s = Sequence()
-        s.append(Func(self.start_all_animations))
-
-        # move in y from current position to centre line
+    def mv_y2ctr(self, equipment, s):
         distance_centre = self.world_position.y - self.ship.world_position.y
         distance_along = equipment.position.x - self.position.x
         distance_across = self.ship.world_position.y + equipment.world_position.y
-
         duration = abs(distance_centre) / self.speed
 
         if duration != 0.0:
@@ -155,10 +141,13 @@ class Crew(Entity):
                 s.append(Func(setattr, self.animator, "state", "up"))
 
             s.append(Func(self.animate_y, self.position.y - distance_centre, duration=duration, curve=curve.linear))
-            s.append(duration)
+            s.append(duration)   
 
-        # move x direction along ship
+    def mv_alongx(self, equipment, s):
         # note that animate_x moves to this position in local space - it is not a distance
+        distance_centre = self.world_position.y - self.ship.world_position.y
+        distance_along = equipment.position.x - self.position.x
+        distance_across = self.ship.world_position.y + equipment.world_position.y
         duration = abs(distance_along) / self.speed
         
         if duration != 0.0:
@@ -170,8 +159,11 @@ class Crew(Entity):
             s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))
             s.append(duration)
 
-        # move in y to position
+    def mv_ctr2y(self, equipment, s):
         # note that animate_y moves to this position in local space - it is not a distance
+        distance_centre = self.world_position.y - self.ship.world_position.y
+        distance_along = equipment.position.x - self.position.x
+        distance_across = self.ship.world_position.y + equipment.world_position.y
         duration = abs(distance_across) / self.speed
 
         if duration != 0.0:
@@ -185,6 +177,35 @@ class Crew(Entity):
 
         s.append(Func(setattr, self.animator, "state", "right"))
         s.append(Func(self.pause_all_animations))
+
+    
+    def move_to(self, equipment, post_walk=[]):
+
+        pos_old_room = self.position
+
+        # change space to the same room as the equipment
+        if self.parent != equipment.room:
+            wp = self.world_position
+            self.parent = equipment.room
+            self.world_position = wp
+
+        s = Sequence()
+        s.append(Func(self.start_all_animations))
+
+        # if in bridge, first move along x to centrifuge
+
+        # move in y from current position to centre line
+        self.mv_y2ctr(equipment, s)
+        
+        # if going to bridge, 
+        # ###  move along x to centriifuge
+        ######  mpve ctr2y
+        #######  move long x to final
+        #else
+        # move x direction along ship
+        self.mv_alongx(equipment, s)
+        # move in y to position
+        self.mv_ctr2y(equipment, s)
 
         for pw in post_walk:
             s.append(pw)
