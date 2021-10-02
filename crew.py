@@ -86,14 +86,14 @@ class Crew(Entity):
 
         if self.room.name != "safe_room":
             self.radiation += 0.01 * self.ship.radiation * time.dt
-        
+            
         if self.room.name == "sleeping":
             self.tiredness -= 0.1 * time.dt
         else:
             self.tiredness += 0.1 * time.dt
 
         if self.room.name == "gym":
-            self.bone_density += 0.1 *time.dt
+            self.bone_density += 0.1 * time.dt
         else:
             self.bone_density -= 0.1 * time.dt
 
