@@ -192,13 +192,18 @@ class Crew(Entity):
         s = Sequence()
         s.append(Func(self.start_all_animations))
 
+        # if in bridge, first move along x to centrifuge
+
         # move in y from current position to centre line
         self.mv_y2ctr(equipment, s)
-
-
+        
+        # if going to bridge, 
+        # ###  move along x to centriifuge
+        ######  mpve ctr2y
+        #######  move long x to final
+        #else
         # move x direction along ship
         self.mv_alongx(equipment, s)
-
         # move in y to position
         self.mv_ctr2y(equipment, s)
 
