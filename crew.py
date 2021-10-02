@@ -85,7 +85,7 @@ class Crew(Entity):
     def update(self):
 
         if self.room.name != "safe_room":
-            self.radiation += 1.0 * self.ship.radiation
+            self.radiation += 0.01 * self.ship.radiation * time.dt
         
         if self.room.name == "sleeping":
             self.tiredness -= 0.1 * time.dt
