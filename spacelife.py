@@ -116,15 +116,7 @@ ares.crew["biologist"].fatigue = 2
 
 ares.make_active("commander")
 
-# Text setup for statistics
-Text.default_resolution = 768 * Text.size
 
-stats_ship_x = -0.85
-stats_crew_x = -0.45
-stats_x_space = 0.17
-stats_y_space = 0.03
-stats_y_top = 0.44
-stats_round = 0
 
 ####################################
 # InfoBox
@@ -212,7 +204,18 @@ for anti-radiation drugs.
 
 info_box = Text(intro, x= 0.05, y=0.48, background=True)
 
+
 ####################################
+# # Text setup for statistics
+Text.default_resolution = 768 * Text.size
+
+stats_ship_x = -0.85
+stats_crew_x = -0.45
+stats_x_space = 0.17
+stats_y_space = 0.03
+stats_y_top = 0.44
+stats_round = 0
+
 # Travel duration
 
 timeline = HealthBar(x=-0.85, y=0.48, scale_x=0.72, scale_y=.025, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
@@ -376,12 +379,12 @@ def update():
     crew_fatigue_int = int(ares.active.fatigue)
     if crew_fatigue.value != crew_fatigue_int:
         crew_fatigue.value = crew_fatigue_int
-        updateHealthBarColor(crew_fatigue, good_level = 10.0, bad_level = 40.0, high="bad")
+        updateHealthBarColor(crew_fatigue, good_level = 20.0, bad_level = 60.0, high="bad")
 
     crew_bone_density_int = int(ares.active.bone_density)
     if crew_bone_density.value != crew_bone_density_int:
         crew_bone_density.value = crew_bone_density_int
-        updateHealthBarColor(crew_bone_density, good_level = 10.0, bad_level = 40.0)
+        updateHealthBarColor(crew_bone_density, good_level = 80.0, bad_level = 40.0)
 
     crew_radiation_int = int(ares.active.radiation)
     if crew_radiation.value != crew_radiation_int:
