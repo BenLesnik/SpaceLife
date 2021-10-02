@@ -123,8 +123,6 @@ class Crew(Entity):
         distance_along = equipment.position.x - self.position.x
         distance_across = self.ship.world_position.y + equipment.world_position.y
 
-        print(distance_across)
-
         duration = abs(distance_centre) / self.speed
 
         if duration != 0.0:
