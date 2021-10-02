@@ -153,6 +153,16 @@ Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 5 *stats_y_space, backgr
 radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.2, roundness=stats_round)
 radiation.tooltip = Tooltip('radiation')
 
+
+
+####################################
+# InfoBox
+info_box_text = " This will be replaced by a method output based on whatever the last tooptip infobutton was clicked"
+
+aaa = Text(text= info_box_text, x= 0.05, y=stats_y_top, background=True, width = 3, height = 0.3, wordwrap = 0.7)
+
+
+
 ####################################
 # Travel duration
 timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
