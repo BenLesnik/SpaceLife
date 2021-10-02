@@ -107,7 +107,7 @@ class Crew(Entity):
             self.ship.food -= 0.1 * time.daylight
 
         if self.room.name == "greenhouse":
-            self.mood += 0.1 * time.dt
+            #self.mood += 0.1 * time.dt
             self.ship.food += 0.1 * time.dt
             
         health = self.calculate_health()
