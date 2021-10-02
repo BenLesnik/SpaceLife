@@ -56,8 +56,8 @@ centrifuge = ares.make_room("centrifuge", rotation=90, length=10)
 
 med_bay = ares.make_room("med_bay")
 med_bay.add_crew("doctor", y=0.5)
-med_bay.add_bed("bed1", x=-1, y=0.5)
-med_bay.add_bed("bed2", x=1, y=0.5)
+med_bay.add_medicalbed("bed1", x=-1, y=0.5)
+med_bay.add_medicalbed("bed2", x=1, y=0.5)
 
 greenhouse = ares.make_room("greenhouse")
 greenhouse.add_crew("biologist", y=-0.5)

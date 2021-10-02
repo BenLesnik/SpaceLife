@@ -51,7 +51,7 @@ class Room(Entity):
         return Crew(name, ship=self.ship, room=self, x=x, y=y)
 
     def add_bed(self, name, x=0, y=0):
-        bed = Equipment(name, texture="assets/bed", ship=self.ship, room=self, x=x, y=y)
+        bed = Equipment(name, texture="assets/bed", ship=self.ship, room=self, x=x, y=y, scale_x = 0.1, scale_y = 1.5)
         return bed
     
     def add_chair(self, name, x=0, y=0):
@@ -59,6 +59,9 @@ class Room(Entity):
 
     def add_treadmill(self, name, x=0, y=0):
         return Equipment(name, texture="assets/treadmill", ship=self.ship, room=self, x=x, y=y)
+    
+    def add_medicalbed(self, name, x=0, y=0):
+        return Equipment(name, texture="assets/medicalbed", ship=self.ship, room=self, x=x, y=y)
 
 class Spaceship(Entity):
 
