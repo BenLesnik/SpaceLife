@@ -76,6 +76,11 @@ greenhouse.add_plant("plant2", x=1.5, y=-0.3)
 
 cafeteria = ares.make_room("cafeteria")
 cafeteria.add_sofa("sofa1", x=1.5)
+cafeteria.add_table("table1")
+cafeteria.add_stool("stool1", x=-0.5, y=0.2)
+cafeteria.add_stool("stool2", x=0.5, y=-0.2)
+cafeteria.add_stool("stool3", x=0.5, y=0.2)
+cafeteria.add_stool("stool4", x=-0.5, y=-0.2)
 
 bridge_top = ares.make_room("bridge_top", y=1.7, parent=cafeteria)
 bridge_top.add_chair("commanders_chair")
@@ -178,7 +183,6 @@ radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_
 radiation.tooltip = Tooltip('radiation')
 
 
-
 ####################################
 # InfoBox
 
@@ -189,9 +193,6 @@ textbox = Textbox(info_box_text)
 
 ######  to update the textbox:
 textbox.update("This is an ipdate Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsumorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum")
-
-
-
 
 
 # siren warning text
