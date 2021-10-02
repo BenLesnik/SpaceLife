@@ -94,17 +94,21 @@ class Spaceship(Entity):
             if c is not self.active:
                 c.active = False
 
-    def sound_warning(self, state):
+    def sound_warning(self, state, warning_text):
 
         if self.warning_state == state:
             return
 
         if state:
+            warning_text.enable()
+
             self.siren.play()
 
             for room in self.rooms:
                 self.alarms.append(room.mid.blink(color.red, loop=True, duration=.5))
         else:
+            warning_text.disable()
+
             self.siren.fade_out(duration=1)
             
             # pause all alarms
