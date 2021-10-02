@@ -4,7 +4,6 @@ from ursina import *
 def auto_line_break(str, length = 50):
         rtr = ""
         for int, char in enumerate(str):
-            print(int, char)
             if ((int+1) % length == 0):
                 rtr += ("\n")           
             rtr += (char)
