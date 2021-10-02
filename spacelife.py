@@ -60,8 +60,8 @@ greenhouse.add_crew("biologist", y=-0.5)
 cafeteria = ares.make_room("cafeteria")
 cafeteria.add_crew("captain",  y=0.5)
 
-bridge_top = ares.make_room("bridge_top", y=2, parent=cafeteria)
-bridge_bottom = ares.make_room("bridge_bottom", y=-2, parent=cafeteria)
+bridge_top = ares.make_room("bridge", y=2, parent=cafeteria)
+bridge_bottom = ares.make_room("bridge", y=-2, parent=cafeteria)
 
 sleeping = ares.make_room("sleeping", y=6, parent=centrifuge)
 gym = ares.make_room("gym", y=-6, parent=centrifuge)
@@ -132,6 +132,11 @@ radiation.tooltip = Tooltip('radiation')
 timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
 timeline.value=1
 
+# siren warning text
+warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, scale=2)
+warning_text.blink(color.red, loop=True, duration=.5)
+warning_text.disable()
+
 def input(key):
     global ares
 
@@ -153,9 +158,9 @@ def update():
         
         # flare warning
         if ares.mission_duration > FLARE_WARNING_START and ares.mission_duration < FLARE_START:
-            ares.sound_warning(True)
+            ares.sound_warning(True, warning_text)
         else:
-            ares.sound_warning(False)
+            ares.sound_warning(False, warning_text)
 
         if ares.mission_duration > FLARE_START and ares.mission_duration < FLARE_END:
             if not ares.shaking:
