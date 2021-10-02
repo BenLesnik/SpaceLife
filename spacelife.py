@@ -66,6 +66,10 @@ bridge_bottom = ares.make_room("bridge_bottom", y=-1.7, parent=cafeteria)
 bridge_bottom.add_crew("pilot",  y=0.5)
 
 sleeping = ares.make_room("sleeping", y=6, parent=centrifuge)
+sleeping.add_bed("bed1", x=-1.5, y=0.5)
+sleeping.add_bed("bed2", x=0, y=0.5)
+sleeping.add_bed("bed3", x=1.5, y=0.5)
+
 gym = ares.make_room("gym", y=-6, parent=centrifuge)
 
 # setup crew
@@ -135,7 +139,7 @@ timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.
 timeline.value=1
 
 # siren warning text
-warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, scale=2)
+warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)
 warning_text.blink(color.red, loop=True, duration=.5)
 warning_text.disable()
 
