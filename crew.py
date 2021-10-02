@@ -102,6 +102,8 @@ class Crew(Entity):
 
     def move_to(self, equipment, post_walk=[]):
 
+        pos_old_room = self.position
+
         # change space to the same room as the equipment
         if self.parent != equipment.room:
             wp = self.world_position
@@ -112,7 +114,7 @@ class Crew(Entity):
         s.append(Func(self.start_all_animations))
 
         # move in y from current position to centre line
-        distance_centre = self.y
+        distance_centre = pos_old_room.y
         distance_along = equipment.position.x - self.position.x
         distance_across = equipment.position.y
 
