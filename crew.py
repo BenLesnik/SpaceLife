@@ -16,6 +16,7 @@ class Crew(Entity):
         self.active = active
         self.ship = ship
         self.room = room
+        self.health = 100.0
 
         # add to ship
         if self.ship:
@@ -91,39 +92,39 @@ class Crew(Entity):
             self.radiation += 0.01 * self.ship.radiation * time.dt
         
         # going to the med bay reduces radiation from radiation pills
-        if self.room.name == "med_bay":
+        elif self.room.name == "med_bay":
             self.radiation -= 0.2 * time.dt
 
         # the crew get tired over time, unless they are in the sleeping quarters
         # where they can reduce their fatigue
-        if self.room.name == "sleeping":
+        elif self.room.name == "sleeping":
             self.fatigue -= 0.1 * time.dt
-        else:
-            self.fatigue += 0.1 * time.dt
 
         # the crew can increase their bone density by exercising in the gym
         # but their fatigue will increase faster
-        if self.room.name == "gym":
+        elif self.room.name == "gym":
             self.bone_density += 0.4 *time.dt
             self.fatigue += 0.4 * time.dt
-        else:
-            self.bone_density -= 0.1 * time.dt
 
         # crew can relieve stress by relaxing in the cafeteria
         # but the ship food will decrease as they consume food
-        if self.room.name == "cafeteria":
+        elif self.room.name == "cafeteria":
             self.stress -= 0.1 * time.dt
-            self.ship.food -= 0.1 * time.daylight
+            self.ship.food -= 0.1 * time.dt
 
         # going in the greenshouse increases the ships food as the crew
         # harvest the vegetables for food
-        if self.room.name == "greenhouse":
+        elif self.room.name == "greenhouse":
             #self.mood += 0.1 * time.dt
             self.ship.food += 0.1 * time.dt
-            
-        health = self.calculate_health()
-        if self.overall_health.value != health:
-            self.overall_health.value = health
+
+        else:
+            self.fatigue += 0.1 * time.dt
+            self.bone_density -= 0.1 * time.dt
+
+        self.health = self.calculate_health()
+        if self.overall_health.value != self.health:
+            self.overall_health.value = self.health
 
         updateHealthBarColor(self.overall_health, good_level = 80.0, bad_level = 20.0)
 
