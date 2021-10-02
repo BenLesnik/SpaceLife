@@ -181,10 +181,15 @@ Send a crew member to bed in the sleeping quarters to reduce their
 fatigue.
 """
 crew_bone_density_info = """"
-crew_bone_density_info
+The zero-G environment of deep space can cause bone and muscle wastage.
+
+To compensate make sure that your crew members exercise regularly in the
+gym.
+
+But do not leave them too long or they will get fatiuged!
 """
 crew_mood_info = """
-crew_mood_info
+
 """
 crew_radiation_info = """
 During a solar flare the crew needs to shelter in the
