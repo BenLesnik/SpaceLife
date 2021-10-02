@@ -94,11 +94,10 @@ class Crew(Entity):
 
         if self.room.name == "gym":
             self.bone_density += 0.1 *time.dt
+            self.tiredness += 0.2 * time.dt
         else:
             self.bone_density -= 0.1 * time.dt
-
-
-
+            
         health = self.calculate_health()
         if self.overall_health.value != health:
             self.overall_health.value = health
@@ -165,6 +164,9 @@ class Crew(Entity):
 
         for pw in post_walk:
             s.append(pw)
+
+        # set new room
+        s.append(Func(setattr, self, "room", equipment.room))
 
         s.start()
 
