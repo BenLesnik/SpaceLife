@@ -66,6 +66,10 @@ bridge_bottom = ares.make_room("bridge_bottom", y=-1.7, parent=cafeteria)
 bridge_bottom.add_crew("pilot",  y=0.5)
 
 sleeping = ares.make_room("sleeping", y=6, parent=centrifuge)
+sleeping.add_bed("bed1", x=-1.5, y=0.5)
+sleeping.add_bed("bed2", x=0, y=0.5)
+sleeping.add_bed("bed3", x=1.5, y=0.5)
+
 gym = ares.make_room("gym", y=-6, parent=centrifuge)
 
 # setup crew
