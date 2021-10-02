@@ -48,10 +48,16 @@ engine.add_motor("motor", x=-1.5)
 store_room = ares.make_room("store_room")
 
 safe_room = ares.make_room("safe_room")
-safe_room.add_chair("chair1", x=1, y=0.5)
-safe_room.add_chair("chair2", x=-1, y=0.5)
-safe_room.add_chair("chair3", x=1, y=-0.3)
-safe_room.add_chair("chair4", x=-1, y=-0.3)
+safe_room.add_chair("chair1", x=0.5, y=0.5)
+safe_room.add_chair("chair2", x=1.5, y=0.5)
+safe_room.add_chair("chair3", x=-0.5, y=0.5)
+safe_room.add_chair("chair4", x=-1.5, y=0.5)
+
+safe_room.add_chair("chair5", x=0.5, y=-0.3)
+safe_room.add_chair("chair6", x=1.5, y=-0.3)
+safe_room.add_chair("chair7", x=-0.5, y=-0.3)
+safe_room.add_chair("chair8", x=-1.5, y=-0.3)
+
 
 centrifuge = ares.make_room("centrifuge", rotation=90, length=10)
 
