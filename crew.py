@@ -128,6 +128,57 @@ class Crew(Entity):
 
         updateHealthBarColor(self.overall_health, good_level = 80.0, bad_level = 20.0)
 
+    def mv_y2ctr(self, equipment, s):
+        distance_centre = self.world_position.y - self.ship.world_position.y
+        distance_along = equipment.position.x - self.position.x
+        distance_across = self.ship.world_position.y + equipment.world_position.y
+        duration = abs(distance_centre) / self.speed
+
+        if duration != 0.0:
+            if distance_centre > 0:
+                s.append(Func(setattr, self.animator, "state", "down"))
+            elif distance_centre < 0:
+                s.append(Func(setattr, self.animator, "state", "up"))
+
+            s.append(Func(self.animate_y, self.position.y - distance_centre, duration=duration, curve=curve.linear))
+            s.append(duration)   
+
+    def mv_alongx(self, equipment, s):
+        # note that animate_x moves to this position in local space - it is not a distance
+        distance_centre = self.world_position.y - self.ship.world_position.y
+        distance_along = equipment.position.x - self.position.x
+        distance_across = self.ship.world_position.y + equipment.world_position.y
+        duration = abs(distance_along) / self.speed
+        
+        if duration != 0.0:
+            if distance_along < 0:
+                s.append(Func(setattr, self.animator, "state", "left"))
+            elif distance_along > 0:
+                s.append(Func(setattr, self.animator, "state", "right"))
+
+            s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))
+            s.append(duration)
+
+    def mv_ctr2y(self, equipment, s):
+        # note that animate_y moves to this position in local space - it is not a distance
+        distance_centre = self.world_position.y - self.ship.world_position.y
+        distance_along = equipment.position.x - self.position.x
+        distance_across = self.ship.world_position.y + equipment.world_position.y
+        duration = abs(distance_across) / self.speed
+
+        if duration != 0.0:
+            if distance_across > 0:
+                s.append(Func(setattr, self.animator, "state", "up"))
+            elif distance_across < 0:
+                s.append(Func(setattr, self.animator, "state", "down"))
+
+            s.append(Func(self.animate_y, equipment.position.y, duration=duration, curve=curve.linear))
+            s.append(duration)
+
+        s.append(Func(setattr, self.animator, "state", "right"))
+        s.append(Func(self.pause_all_animations))
+
+    
     def move_to(self, equipment, post_walk=[]):
 
         pos_old_room = self.position
@@ -142,49 +193,14 @@ class Crew(Entity):
         s.append(Func(self.start_all_animations))
 
         # move in y from current position to centre line
-        distance_centre = self.world_position.y - self.ship.world_position.y
-        distance_along = equipment.position.x - self.position.x
-        distance_across = self.ship.world_position.y + equipment.world_position.y
+        self.mv_y2ctr(equipment, s)
 
-        duration = abs(distance_centre) / self.speed
-
-        if duration != 0.0:
-            if distance_centre > 0:
-                s.append(Func(setattr, self.animator, "state", "down"))
-            elif distance_centre < 0:
-                s.append(Func(setattr, self.animator, "state", "up"))
-
-            s.append(Func(self.animate_y, self.position.y - distance_centre, duration=duration, curve=curve.linear))
-            s.append(duration)
 
         # move x direction along ship
-        # note that animate_x moves to this position in local space - it is not a distance
-        duration = abs(distance_along) / self.speed
-        
-        if duration != 0.0:
-            if distance_along < 0:
-                s.append(Func(setattr, self.animator, "state", "left"))
-            elif distance_along > 0:
-                s.append(Func(setattr, self.animator, "state", "right"))
-
-            s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))
-            s.append(duration)
+        self.mv_alongx(equipment, s)
 
         # move in y to position
-        # note that animate_y moves to this position in local space - it is not a distance
-        duration = abs(distance_across) / self.speed
-
-        if duration != 0.0:
-            if distance_across > 0:
-                s.append(Func(setattr, self.animator, "state", "up"))
-            elif distance_across < 0:
-                s.append(Func(setattr, self.animator, "state", "down"))
-
-            s.append(Func(self.animate_y, equipment.position.y, duration=duration, curve=curve.linear))
-            s.append(duration)
-
-        s.append(Func(setattr, self.animator, "state", "right"))
-        s.append(Func(self.pause_all_animations))
+        self.mv_ctr2y(equipment, s)
 
         for pw in post_walk:
             s.append(pw)
