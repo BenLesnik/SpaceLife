@@ -126,6 +126,59 @@ stats_y_top = 0.44
 stats_round = 0
 
 ####################################
+# InfoBox
+
+# Ship Info
+
+ship_oxygen_info = """
+ship_oxygen_info
+"""
+ship_fuel_info = """
+ship_fuel_info
+"""
+ship_food_info = """
+ship_food_info
+"""
+ship_damage_info = """
+ship_damage_info
+"""
+ship_radiation_info = """
+ship_radiation_info
+"""
+ship_mission_duration_info = """
+ship_mission_duration_info
+"""
+
+# Crew Info
+
+crew_stress_info = """
+crew_stress_info
+"""
+crew_fatigue_info = """
+crew_fatigue_info
+"""
+crew_bone_density_info = """"
+crew_bone_density_info
+"""
+crew_mood_info = """
+crew_mood_info
+"""
+crew_radiation_info = """
+crew_radiation_info
+"""
+
+intro = """
+Welcome to the Ares
+
+Your job to to keep the crew alive and healthy on their 28 week 
+mission to Mars.
+
+Space Apps Challenge 2021
+"""
+
+info_box = Text(intro, x= 0.05, y=0.48, background=True)
+
+####################################
 # Travel duration
 
 timeline = HealthBar(x=-0.85, y=0.48, scale_x=0.72, scale_y=.025, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
@@ -138,62 +191,59 @@ timeline.value=1
 Text(text="SHIP: ARES", x = stats_ship_x, y=stats_y_top,background=False)
 
 Text(text="Oxygen", x= stats_ship_x, y=stats_y_top - stats_y_space, background=False)
-oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
-oxygen.tooltip = Tooltip('oxygen')
+ship_oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
+ship_oxygen.tooltip = Tooltip('oxygen')
+ship_oxygen.on_click = Func(setattr, info_box, "text", ship_oxygen_info)
 
 Text(text="Fuel", x= stats_ship_x , y=stats_y_top - 2*stats_y_space,background=False)
-fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
-fuel.tooltip = Tooltip('fuel')
+ship_fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
+ship_fuel.tooltip = Tooltip('fuel')
+ship_fuel.on_click = Func(setattr, info_box, "text", ship_fuel_info)
 
 Text(text="Food", x= stats_ship_x , y=stats_y_top - 3*stats_y_space,background=False)
-food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
-food.tooltip = Tooltip('food')
+ship_food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
+ship_food.tooltip = Tooltip('food')
+ship_food.on_click = Func(setattr, info_box, "text", ship_food_info)
 
 Text(text="Damage",  x= stats_ship_x , y=stats_y_top - 4*stats_y_space,background=False)
-damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-damage.tooltip = Tooltip('damage')
+ship_damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
+ship_damage.tooltip = Tooltip('damage')
+ship_damage.on_click = Func(setattr, info_box, "text", ship_damage_info)
 
 Text(text="Radiation",  x= stats_ship_x , y=stats_y_top - 5*stats_y_space,background=False)
 ship_radiation = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
 ship_radiation.tooltip = Tooltip('radiation')
+ship_radiation.on_click = Func(setattr, info_box, "text", ship_radiation_info)
 
 ######################
 # Crew statistics
 crew_label = Text(text="CREW: ", x = stats_crew_x, y=stats_y_top,background=False)
 
 Text(text="Stress", x= stats_crew_x, y=stats_y_top - stats_y_space, background=False)
-stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
-stress.tooltip = Tooltip('stress')
+crew_stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
+crew_stress.tooltip = Tooltip('stress')
+crew_stress.on_click = Func(setattr, info_box, "text", crew_stress_info)
 
 Text(text="Fatigue",  x= stats_crew_x, y=stats_y_top - 2*stats_y_space, background=False)
-fatigue = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
-fatigue.tooltip = Tooltip('fatigue')
+crew_fatigue = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
+crew_fatigue.tooltip = Tooltip('fatigue')
+crew_fatigue.on_click = Func(setattr, info_box, "text", crew_fatigue_info)
 
 Text(text="Bone Density", x= stats_crew_x, y=stats_y_top - 3*stats_y_space, background=False)
-bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
-bone_density.tooltip = Tooltip('bone density')
+crew_bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
+crew_bone_density.tooltip = Tooltip('bone density')
+crew_bone_density.on_click = Func(setattr, info_box, "text", crew_bone_density_info)
 
 Text(text="Mood", x= stats_crew_x, y=stats_y_top - 4*stats_y_space, background=False)
-mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-mood.tooltip = Tooltip('sanity')
-mood.value=15
+crew_mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
+crew_mood.tooltip = Tooltip('sanity')
+crew_mood.value=15
+crew_mood.on_click = Func(setattr, info_box, "text", crew_mood_info)
 
 Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 5 *stats_y_space, background=False)
-radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
-radiation.tooltip = Tooltip('radiation')
-
-
-####################################
-# InfoBox
-
-from textbox import Textbox
-info_box_text = "This will be replaced by a method output based on whatever the last tooptip info button was clicked"
-textbox = Textbox(info_box_text)
-
-
-######  to update the textbox:
-#textbox.update("This is an ipdate Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsumorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum")
-
+crew_radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
+crew_radiation.tooltip = Tooltip('radiation')
+crew_radiation.on_click = Func(setattr, info_box, "text", crew_radiation_info)
 
 # siren warning text
 warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)
@@ -255,50 +305,54 @@ def update():
         timeline.value = int(ares.mission_duration)
 
     # update ship stats
-    oxygen_int = int(ares.oxygen)
-    if oxygen.value != oxygen_int:
-        oxygen.value = oxygen_int
-    updateHealthBarColor(oxygen, good_level = 70.0, bad_level = 30.0)
+    ship_oxygen_int = int(ares.oxygen)
+    if ship_oxygen.value != ship_oxygen_int:
+        ship_oxygen.value = ship_oxygen_int
+        updateHealthBarColor(ship_oxygen, good_level = 70.0, bad_level = 30.0)
 
-    fuel_int = int(ares.fuel)
-    if fuel.value != fuel_int:
-        fuel.value = fuel_int
-    updateHealthBarColor(fuel, good_level = 70.0, bad_level = 30.0)
+    ship_fuel_int = int(ares.fuel)
+    if ship_fuel.value != ship_fuel_int:
+        ship_fuel.value = ship_fuel_int
+        updateHealthBarColor(ship_fuel, good_level = 70.0, bad_level = 30.0)
 
-    food_int = int(ares.food)
-    if food.value != food_int:
-        food.value = food_int
-    updateHealthBarColor(food, good_level = 70.0, bad_level = 30.0)
+    ship_food_int = int(ares.food)
+    if ship_food.value != ship_food_int:
+        ship_food.value = ship_food_int
+        updateHealthBarColor(ship_food, good_level = 70.0, bad_level = 30.0)
 
-    damage_int = int(ares.damage)
-    if damage.value != damage_int:
-        damage.value = damage_int
-    updateHealthBarColor(damage, good_level = 30.0, bad_level = 70.0, high="bad")
+    ship_damage_int = int(ares.damage)
+    if ship_damage.value != ship_damage_int:
+        ship_damage.value = ship_damage_int
+        updateHealthBarColor(ship_damage, good_level = 30.0, bad_level = 70.0, high="bad")
 
     ship_radiation_int = int(ares.radiation)
     if ship_radiation.value != ship_radiation_int:
         ship_radiation.value = ship_radiation_int
-    updateHealthBarColor(ship_radiation, good_level = 12.0, bad_level = 30.0, high="bad")
+        updateHealthBarColor(ship_radiation, good_level = 12.0, bad_level = 30.0, high="bad")
 
     # update character detail health bars
-    if crew_label.text != "CREW: "+ares.active.name.upper():
-        crew_label.text = "CREW: "+ares.active.name.upper()
+    if crew_label.text != f"CREW: {ares.active.name.upper()}":
+        crew_label.text = f"CREW: {ares.active.name.upper()}"
 
-    if stress.value != ares.active.stress:
-        stress.value = ares.active.stress
-    updateHealthBarColor(stress, good_level = 10.0, bad_level = 40.0, high="bad")
+    crew_stress_int = int(ares.active.stress)
+    if crew_stress.value != crew_stress_int:
+        crew_stress.value = crew_stress_int
+        updateHealthBarColor(crew_stress, good_level = 10.0, bad_level = 40.0, high="bad")
     
-    if fatigue.value != int(ares.active.fatigue):
-        fatigue.value = int(ares.active.fatigue)
-    updateHealthBarColor(fatigue, good_level = 10.0, bad_level = 40.0, high="bad")
+    crew_fatigue_int = int(ares.active.fatigue)
+    if crew_fatigue.value != crew_fatigue_int:
+        crew_fatigue.value = crew_fatigue_int
+        updateHealthBarColor(crew_fatigue, good_level = 10.0, bad_level = 40.0, high="bad")
 
-    if bone_density.value != int(ares.active.bone_density):
-        bone_density.value = int(ares.active.bone_density)
-    updateHealthBarColor(bone_density, good_level = 10.0, bad_level = 40.0)
+    crew_bone_density_int = int(ares.active.bone_density)
+    if crew_bone_density.value != crew_bone_density_int:
+        crew_bone_density.value = crew_bone_density_int
+        updateHealthBarColor(crew_bone_density, good_level = 10.0, bad_level = 40.0)
 
-    if radiation.value != int(ares.active.radiation):
-        radiation.value = int(ares.active.radiation)
-    updateHealthBarColor(radiation, good_level = 10.0, bad_level = 40.0, high="bad")
+    crew_radiation_int = int(ares.active.radiation)
+    if crew_radiation.value != crew_radiation_int:
+        crew_radiation.value = crew_radiation_int
+        updateHealthBarColor(crew_radiation, good_level = 10.0, bad_level = 40.0, high="bad")
 
 app.run()   
 
