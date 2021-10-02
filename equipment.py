@@ -27,7 +27,6 @@ class Equipment(Sprite):
         setattr(self.ship.active, attr, value)
 
 if __name__ == "__main__":
-
     app = Ursina()
     Equipment("test", texture="assets/chair")
     app.run()

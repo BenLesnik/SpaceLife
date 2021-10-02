@@ -276,5 +276,5 @@ def update():
         radiation.value = int(ares.active.radiation)
     updateHealthBarColor(radiation, good_level = 10.0, bad_level = 40.0, high="bad")
 
-app.run()
+app.run()   
 
