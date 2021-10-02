@@ -85,7 +85,7 @@ ares.crew["doctor"].stress = 6
 ares.crew["doctor"].tiredness = 8
 
 ares.crew["engineer"].stress = 3
-ares.crew["engineer"].tiredness = 3
+ares.crew["engineer"].tiredness = 3 
 
 ares.crew["biologist"].stress = 2
 ares.crew["biologist"].tiredness = 2
