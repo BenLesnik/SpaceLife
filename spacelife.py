@@ -23,9 +23,9 @@ FLARE_END = args.flare_start + args.flare_duration
 app = Ursina()
 
 window.title = 'Spacelife'                # The window title
-window.borderless = False               # Show a border
-window.fullscreen = False               # Go Fullscreen
-window.exit_button.visible = False       # Show close button  (not needed with a border managed by the window manager)
+window.borderless = False                 # Show a border
+window.fullscreen = False                 # Go Fullscreen
+window.exit_button.visible = False        # Show close button  (not needed with a border managed by the window manager)
 
 from spaceship import Spaceship
 
