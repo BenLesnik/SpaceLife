@@ -100,6 +100,7 @@ stats_crew_x = -0.45
 stats_x_space = 0.15
 stats_y_space = 0.03
 stats_y_top = 0.48
+stats_round = 0
 
 
 #############################
@@ -108,23 +109,23 @@ stats_y_top = 0.48
 Text(text="ARES", x = stats_ship_x, y=stats_y_top,background=False)
 
 Text(text="Oxygen", x= stats_ship_x, y=stats_y_top - stats_y_space, background=False)
-oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=.5)
+oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=stats_round)
 oxygen.tooltip = Tooltip('oxygen')
 
 Text(text="Fuel", x= stats_ship_x , y=stats_y_top - 2*stats_y_space,background=False)
-fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=.5)
+fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=stats_round)
 fuel.tooltip = Tooltip('fuel')
 
 Text(text="Food", x= stats_ship_x , y=stats_y_top - 3*stats_y_space,background=False)
-food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.2, roundness=.5)
+food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.2, roundness=stats_round)
 food.tooltip = Tooltip('food')
 
 Text(text="Damage",  x= stats_ship_x , y=stats_y_top - 4*stats_y_space,background=False)
-damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.2, roundness=.5)
+damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.2, roundness=stats_round)
 damage.tooltip = Tooltip('damage')
 
 Text(text="Radiation",  x= stats_ship_x , y=stats_y_top - 5*stats_y_space,background=False)
-ship_radiation = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.2, roundness=.5)
+ship_radiation = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.2, roundness=stats_round)
 ship_radiation.tooltip = Tooltip('radiation')
 
 ######################
@@ -132,24 +133,24 @@ ship_radiation.tooltip = Tooltip('radiation')
 crew_label = Text(text="CAPTAIN", x = stats_crew_x, y=stats_y_top,background=False)
 
 Text(text="Stress", x= stats_crew_x, y=stats_y_top - stats_y_space, background=False)
-stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=.5)
+stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=stats_round)
 stress.tooltip = Tooltip('stress')
 
 Text(text="Tiredness",  x= stats_crew_x, y=stats_y_top - 2*stats_y_space, background=False)
-tiredness = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=.5)
+tiredness = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=stats_round)
 tiredness.tooltip = Tooltip('tiredness')
 
 Text(text="Bone Density", x= stats_crew_x, y=stats_y_top - 3*stats_y_space, background=False)
-bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.2, roundness=.5)
+bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.2, roundness=stats_round)
 bone_density.tooltip = Tooltip('bone density')
 
 Text(text="Mood", x= stats_crew_x, y=stats_y_top - 4*stats_y_space, background=False)
-mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.2, roundness=.5)
+mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.2, roundness=stats_round)
 mood.tooltip = Tooltip('sanity')
 mood.value=15
 
 Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 5 *stats_y_space, background=False)
-radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.2, roundness=.5)
+radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.2, roundness=stats_round)
 radiation.tooltip = Tooltip('radiation')
 
 ####################################
