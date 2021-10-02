@@ -92,7 +92,12 @@ class Crew(Entity):
         else:
             self.tiredness += 0.1 * time.dt
 
-        self.bone_density -= 0.1 * time.dt
+        if self.room.name == "gym":
+            self.bone_density += 0.1 *time.dt
+        else:
+            self.bone_density -= 0.1 * time.dt
+
+
 
         health = self.calculate_health()
         if self.overall_health.value != health:
