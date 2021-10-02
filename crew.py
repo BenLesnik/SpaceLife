@@ -85,27 +85,38 @@ class Crew(Entity):
     def update(self):
 
         # crew radiation increases with the ship radiation
+        # this means that when there is a solar flare the radiation increases quickly
+        # unless they are in the safe room
         if self.room.name != "safe_room":
             self.radiation += 0.01 * self.ship.radiation * time.dt
         
+        # going to the med bay reduces radiation from radiation pills
         if self.room.name != "med_bay":
             self.radiation -= 0.01 * time.dt
 
+        # the crew get tired over time, unless they are in the sleeping quarters
+        # where they can reduce their fatigue
         if self.room.name == "sleeping":
             self.fatigue -= 0.1 * time.dt
         else:
             self.fatigue += 0.1 * time.dt
 
+        # the crew can increase their bone density by exercising in the gym
+        # but their fatigue will increase faster
         if self.room.name == "gym":
             self.bone_density += 0.1 *time.dt
             self.fatigue += 0.2 * time.dt
         else:
             self.bone_density -= 0.1 * time.dt
 
+        # crew can relieve stress by relaxing in the cafeteria
+        # but the ship food will decrease as they consume food
         if self.room.name == "cafeteria":
             self.stress -= 0.1 * time.dt
             self.ship.food -= 0.1 * time.daylight
 
+        # going in the greenshouse increases the ships food as the crew
+        # harvest the vegetables for food
         if self.room.name == "greenhouse":
             #self.mood += 0.1 * time.dt
             self.ship.food += 0.1 * time.dt
