@@ -47,10 +47,10 @@ engine.add_crew("engineer")
 store_room = ares.make_room("store_room")
 
 safe_room = ares.make_room("safe_room")
-safe_room.add_chair("chair1", x=1, y=0.6)
-safe_room.add_chair("chair2", x=-1, y=0.6)
-safe_room.add_chair("chair3", x=1, y=-0.6)
-safe_room.add_chair("chair4", x=-1, y=-0.6)
+safe_room.add_chair("chair1", x=1, y=0.5)
+safe_room.add_chair("chair2", x=-1, y=0.5)
+safe_room.add_chair("chair3", x=1, y=-0.3)
+safe_room.add_chair("chair4", x=-1, y=-0.3)
 
 centrifuge = ares.make_room("centrifuge", rotation=90, length=10)
 
@@ -65,10 +65,12 @@ greenhouse.add_crew("biologist", y=-0.5)
 cafeteria = ares.make_room("cafeteria")
 
 bridge_top = ares.make_room("bridge_top", y=1.7, parent=cafeteria)
-bridge_top.add_crew("captain",  y=0.5)
+bridge_top.add_chair("captain_chair")
+bridge_top.add_crew("captain")
 
 bridge_bottom = ares.make_room("bridge_bottom", y=-1.7, parent=cafeteria)
-bridge_bottom.add_crew("pilot",  y=0.5)
+bridge_bottom.add_chair("pilot_chair")
+bridge_bottom.add_crew("pilot")
 
 sleeping = ares.make_room("sleeping", y=6, parent=centrifuge)
 sleeping.add_bed("bed1", x=-1.5, y=0.5)

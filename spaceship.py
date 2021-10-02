@@ -34,7 +34,7 @@ class Room(Entity):
                     self.parent = self.ship.rooms[-1]
                     self.x = length
 
-        self.label = Text(name.replace("_", " ").upper(), scale=5, z=-0.1, color=color.white, origin = (0.0, 0.0), rotation_z=rotation, parent=self)
+        # self.label = Text(name.replace("_", " ").upper(), scale=5, z=-0.1, color=color.white, origin = (0.0, 0.0), rotation_z=rotation, parent=self)
         # self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
         self.mid = Entity(parent=self, model='quad', color=color.white, collider="box", x=0, scale_x=length, scale_y=2, rotation_z=rotation)
         # self.bottom = Entity(parent=self, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
@@ -54,10 +54,10 @@ class Room(Entity):
         return Equipment(name, texture="assets/bed", ship=self.ship, room=self, x=x, y=y, scale_x = 0.1, scale_y = 1.5)
     
     def add_chair(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/chair", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/chair", ship=self.ship, room=self, x=x, y=y, scale=0.2)
 
     def add_treadmill(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/treadmill", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/treadmill", ship=self.ship, room=self, x=x, y=y, scale=0.2)
     
     def add_medicalbed(self, name, x=0, y=0):
         return Equipment(name, texture="assets/medicalbed", ship=self.ship, room=self, x=x, y=y)
