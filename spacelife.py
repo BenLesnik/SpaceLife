@@ -92,27 +92,37 @@ ares.crew["biologist"].tiredness = 2
 
 ares.make_active("captain")
 
-# Ship statistics
-Text(text="ARES", x=-0.75, y=0.45)
+# Text setup
+Text.default_resolution = 768 * Text.size
 
-Text(text="Oxygen", x=-0.85, y=0.40)
-oxygen = HealthBar(x=-0.7, y=0.40)
+# Ship statistics
+
+left_x = -0.85
+bar_x_space = 0.15
+bar_y_space = 0.03
+top_y = 0.48
+
+
+Text(text="ARES", x = left_x, y=top_y)
+
+Text(text="Oxygen", x= left_x, y=top_y - bar_y_space, background=True)
+oxygen = HealthBar(x=left_x + bar_x_space, y=top_y - bar_y_space, scale_x = 0.2, roundness=.5)
 oxygen.tooltip = Tooltip('oxygen')
 
-Text(text="Fuel", x=-0.85, y=0.35)
-fuel = HealthBar(x=-0.7, y=0.35)
+Text(text="Fuel", x= left_x , y=top_y - 2*bar_y_space)
+fuel = HealthBar(x=left_x + bar_x_space, y=top_y - 2*bar_y_space, scale_x = 0.2, roundness=.5)
 fuel.tooltip = Tooltip('fuel')
 
-Text(text="Food", x=-0.85, y=0.30)
-food = HealthBar(x=-0.7, y=0.30)
+Text(text="Food", x= left_x , y=top_y - 3*bar_y_space)
+food = HealthBar(x=left_x + bar_x_space, y=top_y - 3*bar_y_space, scale_x = 0.2, roundness=.5)
 food.tooltip = Tooltip('food')
 
-Text(text="Damage", x=-0.85, y=0.25)
-damage = HealthBar(x=-0.7, y=0.25)
+Text(text="Damage",  x= left_x , y=top_y - 4*bar_y_space)
+damage = HealthBar(x=left_x + bar_x_space, y=top_y - 4*bar_y_space, scale_x = 0.2, roundness=.5)
 damage.tooltip = Tooltip('damage')
 
-Text(text="Radiation", x=-0.85, y=0.20)
-ship_radiation = HealthBar(x=-0.7, y=0.20)
+Text(text="Radiation",  x= left_x , y=top_y - 5*bar_y_space)
+ship_radiation = HealthBar(x=left_x + bar_x_space, y=top_y - 5*bar_y_space, scale_x = 0.2, roundness=.5)
 ship_radiation.tooltip = Tooltip('radiation')
 
 # Crew statistics
