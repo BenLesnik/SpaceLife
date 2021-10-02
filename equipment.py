@@ -2,10 +2,9 @@ from ursina import *
 
 class Equipment(Sprite):
 
-    def __init__(self, name, texture="", ship=None, room=None, post_walk=[], **kwargs):
+    def __init__(self, name, texture="", ship=None, room=None, post_walk=[], scale_x=0.6, scale_y=0.6, **kwargs):
         super().__init__(texture, collider="box", **kwargs)
         self.z = -1
-        #self.scale = 0.6
         self.name = name
         
         if ship:
