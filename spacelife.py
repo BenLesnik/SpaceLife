@@ -50,7 +50,7 @@ store_room = ares.make_room("store_room")
 
 safe_room = ares.make_room("safe_room")
 safe_room.add_chair("chair1", x=0.5, y=0.5)
-safe_room.add_chair("chair2", x=1.5, y=0.5)2q11
+safe_room.add_chair("chair2", x=1.5, y=0.5)
 safe_room.add_chair("chair3", x=-0.5, y=0.5)
 safe_room.add_chair("chair4", x=-1.5, y=0.5)
 safe_room.add_chair("chair5", x=0.5, y=-0.3)
