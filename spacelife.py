@@ -66,8 +66,8 @@ greenhouse.add_crew("biologist", y=-0.5)
 cafeteria = ares.make_room("cafeteria")
 
 bridge_top = ares.make_room("bridge_top", y=1.7, parent=cafeteria)
-bridge_top.add_chair("captain_chair")
-bridge_top.add_crew("captain")
+bridge_top.add_chair("commanders_chair")
+bridge_top.add_crew("commander")
 
 bridge_bottom = ares.make_room("bridge_bottom", y=-1.7, parent=cafeteria)
 bridge_bottom.add_chair("pilot_chair")
@@ -82,8 +82,8 @@ gym = ares.make_room("gym", y=-6, parent=centrifuge)
 gym.add_treadmill("treadmill1", x=0, y=0)
 
 # setup crew
-ares.crew["captain"].stress = 8
-ares.crew["captain"].fatigue = 4
+ares.crew["commander"].stress = 8
+ares.crew["commander"].fatigue = 4
 
 ares.crew["doctor"].stress = 6
 ares.crew["doctor"].fatigue = 8
@@ -94,7 +94,7 @@ ares.crew["engineer"].fatigue = 3
 ares.crew["biologist"].stress = 2
 ares.crew["biologist"].fatigue = 2
 
-ares.make_active("captain")
+ares.make_active("commander")
 
 # Text setup for statistics
 Text.default_resolution = 768 * Text.size
@@ -186,7 +186,7 @@ def input(key):
     if key == "escape":
         quit()
     if key == "1":
-        ares.make_active("captain")
+        ares.make_active("commander")
     elif key == "2":
         ares.make_active("doctor")
     elif key == "3":
