@@ -173,9 +173,7 @@ info_box_text = " This will be replaced by a method output based on whatever the
 textbox = Textbox(info_box_text)
 
 
-
-
-
+textbox.text = ("This is an ipdate")
 
 # siren warning text
 warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)
