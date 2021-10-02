@@ -339,7 +339,7 @@ def update():
 
     # stop camera moving beyond tiled texture background
     camera.x = clamp(camera.x, -30.0, 10.0)
-    camera.y = clamp(camera.y, -20.0, 20.0)
+    camera.y = clamp(camera.y, -11.0, 11.0)
 
     if timeline.value != int(ares.mission_duration):
         timeline.value = int(ares.mission_duration)
