@@ -135,7 +135,7 @@ timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.
 timeline.value=1
 
 # siren warning text
-warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, scale=2)
+warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)
 warning_text.blink(color.red, loop=True, duration=.5)
 warning_text.disable()
 
