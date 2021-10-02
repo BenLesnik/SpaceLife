@@ -98,7 +98,7 @@ Text.default_resolution = 768 * Text.size
 
 stats_ship_x = -0.85
 stats_crew_x = -0.45
-stats_x_space = 0.15
+stats_x_space = 0.17
 stats_y_space = 0.03
 stats_y_top = 0.44
 stats_round = 0
@@ -112,7 +112,7 @@ timeline.value=1
 #############################
 # Ship statistics
 
-Text(text="ARES", x = stats_ship_x, y=stats_y_top,background=False)
+Text(text="SHIP: ARES", x = stats_ship_x, y=stats_y_top,background=False)
 
 Text(text="Oxygen", x= stats_ship_x, y=stats_y_top - stats_y_space, background=False)
 oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=stats_round)
@@ -136,7 +136,7 @@ ship_radiation.tooltip = Tooltip('radiation')
 
 ######################
 # Crew statistics
-crew_label = Text(text="CAPTAIN", x = stats_crew_x, y=stats_y_top,background=False)
+crew_label = Text(text="CREW: ", x = stats_crew_x, y=stats_y_top,background=False)
 
 Text(text="Stress", x= stats_crew_x, y=stats_y_top - stats_y_space, background=False)
 stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=stats_round)
@@ -257,8 +257,8 @@ def update():
     updateHealthBarColor(ship_radiation, good_level = 12.0, bad_level = 30.0, high="bad")
 
     # update character detail health bars
-    if crew_label.text != ares.active.name.upper():
-        crew_label.text = ares.active.name.upper()
+    if crew_label.text != "CREW: "+ares.active.name.upper():
+        crew_label.text = "CREW: "+ares.active.name.upper()
 
     if stress.value != ares.active.stress:
         stress.value = ares.active.stress
