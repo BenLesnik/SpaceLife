@@ -123,8 +123,8 @@ class Crew(Entity):
             self.bone_density -= 0.1 * time.dt
 
         self.health = self.calculate_health()
-        if self.overall_health.value != self.health:
-            self.overall_health.value = self.health
+        if self.overall_health.value != int(self.health):
+            self.overall_health.value = int(self.health)
 
         updateHealthBarColor(self.overall_health, good_level = 80.0, bad_level = 20.0)
 
