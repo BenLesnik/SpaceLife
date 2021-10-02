@@ -144,6 +144,7 @@ Mars to put it into orbit.
 ship_food_info = """
 The crew need to bring all of the food with them
 except what they can grow in the greenhouse.
+
 Click on a plant in the greenhouse to start
 harvesting vegetables they have grown (food will increase).
 """
@@ -154,9 +155,10 @@ Earth's protective magnetosphere.
 """
 ship_radiation_info = """
 There are many sources of radiation in space, such as
-gamma rays and solar flare events. The ship has a warning 
-alarm to inform the crew of incoming dangerous solar flares,
-but it can only give them a few minutes warning.
+gamma rays and solar flare events.
+
+The ship has a warning alarm to inform the crew of incoming
+dangerous solar flares, but it can only give them a few minutes warning.
 """
 ship_mission_duration_info = """
 This shows the duration of the mission in weeks.
@@ -165,10 +167,18 @@ This shows the duration of the mission in weeks.
 # Crew Info
 
 crew_stress_info = """
-crew_stress_info
+ Space is a dangerous environment and travelling through it
+can be a stressful experience.
+
+To reduce stress make sure your crew regularly eat and relax
+in the cafeteria.
 """
 crew_fatigue_info = """
-crew_fatigue_info
+Earth and Mars are a long distance apart. Make sure that the crew
+is well rested during the long journey.
+
+Send a crew member to bed in the sleeping quarters to reduce their
+fatigue.
 """
 crew_bone_density_info = """"
 crew_bone_density_info
