@@ -62,6 +62,9 @@ class Room(Entity):
     def add_medicalbed(self, name, x=0, y=0):
         return Equipment(name, texture="assets/medicalbed", ship=self.ship, room=self, x=x, y=y)
 
+    def add_motor(self, name, x=0, y=0):
+        return Equipment(name, texture="assets/motor", ship=self.ship, room=self, x=x, y=y)
+
 class Spaceship(Entity):
 
     def __init__(self):
