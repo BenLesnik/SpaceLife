@@ -130,55 +130,64 @@ class Crew(Entity):
 
     def mv_y2ctr(self, equipment, s):
         distance_centre = self.world_position.y - self.ship.world_position.y
-        distance_along = equipment.position.x - self.position.x
-        distance_across = self.ship.world_position.y + equipment.world_position.y
         duration = abs(distance_centre) / self.speed
-
         if duration != 0.0:
             if distance_centre > 0:
                 s.append(Func(setattr, self.animator, "state", "down"))
             elif distance_centre < 0:
                 s.append(Func(setattr, self.animator, "state", "up"))
-
             s.append(Func(self.animate_y, self.position.y - distance_centre, duration=duration, curve=curve.linear))
             s.append(duration)   
 
     def mv_alongx(self, equipment, s):
         # note that animate_x moves to this position in local space - it is not a distance
-        distance_centre = self.world_position.y - self.ship.world_position.y
         distance_along = equipment.position.x - self.position.x
-        distance_across = self.ship.world_position.y + equipment.world_position.y
         duration = abs(distance_along) / self.speed
-        
         if duration != 0.0:
             if distance_along < 0:
                 s.append(Func(setattr, self.animator, "state", "left"))
             elif distance_along > 0:
                 s.append(Func(setattr, self.animator, "state", "right"))
-
             s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))
+            s.append(duration)
+
+    def mv_alongx_2_0f(self, s):       #along x from centrifuge
+        distance_along =  self.parent.position.x - self.position.x   #######TO FIX
+        duration = abs(distance_along) / self.speed
+        if duration != 0.0:
+            if distance_along < 0:
+                s.append(Func(setattr, self.animator, "state", "left"))
+            elif distance_along > 0:
+                s.append(Func(setattr, self.animator, "state", "right"))
+            s.append(Func(self.animate_x, self.parent.position.x, duration=duration, curve=curve.linear))  #TO FIX
+            s.append(duration)
+
+    def mv_alongx_2_0t(self, equipment, s):   #along x to centrifuge
+        distance_along = equipment.position.x - self.position.x        #######TO FIX
+        duration = abs(distance_along) / self.speed
+        if duration != 0.0:
+            if distance_along < 0:
+                s.append(Func(setattr, self.animator, "state", "left"))
+            elif distance_along > 0:
+                s.append(Func(setattr, self.animator, "state", "right"))
+            s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))     #TOFIX
             s.append(duration)
 
     def mv_ctr2y(self, equipment, s):
         # note that animate_y moves to this position in local space - it is not a distance
-        distance_centre = self.world_position.y - self.ship.world_position.y
-        distance_along = equipment.position.x - self.position.x
-        distance_across = self.ship.world_position.y + equipment.world_position.y
+        distance_across = equipment.world_position.y  - self.ship.world_position.y
         duration = abs(distance_across) / self.speed
-
         if duration != 0.0:
             if distance_across > 0:
                 s.append(Func(setattr, self.animator, "state", "up"))
             elif distance_across < 0:
                 s.append(Func(setattr, self.animator, "state", "down"))
-
             s.append(Func(self.animate_y, equipment.position.y, duration=duration, curve=curve.linear))
             s.append(duration)
 
-        s.append(Func(setattr, self.animator, "state", "right"))
-        s.append(Func(self.pause_all_animations))
 
-    
+
+ 
     def move_to(self, equipment, post_walk=[]):
 
         pos_old_room = self.position
@@ -190,22 +199,34 @@ class Crew(Entity):
             self.world_position = wp
 
         s = Sequence()
-        s.append(Func(self.start_all_animations))
 
-        # if in bridge, first move along x to centrifuge
+        print(self.position)
+   
+        # if in centirgufe, first move along x to centrifuge
+        if (self.room.name == "gym") or (self.room.name == "sleeping"):
+            if not (self.position.x == self.room.position.x):
+                self.mv_alongx_2_0f(s)
+    
+        #only if in different room
+        # # move in y from current position to centre line
+        if self.room != equipment.room:
+            self.mv_y2ctr(equipment, s)       #original step 1
+     
+        if (equipment.room.name == "gym") or (equipment.room.name == "sleeping"): 
+            #move along x to centrifuge
+            self.mv_alongx_2_0t(equipment, s)
+            # move to equipement
+            self.mv_ctr2y(equipment, s)
+            self.mv_alongx(equipment, s)
+        else:
+            # move along x to equipment
+            self.mv_alongx(equipment, s)     #original step 2
+            # move from center to equipment
+            self.mv_ctr2y(equipment, s)      #original step 3
 
-        # move in y from current position to centre line
-        self.mv_y2ctr(equipment, s)
-        
-        # if going to bridge, 
-        # ###  move along x to centriifuge
-        ######  mpve ctr2y
-        #######  move long x to final
-        #else
-        # move x direction along ship
-        self.mv_alongx(equipment, s)
-        # move in y to position
-        self.mv_ctr2y(equipment, s)
+        s.append(Func(setattr, self.animator, "state", "right"))
+        s.append(Func(self.pause_all_animations))
+
 
         for pw in post_walk:
             s.append(pw)
