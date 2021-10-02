@@ -121,14 +121,16 @@ class Crew(Entity):
         # move in y from current position to centre line
         distance_centre = self.world_position.y - self.ship.world_position.y
         distance_along = equipment.position.x - self.position.x
-        distance_across = equipment.position.y - (self.position.y + distance_centre)
+        distance_across = self.ship.world_position.y + equipment.world_position.y
+
+        print(distance_across)
 
         duration = abs(distance_centre) / self.speed
 
         if duration != 0.0:
-            if distance_centre < 0:
+            if distance_centre > 0:
                 s.append(Func(setattr, self.animator, "state", "down"))
-            elif distance_centre > 0:
+            elif distance_centre < 0:
                 s.append(Func(setattr, self.animator, "state", "up"))
 
             s.append(Func(self.animate_y, self.position.y - distance_centre, duration=duration, curve=curve.linear))
