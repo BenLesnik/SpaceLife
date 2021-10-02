@@ -10,7 +10,7 @@ parser.add_argument('-w', dest='warning_time', type=float, default=0.5, help='Se
 parser.add_argument('-v', dest='volume', type=float, default=1.0, help='Set the warning siren volume')
 
 parser.add_argument('-ft', dest='flare_start', type=float, default=2.5, help='Set the time the flare event occurs')
-parser.add_argument('-fd', dest='flare_duration', type=float, default=0.5, help='Set how long the flare event occurs')
+parser.add_argument('-fd', dest='flare_duration', type=float, default=0.8, help='Set how long the flare event occurs')
 parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
 
 parser.add_argument('-t', dest='time', type=float, default=1.0, help='Set the current mission duration time')
