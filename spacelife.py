@@ -167,7 +167,8 @@ There are many sources of radiation in space, such as
 gamma rays and solar flare events.
 
 The ship has a warning alarm to inform the crew of incoming
-dangerous solar flares, but it can only give them a few minutes warning.
+dangerous solar flares, but it can only give them a few 
+minutes warning.
 """
 ship_mission_duration_info = """
 This shows the duration of the mission in weeks.
@@ -183,19 +184,20 @@ To reduce stress make sure your crew regularly eat and relax
 in the cafeteria.
 """
 crew_fatigue_info = """
-Earth and Mars are a long distance apart. Make sure that the crew
-is well rested during the long journey.
+Earth and Mars are a long distance apart. Make sure that 
+the crew is well rested during the long journey.
 
-Send a crew member to bed in the sleeping quarters to reduce their
-fatigue.
+Send a crew member to bed in the sleeping quarters to reduce
+their fatigue.
 """
 crew_bone_density_info = """"
-The zero-G environment of deep space can cause bone and muscle wastage.
+The zero-G environment of deep space can cause bone
+and muscle wastage.
 
-To compensate make sure that your crew members exercise regularly in the
-gym.
+To compensate make sure that your crew members exercise
+regularly in the gym.
 
-But do not leave them too long or they will get fatiuged!
+But do not leave them too long or they will get fatigued!
 """
 crew_mood_info = """
 
@@ -203,6 +205,7 @@ crew_mood_info = """
 crew_radiation_info = """
 During a solar flare the crew needs to shelter in the
 Safe Room to avoid high radiation exposure.
+
 They can reduce their exposure by visiting the medical bay
 for anti-radiation drugs.
 """
@@ -267,7 +270,7 @@ crew_bone_density.on_click = Func(setattr, info_box, "text", crew_bone_density_i
 
 Text(text="Mood", x= stats_crew_x, y=stats_y_top - 4*stats_y_space, background=False)
 crew_mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-crew_mood.tooltip = Tooltip('sanity')
+crew_mood.tooltip = Tooltip('Mood')
 crew_mood.value=15
 crew_mood.on_click = Func(setattr, info_box, "text", crew_mood_info)
 
