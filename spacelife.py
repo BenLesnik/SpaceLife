@@ -65,10 +65,12 @@ greenhouse.add_crew("biologist", y=-0.5)
 cafeteria = ares.make_room("cafeteria")
 
 bridge_top = ares.make_room("bridge_top", y=1.7, parent=cafeteria)
-bridge_top.add_crew("captain",  y=0.5)
+bridge_top.add_chair("captain_chair")
+bridge_top.add_crew("captain")
 
 bridge_bottom = ares.make_room("bridge_bottom", y=-1.7, parent=cafeteria)
-bridge_bottom.add_crew("pilot",  y=0.5)
+bridge_bottom.add_chair("pilot_chair")
+bridge_bottom.add_crew("pilot")
 
 sleeping = ares.make_room("sleeping", y=6, parent=centrifuge)
 sleeping.add_bed("bed1", x=-1.5, y=0.5)
