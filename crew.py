@@ -91,8 +91,8 @@ class Crew(Entity):
             self.radiation += 0.01 * self.ship.radiation * time.dt
         
         # going to the med bay reduces radiation from radiation pills
-        if self.room.name != "med_bay":
-            self.radiation -= 0.05 * time.dt
+        if self.room.name == "med_bay":
+            self.radiation -= 0.2 * time.dt
 
         # the crew get tired over time, unless they are in the sleeping quarters
         # where they can reduce their fatigue
