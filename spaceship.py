@@ -9,7 +9,7 @@ from equipment import Equipment
 
 class Room(Entity):
 
-    def __init__(self, name, ship, length=5.0, y=0, rotation=0, parent=None):
+    def __init__(self, name, ship, length=4, y=0, rotation=0, parent=None):
 
         super().__init__(x=0, y=y)
 
