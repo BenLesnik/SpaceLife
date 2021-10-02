@@ -280,7 +280,10 @@ crew_radiation.tooltip = Tooltip('radiation')
 crew_radiation.on_click = Func(setattr, info_box, "text", crew_radiation_info)
 
 # siren warning text
-warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)
+warning_text = """WARNING: SOLAR FLARE
+ALL CREW TO SAFE ROOM"""
+
+warning_text = Text(text=warning_text, x=-.3, y=-.3, background=True, scale=2)
 warning_text.blink(color.red, loop=True, duration=.5)
 warning_text.disable()
 
