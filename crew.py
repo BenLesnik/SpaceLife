@@ -34,7 +34,7 @@ class Crew(Entity):
         self.bone_density = 100.0
         self.radiation = 0.0
 
-        self.overall_health = HealthBar(x=-0.2, y=0.27, scale_x=0.5, scale_y=0.1, parent=self)
+        self.overall_health = HealthBar(x=-1.3, y=2.1, scale_x=2.5, scale_y=0.5, parent=self)
         self.overall_health.show_text = False
 
         left_images = "assets/left"
