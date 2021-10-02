@@ -60,7 +60,6 @@ safe_room.add_chair("chair6", x=1.5, y=-0.3)
 safe_room.add_chair("chair7", x=-0.5, y=-0.3)
 safe_room.add_chair("chair8", x=-1.5, y=-0.3)
 
-
 centrifuge = ares.make_room("centrifuge", rotation=90, length=10)
 
 med_bay = ares.make_room("med_bay")
