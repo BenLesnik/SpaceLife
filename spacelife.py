@@ -170,10 +170,9 @@ radiation.tooltip = Tooltip('radiation')
 from textbox import Textbox
 info_box_text = " This will be replaced by a method output based on whatever the last tooptip infobutton was clicked"
 textbox = Textbox(info_box_text)
-Text(text=info_box_text, x= 0, y=0.25 , width = 0.5, scale = (2,0.5,2), background=True, wordwrap = 3)
 
 
-
+textbox.text = ("This is an ipdate")
 
 # siren warning text
 warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)

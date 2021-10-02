@@ -1,7 +1,7 @@
 from ursina import *
 
 
-def auto_line_break(str, length = 20):
+def auto_line_break(str, length = 60):
         rtr = ""
         for int, char in enumerate(str):
             if (int % length == 0):
@@ -11,8 +11,15 @@ def auto_line_break(str, length = 20):
 
 
 class Textbox(Entity):
+
+
     def __init__(self, text = "Lorem Lipsum", parent=None):
-        self = Text(text= auto_line_break(text,30), x= 0.05, y=0.48, width = 0.2)#, height = 0.3, wordwrap = 0.7)
+        self.text = text
+        self = Text(text= auto_line_break(text), x= 0.05, y=0.48, width = 0.2)#, height = 0.3, wordwrap = 0.7)
+    
+    def update(newtext):
+        self.text = newtext
+        self = Text(text= auto_line_break(newtext), x= 0.05, y=0.48, width = 0.2)#, height = 0.3, wordwrap = 0.7)
 
 
 
