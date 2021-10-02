@@ -47,6 +47,8 @@ engine.add_motor("motor", x=-1.5)
 engine.add_engine("nozzle", x=-4.5, y=-0.1)
 
 store_room = ares.make_room("store_room")
+store_room.add_box("box1", x=-1, y=-0.3)
+store_room.add_box("box2", x=-1.5, y=-0.3)
 
 safe_room = ares.make_room("safe_room")
 safe_room.add_chair("chair1", x=0.5, y=0.5)
