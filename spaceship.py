@@ -35,7 +35,7 @@ class Room(Entity):
                     self.parent = self.ship.rooms[-1]
                     self.x = length
 
-        self.label = Text(name.replace("_", " ").upper(), scale=20, z=-0.1, color=color.gray, origin = (0.0, 0.0), rotation_z=rotation, parent=self)
+        self.label = Text(name.replace("_", " ").upper(), scale=5, z=-0.1, color=color.white, origin = (0.0, 0.0), rotation_z=rotation, parent=self)
         # self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
         self.mid = Entity(parent=self, model='quad', color=color.white, collider="box", x=0, scale_x=length, scale_y=2, rotation_z=rotation)
         # self.bottom = Entity(parent=self, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
