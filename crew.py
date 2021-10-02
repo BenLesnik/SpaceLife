@@ -29,7 +29,7 @@ class Crew(Entity):
 
         # health bar states
         self.stress = 0.0
-        self.tiredness = 0.0
+        self.fatigue = 0.0
         self.bone_density = 100.0
         self.radiation = 0.0
 
@@ -80,7 +80,7 @@ class Crew(Entity):
         self.ship.make_active(self.name)
 
     def calculate_health(self):
-        return (self.bone_density + (100.0 - self.stress)  + (100.0 - self.tiredness)  + (100.0 - self.radiation)) * 0.25
+        return (self.bone_density + (100.0 - self.stress)  + (100.0 - self.fatigue)  + (100.0 - self.radiation)) * 0.25
 
     def update(self):
 
@@ -92,13 +92,13 @@ class Crew(Entity):
             self.radiation -= 0.01 * time.dt
 
         if self.room.name == "sleeping":
-            self.tiredness -= 0.1 * time.dt
+            self.fatigue -= 0.1 * time.dt
         else:
-            self.tiredness += 0.1 * time.dt
+            self.fatigue += 0.1 * time.dt
 
         if self.room.name == "gym":
             self.bone_density += 0.1 *time.dt
-            self.tiredness += 0.2 * time.dt
+            self.fatigue += 0.2 * time.dt
         else:
             self.bone_density -= 0.1 * time.dt
 
