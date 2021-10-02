@@ -84,16 +84,10 @@ class Crew(Entity):
         return (self.bone_density + (100.0 - self.stress)  + (100.0 - self.fatigue)  + (100.0 - self.radiation)) * 0.25
 
     def update(self):
-
-        # crew radiation increases with the ship radiation
-        # this means that when there is a solar flare the radiation increases quickly
-        # unless they are in the safe room
-        if self.room.name != "safe_room":
-            self.radiation += 0.01 * self.ship.radiation * time.dt
         
         # going to the med bay reduces radiation from radiation pills
-        elif self.room.name == "med_bay":
-            self.radiation -= 0.2 * time.dt
+        if self.room.name == "med_bay":
+            self.radiation -= 0.1 * time.dt
 
         # the crew get tired over time, unless they are in the sleeping quarters
         # where they can reduce their fatigue
@@ -118,9 +112,20 @@ class Crew(Entity):
             #self.mood += 0.1 * time.dt
             self.ship.food += 0.1 * time.dt
 
-        else:
+        # Fatigue increases unless crew is sleeping
+        if self.room.name != "sleeping":
             self.fatigue += 0.1 * time.dt
+
+        # bone density decreases unless we are exercising
+        if self.room.name != "gym":
             self.bone_density -= 0.1 * time.dt
+
+        # crew radiation increases with the ship radiation
+        # this means that when there is a solar flare the radiation increases quickly
+        # unless they are in the safe room (does not increase) 
+        # or getting treated in the med bay (radiation decreases)
+        if self.room.name != "safe_room":
+            self.radiation += 0.01 * self.ship.radiation * time.dt
 
         self.health = self.calculate_health()
         if self.overall_health.value != int(self.health):
@@ -199,8 +204,6 @@ class Crew(Entity):
             self.world_position = wp
 
         s = Sequence()
-
-        print(self.position)
    
         # if in centirgufe, first move along x to centrifuge
         if (self.room.name == "gym") or (self.room.name == "sleeping"):
