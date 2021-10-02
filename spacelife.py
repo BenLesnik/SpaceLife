@@ -44,6 +44,7 @@ ares.mission_duration = args.time
 engine = ares.make_room("engine")
 engine.add_crew("engineer")
 engine.add_motor("motor", x=-1.5)
+engine.add_engine("nozzle", x=-4.5, y=-0.1)
 
 store_room = ares.make_room("store_room")
 
