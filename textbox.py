@@ -15,11 +15,8 @@ class Textbox(Entity):
 
     def __init__(self, text = "Lorem Lipsum", parent=None):
         self.text = auto_line_break(text)
-        self.disp = Text(auto_line_break(self.text), x= 0.05, y=0.48, width = 0.2, background = True)#, height = 0.3, wordwrap = 0.7)
+        self.disp = Text(auto_line_break(self.text), x= 0.05, y=0.48, width = 0.2, background = True)
         
-    def disable(self):
-        print("there")
-        self.disp.disable()
 
     def update(self, text = "new text"):
         self.disp.disable()
