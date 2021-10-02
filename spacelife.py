@@ -108,7 +108,7 @@ stats_round = 0
 ####################################
 # Travel duration
 
-timeline = HealthBar(x=-0.85, y=0.48, scale_x=0.77, scale_y=.03, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
+timeline = HealthBar(x=-0.85, y=0.48, scale_x=0.72, scale_y=.025, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
 timeline.value=1
 
 
@@ -118,23 +118,23 @@ timeline.value=1
 Text(text="SHIP: ARES", x = stats_ship_x, y=stats_y_top,background=False)
 
 Text(text="Oxygen", x= stats_ship_x, y=stats_y_top - stats_y_space, background=False)
-oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=stats_round)
+oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
 oxygen.tooltip = Tooltip('oxygen')
 
 Text(text="Fuel", x= stats_ship_x , y=stats_y_top - 2*stats_y_space,background=False)
-fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=stats_round)
+fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
 fuel.tooltip = Tooltip('fuel')
 
 Text(text="Food", x= stats_ship_x , y=stats_y_top - 3*stats_y_space,background=False)
-food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.2, roundness=stats_round)
+food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
 food.tooltip = Tooltip('food')
 
 Text(text="Damage",  x= stats_ship_x , y=stats_y_top - 4*stats_y_space,background=False)
-damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.2, roundness=stats_round)
+damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
 damage.tooltip = Tooltip('damage')
 
 Text(text="Radiation",  x= stats_ship_x , y=stats_y_top - 5*stats_y_space,background=False)
-ship_radiation = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.2, roundness=stats_round)
+ship_radiation = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
 ship_radiation.tooltip = Tooltip('radiation')
 
 ######################
@@ -142,33 +142,35 @@ ship_radiation.tooltip = Tooltip('radiation')
 crew_label = Text(text="CREW: ", x = stats_crew_x, y=stats_y_top,background=False)
 
 Text(text="Stress", x= stats_crew_x, y=stats_y_top - stats_y_space, background=False)
-stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=stats_round)
+stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
 stress.tooltip = Tooltip('stress')
 
 Text(text="Fatigue",  x= stats_crew_x, y=stats_y_top - 2*stats_y_space, background=False)
-fatigue = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=stats_round)
+fatigue = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
 fatigue.tooltip = Tooltip('fatigue')
 
 Text(text="Bone Density", x= stats_crew_x, y=stats_y_top - 3*stats_y_space, background=False)
-bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.2, roundness=stats_round)
+bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
 bone_density.tooltip = Tooltip('bone density')
 
 Text(text="Mood", x= stats_crew_x, y=stats_y_top - 4*stats_y_space, background=False)
-mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.2, roundness=stats_round)
+mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
 mood.tooltip = Tooltip('sanity')
 mood.value=15
 
 Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 5 *stats_y_space, background=False)
-radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.2, roundness=stats_round)
+radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
 radiation.tooltip = Tooltip('radiation')
 
 
 
 ####################################
 # InfoBox
-info_box_text = " This will be replaced by a method output based on whatever the last tooptip infobutton was clicked"
 
-aaa = Text(text= info_box_text, x= 0.05, y=stats_y_top, background=True, width = 0.2)#, height = 0.3, wordwrap = 0.7)
+from textbox import Textbox
+info_box_text = " This will be replaced by a method output based on whatever the last tooptip infobutton was clicked"
+textbox = Textbox(info_box_text)
+
 
 
 
