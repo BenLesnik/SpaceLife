@@ -92,7 +92,7 @@ class Crew(Entity):
         
         # going to the med bay reduces radiation from radiation pills
         if self.room.name != "med_bay":
-            self.radiation -= 0.01 * time.dt
+            self.radiation -= 0.05 * time.dt
 
         # the crew get tired over time, unless they are in the sleeping quarters
         # where they can reduce their fatigue
@@ -104,8 +104,8 @@ class Crew(Entity):
         # the crew can increase their bone density by exercising in the gym
         # but their fatigue will increase faster
         if self.room.name == "gym":
-            self.bone_density += 0.1 *time.dt
-            self.fatigue += 0.2 * time.dt
+            self.bone_density += 0.4 *time.dt
+            self.fatigue += 0.4 * time.dt
         else:
             self.bone_density -= 0.1 * time.dt
 
