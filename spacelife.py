@@ -100,8 +100,13 @@ stats_ship_x = -0.85
 stats_crew_x = -0.45
 stats_x_space = 0.15
 stats_y_space = 0.03
-stats_y_top = 0.48
+stats_y_top = 0.44
 stats_round = 0
+
+####################################
+# Travel duration
+timeline = HealthBar(x=-0.48, y=0.48, scale_x=0.4, scale_y=.03, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
+timeline.value=1
 
 
 #############################
@@ -160,14 +165,11 @@ radiation.tooltip = Tooltip('radiation')
 # InfoBox
 info_box_text = " This will be replaced by a method output based on whatever the last tooptip infobutton was clicked"
 
-aaa = Text(text= info_box_text, x= 0.05, y=stats_y_top, background=True, width = 3, height = 0.3, wordwrap = 0.7)
+aaa = Text(text= info_box_text, x= 0.05, y=stats_y_top, background=True, width = 0.2)#, height = 0.3, wordwrap = 0.7)
 
 
 
-####################################
-# Travel duration
-timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
-timeline.value=1
+
 
 # siren warning text
 warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)
