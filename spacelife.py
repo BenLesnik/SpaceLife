@@ -80,16 +80,16 @@ gym.add_treadmill("treadmill1", x=0, y=0)
 
 # setup crew
 ares.crew["captain"].stress = 8
-ares.crew["captain"].tiredness = 4
+ares.crew["captain"].fatigue = 4
 
 ares.crew["doctor"].stress = 6
-ares.crew["doctor"].tiredness = 8
+ares.crew["doctor"].fatigue = 8
 
 ares.crew["engineer"].stress = 3
-ares.crew["engineer"].tiredness = 3 
+ares.crew["engineer"].fatigue = 3 
 
 ares.crew["biologist"].stress = 2
-ares.crew["biologist"].tiredness = 2
+ares.crew["biologist"].fatigue = 2
 
 ares.make_active("captain")
 
@@ -100,8 +100,13 @@ stats_ship_x = -0.85
 stats_crew_x = -0.45
 stats_x_space = 0.15
 stats_y_space = 0.03
-stats_y_top = 0.48
+stats_y_top = 0.44
 stats_round = 0
+
+####################################
+# Travel duration
+timeline = HealthBar(x=-0.48, y=0.48, scale_x=0.4, scale_y=.03, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
+timeline.value=1
 
 
 #############################
@@ -137,9 +142,9 @@ Text(text="Stress", x= stats_crew_x, y=stats_y_top - stats_y_space, background=F
 stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.2, roundness=stats_round)
 stress.tooltip = Tooltip('stress')
 
-Text(text="Tiredness",  x= stats_crew_x, y=stats_y_top - 2*stats_y_space, background=False)
-tiredness = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=stats_round)
-tiredness.tooltip = Tooltip('tiredness')
+Text(text="Fatigue",  x= stats_crew_x, y=stats_y_top - 2*stats_y_space, background=False)
+fatigue = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.2, roundness=stats_round)
+fatigue.tooltip = Tooltip('fatigue')
 
 Text(text="Bone Density", x= stats_crew_x, y=stats_y_top - 3*stats_y_space, background=False)
 bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.2, roundness=stats_round)
@@ -160,14 +165,11 @@ radiation.tooltip = Tooltip('radiation')
 # InfoBox
 info_box_text = " This will be replaced by a method output based on whatever the last tooptip infobutton was clicked"
 
-aaa = Text(text= info_box_text, x= 0.05, y=stats_y_top, background=True, width = 3, height = 0.3, wordwrap = 0.7)
+aaa = Text(text= info_box_text, x= 0.05, y=stats_y_top, background=True, width = 0.2)#, height = 0.3, wordwrap = 0.7)
 
 
 
-####################################
-# Travel duration
-timeline = HealthBar(x=-.5, y=-.4, scale_x=1, scale_y=.05, bar_color=color.lime.tint(-.25), roundness=.5, max_value=28)
-timeline.value=1
+
 
 # siren warning text
 warning_text = Text(text="WARNING: SOLAR FLARE", x=-.3, y=-.3, background=True, scale=2)
@@ -262,9 +264,9 @@ def update():
         stress.value = ares.active.stress
     updateHealthBarColor(stress, good_level = 10.0, bad_level = 40.0, high="bad")
     
-    if tiredness.value != int(ares.active.tiredness):
-        tiredness.value = int(ares.active.tiredness)
-    updateHealthBarColor(tiredness, good_level = 10.0, bad_level = 40.0, high="bad")
+    if fatigue.value != int(ares.active.fatigue):
+        fatigue.value = int(ares.active.fatigue)
+    updateHealthBarColor(fatigue, good_level = 10.0, bad_level = 40.0, high="bad")
 
     if bone_density.value != int(ares.active.bone_density):
         bone_density.value = int(ares.active.bone_density)
