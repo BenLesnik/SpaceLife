@@ -88,12 +88,12 @@ cafeteria.add_stool("stool4", x=-0.5, y=-0.2)
 cafeteria.add_crew("security")
 
 bridge_top = ares.make_room("bridge_top", x=26, y=1.7, parent= ares)
-bridge_top.add_chair("commanders_chair")
+bridge_top.add_bridge_chair("commanders_chair")
 bridge_top.add_crew("commander")
 bridge_top.add_crew("radio_operator", y=-0.5)
 
 bridge_bottom = ares.make_room("bridge_bottom", x=26, y=- 1.7, parent= ares)
-bridge_bottom.add_chair("pilot_chair")
+bridge_bottom.add_bridge_chair("pilot_chair")
 bridge_bottom.add_crew("pilot")
 
 sleeping = ares.make_room("sleeping", x = 13, y=7, parent= ares)
