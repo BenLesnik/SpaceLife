@@ -160,14 +160,18 @@ class Crew(Entity):
             s.append(duration)
 
     def mv_alongx_2_0f(self, s):       #along x from centrifuge
-        distance_along =  self.parent.position.x - self.position.x   #######TO FIX
+        distance_along =  self.parent.position.x - self.position.x 
+        print ("from centrifuge")
+        print(self.room.position.x)
+        print(self.position.x)
+        print (distance_along)  #######TO FIX
         duration = abs(distance_along) / self.speed
         if duration != 0.0:
             if distance_along < 0:
                 s.append(Func(setattr, self.animator, "state", "left"))
             elif distance_along > 0:
                 s.append(Func(setattr, self.animator, "state", "right"))
-            s.append(Func(self.animate_x, self.parent.position.x, duration=duration, curve=curve.linear))  #TO FIX
+            s.append(Func(self.animate_x, 0, duration=duration, curve=curve.linear))  #TO FIX
             s.append(duration)
 
     def mv_alongx_2_0t(self, equipment, s):   #along x to centrifuge
@@ -199,6 +203,10 @@ class Crew(Entity):
     def move_to(self, equipment, post_walk=[]):
 
         pos_old_room = self.position
+        print("##################")
+        print(pos_old_room)
+        print(self.room.name)
+        print(equipment.room.name)
 
         # change space to the same room as the equipment
         if self.parent != equipment.room:
@@ -246,6 +254,7 @@ if __name__ == "__main__":
 
     from ursina import *
     app = Ursina()
+
 
     camera.orthographic = True
     camera.fov = 10

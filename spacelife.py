@@ -32,7 +32,7 @@ from spaceship import Spaceship
 
 camera.orthographic = True
 camera.fov = 10
-camera.x = 25# start centered
+camera.x = 4# start centered
 
 # texture from https://www.flickr.com/photos/webtreatsetc/5436446554/in/photostream/
 texture_offset = 50.0
@@ -43,17 +43,17 @@ ares = Spaceship()
 ares.siren.volume = args.volume
 ares.mission_duration = args.time
 
-engine = ares.make_room("engine", parent= 'spaceship')
+engine = ares.make_room("engine", parent= ares)
 engine.add_crew("engineer")
 engine.add_motor("motor", x=-1.5)
 engine.add_engine("nozzle", x=-4.5, y=-0.1)
 
-store_room = ares.make_room("store_room", x = 5, parent= 'spaceship')
+store_room = ares.make_room("store_room", x = 5, parent= ares)
 store_room.add_box("box1", x=-1, y=-0.3)
 store_room.add_box("box2", x=-1.5, y=-0.3)
 store_room.add_crew("electrician")
 
-safe_room = ares.make_room("safe_room", x = 10, parent= 'spaceship')
+safe_room = ares.make_room("safe_room", x = 10, parent= ares)
 safe_room.add_chair("chair1", x=0.5, y=0.5)
 safe_room.add_chair("chair2", x=1.5, y=0.5)
 safe_room.add_chair("chair3", x=-0.5, y=0.5)
@@ -63,21 +63,22 @@ safe_room.add_chair("chair6", x=1.5, y=-0.3)
 safe_room.add_chair("chair7", x=-0.5, y=-0.3)
 safe_room.add_chair("chair8", x=-1.5, y=-0.3)
 
-centrifuge = ares.make_room("centrifuge", rotation=90, length=12, x = 13, parent= 'spaceship')
+centrifuge = ares.make_room("centrifuge", rotation=90, length=12, x = 13, parent= ares)
+centrifuge.add_nexus("nexus", x = 0, y = 0)
 
-med_bay = ares.make_room("med_bay", x = 16, parent= 'spaceship')
+med_bay = ares.make_room("med_bay", x = 16, parent= ares)
 med_bay.add_crew("doctor", y=0.5)
 med_bay.add_medicalbed("bed1", x=-1, y=0.5)
 med_bay.add_medicalbed("bed2", x=1, y=0.5)
 med_bay.add_medicalbed("bed3", x=-1, y=-0.3)
 med_bay.add_medicalbed("bed4", x=1, y=-0.3)
 
-greenhouse = ares.make_room("greenhouse", x = 21, parent= 'spaceship')
+greenhouse = ares.make_room("greenhouse", x = 21, parent= ares)
 greenhouse.add_crew("biologist", y=-0.5)
 greenhouse.add_plant("plant1", x=1, y=-0.3)
 greenhouse.add_plant("plant2", x=1.5, y=-0.3)
 
-cafeteria = ares.make_room("cafeteria", x = 26, parent= 'spaceship')
+cafeteria = ares.make_room("cafeteria", x = 26, parent= ares)
 cafeteria.add_sofa("sofa1", x=1.5)
 cafeteria.add_table("table1")
 cafeteria.add_stool("stool1", x=-0.5, y=0.2)
@@ -86,21 +87,21 @@ cafeteria.add_stool("stool3", x=0.5, y=0.2)
 cafeteria.add_stool("stool4", x=-0.5, y=-0.2)
 cafeteria.add_crew("security")
 
-bridge_top = ares.make_room("bridge_top", x=26, y=1.7, parent= 'spaceship')
+bridge_top = ares.make_room("bridge_top", x=26, y=1.7, parent= ares)
 bridge_top.add_chair("commanders_chair")
 bridge_top.add_crew("commander")
 bridge_top.add_crew("radio_operator", y=-0.5)
 
-bridge_bottom = ares.make_room("bridge_bottom", x=26, y=- 1.7, parent= 'spaceship')
+bridge_bottom = ares.make_room("bridge_bottom", x=26, y=- 1.7, parent= ares)
 bridge_bottom.add_chair("pilot_chair")
 bridge_bottom.add_crew("pilot")
 
-sleeping = ares.make_room("sleeping", x = 13, y=7, parent= 'spaceship')
+sleeping = ares.make_room("sleeping", x = 13, y=7, parent= ares)
 sleeping.add_bed("bed1", x=-1.5, y=0.5)
 sleeping.add_bed("bed2", x=0, y=0.5)
 sleeping.add_bed("bed3", x=1.5, y=0.5)
 
-gym = ares.make_room("gym", y=-7, x = 13, parent= 'spaceship')
+gym = ares.make_room("gym", y=-7, x = 13, parent= ares)
 gym.add_treadmill("treadmill1", x=1, y=0)
 gym.add_treadmill("treadmill2", x=0, y=0)
 gym.add_treadmill("treadmill3", x=-1, y=0)
@@ -294,7 +295,7 @@ def update():
 
     # stop camera moving beyond tiled te
     # xture background
-    camera.x = clamp(camera.x, -10.0, 27.0)
+    camera.x = clamp(camera.x, -30, 15)
     camera.y = clamp(camera.y, -11.0, 11.0)
 
     if timeline.value != int(ares.mission_duration):
