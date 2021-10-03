@@ -164,6 +164,7 @@ Text(text="SHIP: ARES", x = stats_ship_x, y=stats_y_top,background=False)
 
 Text(text="Oxygen", x= stats_ship_x, y=stats_y_top - stats_y_space, background=False)
 ship_oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
+ship_oxygen.bar.color = color.lime.tint(-.25)
 ship_oxygen.on_mouse_enter = Func(setattr, info_box, "text", ship_oxygen_info)
 ship_oxygen.on_mouse_exit = Func(setattr, info_box, "text", "")
 
@@ -174,6 +175,7 @@ ship_fuel.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Food", x= stats_ship_x , y=stats_y_top - 3*stats_y_space,background=False)
 ship_food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
+ship_food.bar.color = color.lime.tint(-.25)
 ship_food.on_mouse_enter = Func(setattr, info_box, "text", ship_food_info)
 ship_food.on_mouse_exit = Func(setattr, info_box, "text", "")
 
