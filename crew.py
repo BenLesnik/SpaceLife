@@ -171,7 +171,7 @@ class Crew(Entity):
                 s.append(Func(setattr, self.animator, "state", "left"))
             elif distance_along > 0:
                 s.append(Func(setattr, self.animator, "state", "right"))
-            s.append(Func(self.animate_x, self.ship.equipment["nexus"].position.x - equipment.position.x, duration=duration, curve=curve.linear))
+            s.append(Func(self.animate_x, self.ship.equipment["nexus"].position.x, duration=duration, curve=curve.linear))
             s.append(duration)
             self.position.x = self.ship.equipment["nexus"].position.x  #######################################
 
