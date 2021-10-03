@@ -75,7 +75,7 @@ class Room(Entity):
         return Equipment(name, texture="assets/treadmill", ship=self.ship, room=self, x=x, y=y, scale=0.2)
     
     def add_medicalbed(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/medicalbed", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/medicalbed", ship=self.ship, room=self, x=x, y=y, scale_x=0.3, scale_y=0.3)
 
     def add_box(self, name, x=0, y=0):
         return Equipment(name, texture="assets/box", ship=self.ship, room=self, x=x, y=y)
