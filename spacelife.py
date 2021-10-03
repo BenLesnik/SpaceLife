@@ -2,6 +2,7 @@ import argparse
 from ursina import *
 from ursina.prefabs.health_bar import HealthBar
 
+from infoBox import *   #vclean up to make logic followup more easy
 from util import updateHealthBarColor
 
 parser = argparse.ArgumentParser(description='Spacelife - a NASA SpaceApps Challenge 2021')
@@ -135,8 +136,6 @@ ares.make_active("commander")
 ####################################
 # InfoBox
 
-from infoBox import*   #vclean up to make logic followup more easy
-
 info_box = Text(intro, x= 0.05, y=0.48)#, background=True)
 
 
@@ -207,16 +206,15 @@ crew_bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 
 crew_bone_density.on_mouse_enter = Func(setattr, info_box, "text", crew_bone_density_info)
 crew_bone_density.on_mouse_exit = Func(setattr, info_box, "text", "")
 
-Text(text="Mood", x= stats_crew_x, y=stats_y_top - 4*stats_y_space, background=False)
-crew_mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-crew_mood.value=15
-crew_mood.on_mouse_enter = Func(setattr, info_box, "text", crew_mood_info)
-crew_mood.on_mouse_exit = Func(setattr, info_box, "text", "")
-
-Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 5 *stats_y_space, background=False)
-crew_radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
+Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 4 *stats_y_space, background=False)
+crew_radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
 crew_radiation.on_mouse_enter = Func(setattr, info_box, "text", crew_radiation_info)
 crew_radiation.on_mouse_exit = Func(setattr, info_box, "text", "")
+
+Text(text="Overview", x= stats_crew_x, y=stats_y_top - 5*stats_y_space, background=False)
+crew_overview = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
+crew_overview.on_mouse_enter = Func(setattr, info_box, "text", crew_overview_info)
+crew_overview.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 # siren warning text
 warning_text = """WARNING: SOLAR FLARE
@@ -347,6 +345,11 @@ def update():
     if crew_radiation.value != crew_radiation_int:
         crew_radiation.value = crew_radiation_int
         updateHealthBarColor(crew_radiation, good_level = 10.0, bad_level = 40.0, high="bad")
+
+    crew_overview_int = int(ares.active.health)
+    if crew_overview.value != crew_overview_int:
+        crew_overview.value = crew_overview_int
+        updateHealthBarColor(crew_overview, good_level = 80.0, bad_level = 40.0)
 
 app.run()   
 

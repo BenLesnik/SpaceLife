@@ -17,7 +17,6 @@ class Crew(Entity):
         self.active = active
         self.ship = ship
         self.room = room
-        self.health = 100.0
 
         self.collider = BoxCollider(self, center=Vec3(0,0,0), size=Vec3(2,3,1))
 
@@ -36,6 +35,7 @@ class Crew(Entity):
         self.fatigue = 0.0
         self.bone_density = 100.0
         self.radiation = 0.0
+        self.health = 100.0
 
         self.overall_health = HealthBar(x=-1.3, y=2.1, scale_x=2.5, scale_y=0.5, parent=self)
         self.overall_health.show_text = False

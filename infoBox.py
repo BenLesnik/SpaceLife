@@ -68,13 +68,14 @@ regularly in the gym.
 
 But do not leave them too long or they will get fatigued!
 """
-crew_mood_info = """
-
-"""
 crew_radiation_info = """
 During a solar flare the crew needs to shelter in the
 Safe Room to avoid high radiation exposure.
 
 They can reduce their exposure by visiting the medical bay
 for anti-radiation drugs.
+"""
+crew_overview_info = """
+This shows a combined overview of the general health of
+the crew member.
 """
