@@ -4,19 +4,22 @@ from ursina import *
 from ursina.prefabs.animation import Animation
 from ursina.prefabs.animator import Animator
 from ursina.prefabs.health_bar import HealthBar
+from ursina.collider import BoxCollider
 
 from util import updateHealthBarColor
 
 class Crew(Entity):
 
     def __init__(self, name, ship=None, room=None, active=True, x=0, y=0):
-        super().__init__(x=x, y=y, always_on_top=True, collider="box")
+        super().__init__(x=x, y=y, always_on_top=True)
         self.z = -2
         self.name = name
         self.active = active
         self.ship = ship
         self.room = room
         self.health = 100.0
+
+        self.collider = BoxCollider(self, center=Vec3(0,0,0), size=Vec3(2,3,1))
 
         # add to ship
         if self.ship:
