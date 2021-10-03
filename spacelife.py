@@ -150,31 +150,26 @@ Text(text="SHIP: ARES", x = stats_ship_x, y=stats_y_top,background=False)
 
 Text(text="Oxygen", x= stats_ship_x, y=stats_y_top - stats_y_space, background=False)
 ship_oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
-#ship_oxygen.tooltip = Tooltip('oxygen')
 ship_oxygen.on_mouse_enter = Func(setattr, info_box, "text", ship_oxygen_info)
 ship_oxygen.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Fuel", x= stats_ship_x , y=stats_y_top - 2*stats_y_space,background=False)
 ship_fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#ship_fuel.tooltip = Tooltip('fuel')
 ship_fuel.on_mouse_enter = Func(setattr, info_box, "text", ship_fuel_info)
 ship_fuel.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Food", x= stats_ship_x , y=stats_y_top - 3*stats_y_space,background=False)
 ship_food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#ship_food.tooltip = Tooltip('food')
 ship_food.on_mouse_enter = Func(setattr, info_box, "text", ship_food_info)
 ship_food.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Damage",  x= stats_ship_x , y=stats_y_top - 4*stats_y_space,background=False)
 ship_damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#ship_damage.tooltip = Tooltip('damage')
 ship_damage.on_mouse_enter = Func(setattr, info_box, "text", ship_damage_info)
 ship_damage.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Radiation",  x= stats_ship_x , y=stats_y_top - 5*stats_y_space,background=False)
 ship_radiation = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#ship_radiation.tooltip = Tooltip('radiation')
 ship_radiation.on_mouse_enter = Func(setattr, info_box, "text", ship_radiation_info)
 ship_radiation.on_mouse_exit = Func(setattr, info_box, "text", "")
 
@@ -184,32 +179,27 @@ crew_label = Text(text="CREW: ", x = stats_crew_x, y=stats_y_top,background=Fals
 
 Text(text="Stress", x= stats_crew_x, y=stats_y_top - stats_y_space, background=False)
 crew_stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
-#crew_stress.tooltip = Tooltip('stress')
 crew_stress.on_mouse_enter = Func(setattr, info_box, "text", crew_stress_info)
 crew_stress.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Fatigue",  x= stats_crew_x, y=stats_y_top - 2*stats_y_space, background=False)
 crew_fatigue = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#crew_fatigue.tooltip = Tooltip('fatigue')
 crew_fatigue.on_mouse_enter = Func(setattr, info_box, "text", crew_fatigue_info)
 crew_fatigue.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Bone Density", x= stats_crew_x, y=stats_y_top - 3*stats_y_space, background=False)
 crew_bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#crew_bone_density.tooltip = Tooltip('bone density')
 crew_bone_density.on_mouse_enter = Func(setattr, info_box, "text", crew_bone_density_info)
 crew_bone_density.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Mood", x= stats_crew_x, y=stats_y_top - 4*stats_y_space, background=False)
 crew_mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#crew_mood.tooltip = Tooltip('Mood')
 crew_mood.value=15
 crew_mood.on_mouse_enter = Func(setattr, info_box, "text", crew_mood_info)
 crew_mood.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 5 *stats_y_space, background=False)
 crew_radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
-#crew_radiation.tooltip = Tooltip('radiation')
 crew_radiation.on_mouse_enter = Func(setattr, info_box, "text", crew_radiation_info)
 crew_radiation.on_mouse_exit = Func(setattr, info_box, "text", "")
 
