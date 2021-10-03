@@ -151,6 +151,7 @@ class Crew(Entity):
         # note that animate_x moves to this position in local space - it is not a distance
         distance_along = equipment.position.x - self.position.x
         duration = abs(distance_along) / self.speed
+    
         if duration != 0.0:
             if distance_along < 0:
                 s.append(Func(setattr, self.animator, "state", "left"))
@@ -158,32 +159,42 @@ class Crew(Entity):
                 s.append(Func(setattr, self.animator, "state", "right"))
             s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))
             s.append(duration)
+            self.position.x =  equipment.position.x  #######################################
 
-    def mv_alongx_2_0f(self, s):       #along x from centrifuge
-        distance_along =  self.parent.position.x - self.position.x 
-        print ("from centrifuge")
-        print(self.room.position.x)
+    def mv_alongx_nexus_from(self, equipment, s):
+        distance_along = self.ship.equipment["nexus"].get_position(relative_to=self.room).x - self.get_position(relative_to=self.room).x 
+        duration = abs(distance_along) / self.speed
+        print("####  nexus from   #########")
+        print("distance" + str(distance_along))  #######TO FIX
+        if duration != 0.0:
+            if distance_along < 0:
+                s.append(Func(setattr, self.animator, "state", "left"))
+            elif distance_along > 0:
+                s.append(Func(setattr, self.animator, "state", "right"))
+            s.append(Func(self.animate_x, self.ship.equipment["nexus"].position.x - equipment.position.x, duration=duration, curve=curve.linear))
+            s.append(duration)
+            self.position.x = self.ship.equipment["nexus"].position.x  #######################################
+
+    def mv_alongx_nexus_to(self , s):
+        distance_along = self.ship.equipment["nexus"].position.x - self.position.x 
+        duration = abs(distance_along) / self.speed
+        print("####  nexus to   #########")
+        print("from" + self.room.name)
+        print(self.get_position(relative_to=self.room).x)
         print(self.position.x)
-        print (distance_along)  #######TO FIX
-        duration = abs(distance_along) / self.speed
+        print("to")
+        print(self.ship.equipment["nexus"].get_position(relative_to=self.room).x)
+        print(self.ship.equipment["nexus"].position.x)
+        print("distance" + str(distance_along))  #######TO FIX
         if duration != 0.0:
             if distance_along < 0:
                 s.append(Func(setattr, self.animator, "state", "left"))
             elif distance_along > 0:
                 s.append(Func(setattr, self.animator, "state", "right"))
-            s.append(Func(self.animate_x, 0, duration=duration, curve=curve.linear))  #TO FIX
+            s.append(Func(self.animate_x, self.ship.equipment["nexus"].position.x , duration=duration, curve=curve.linear))
             s.append(duration)
-
-    def mv_alongx_2_0t(self, equipment, s):   #along x to centrifuge
-        distance_along = equipment.position.x - self.position.x        #######TO FIX
-        duration = abs(distance_along) / self.speed
-        if duration != 0.0:
-            if distance_along < 0:
-                s.append(Func(setattr, self.animator, "state", "left"))
-            elif distance_along > 0:
-                s.append(Func(setattr, self.animator, "state", "right"))
-            s.append(Func(self.animate_x, equipment.position.x, duration=duration, curve=curve.linear))     #TOFIX
-            s.append(duration)
+            self.position.x = self.ship.equipment["nexus"].position.x  #######################################
+    
 
     def mv_ctr2y(self, equipment, s):
         # note that animate_y moves to this position in local space - it is not a distance
@@ -203,10 +214,10 @@ class Crew(Entity):
     def move_to(self, equipment, post_walk=[]):
 
         pos_old_room = self.position
-        print("##################")
+        print("### main #########")
         print(pos_old_room)
-        print(self.room.name)
-        print(equipment.room.name)
+        print("from" + self.room.name)
+        print("to" + equipment.room.name)
 
         # change space to the same room as the equipment
         if self.parent != equipment.room:
@@ -216,10 +227,11 @@ class Crew(Entity):
 
         s = Sequence()
    
-        # if in centirgufe, first move along x to centrifuge
+        # if in centirgufe (and out to somehwre else), first move along x to centrifuge
         if (self.room.name == "gym") or (self.room.name == "sleeping"):
-            if not (self.position.x == self.room.position.x):
-                self.mv_alongx_2_0f(s)
+            if (equipment.room.name != self.room.name):
+                print("CENTRIFUGE")
+                self.mv_alongx_nexus_from(equipment, s)
     
         #only if in different room
         # # move in y from current position to centre line
@@ -227,10 +239,11 @@ class Crew(Entity):
             self.mv_y2ctr(equipment, s)       #original step 1
      
         if (equipment.room.name == "gym") or (equipment.room.name == "sleeping"): 
-            #move along x to centrifuge
-            self.mv_alongx_2_0t(equipment, s)
-            # move to equipement
-            self.mv_ctr2y(equipment, s)
+            if (equipment.room.name != self.room.name):
+                #move along x to centrifuge
+                self.mv_alongx_nexus_to(s)
+                # move to equipement
+                self.mv_ctr2y(equipment, s)
             self.mv_alongx(equipment, s)
         else:
             # move along x to equipment
