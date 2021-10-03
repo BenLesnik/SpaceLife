@@ -59,7 +59,7 @@ the crew is well rested during the long journey.
 Send a crew member to bed in the sleeping quarters to reduce
 their fatigue.
 """
-crew_bone_density_info = """"
+crew_bone_density_info = """
 The zero-G environment of deep space can cause bone
 and muscle wastage.
 
