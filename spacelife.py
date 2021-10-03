@@ -82,10 +82,12 @@ cafeteria.add_stool("stool1", x=-0.5, y=0.2)
 cafeteria.add_stool("stool2", x=0.5, y=-0.2)
 cafeteria.add_stool("stool3", x=0.5, y=0.2)
 cafeteria.add_stool("stool4", x=-0.5, y=-0.2)
+cafeteria.add_crew("security")
 
 bridge_top = ares.make_room("bridge_top", y=1.7, parent=cafeteria)
 bridge_top.add_chair("commanders_chair")
 bridge_top.add_crew("commander")
+bridge_top.add_crew("comms", y=-0.5)
 
 bridge_bottom = ares.make_room("bridge_bottom", y=-1.7, parent=cafeteria)
 bridge_bottom.add_chair("pilot_chair")
@@ -113,6 +115,18 @@ ares.crew["engineer"].fatigue = 3
 
 ares.crew["biologist"].stress = 2
 ares.crew["biologist"].fatigue = 2
+
+ares.crew["engineer"].stress = 2
+ares.crew["engineer"].fatigue = 2
+
+ares.crew["electrician"].stress = 2
+ares.crew["electrician"].fatigue = 2
+
+ares.crew["security"].stress = 2
+ares.crew["security"].fatigue = 2
+
+ares.crew["comms"].stress = 2
+ares.crew["comms"].fatigue = 2
 
 ares.make_active("commander")
 
