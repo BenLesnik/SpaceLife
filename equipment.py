@@ -3,7 +3,7 @@ from ursina import *
 class Equipment(Sprite):
 
     def __init__(self, name, texture="", ship=None, room=None, post_walk=[], scale_x=0.6, scale_y=0.6, **kwargs):
-        super().__init__(texture, collider="box", **kwargs)
+        super().__init__(texture, scale_x=scale_x, scale_y=scale_y, collider="box", **kwargs)
         self.z = -1
         self.name = name
         
