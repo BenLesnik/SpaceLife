@@ -8,6 +8,10 @@ from ursina.collider import BoxCollider
 
 from util import updateHealthBarColor
 
+def inspect_seq(seq):
+    for s in seq:
+        print(s)
+
 class Crew(Entity):
 
     def __init__(self, name, ship=None, room=None, active=True, x=0, y=0):
@@ -170,28 +174,33 @@ class Crew(Entity):
     def mv_alongx_nexus_from(self, equipment, s):
         distance_along = self.ship.equipment["nexus"].get_position(relative_to=self.room).x - self.get_position(relative_to=self.room).x 
         duration = abs(distance_along) / self.speed
-        print("####  nexus from   #########")
-        print("distance" + str(distance_along))  #######TO FIX
+        #print("####  nexus from   #########")
+        #print("from" + self.room.name)
+        #print("relative_to=self.room).x" + str(self.get_position(relative_to=self.room).x))
+        #print("self.position.x" + str(self.position.x))
+        #print("to")
+        #print("relative_to=self.room).x)" + str(self.ship.equipment["nexus"].get_position(relative_to=self.room).x))
+        #print("self.ship.equipment[\"nexus\"].position.x" + str(self.ship.equipment["nexus"].position.x))
+        #print("distance" + str(distance_along))  #######TO FIX
         if duration != 0.0:
             if distance_along < 0:
                 s.append(Func(setattr, self.animator, "state", "left"))
             elif distance_along > 0:
                 s.append(Func(setattr, self.animator, "state", "right"))
-            s.append(Func(self.animate_x, self.ship.equipment["nexus"].position.x, duration=duration, curve=curve.linear))
-            s.append(duration)
+            s.append(Func(self.animate_x, self.ship.equipment["nexus"].get_position(relative_to=self.room).x, duration=duration, curve=curve.linear))
             self.position.x = self.ship.equipment["nexus"].position.x  #######################################
 
     def mv_alongx_nexus_to(self , s):
         distance_along = self.ship.equipment["nexus"].position.x - self.position.x 
         duration = abs(distance_along) / self.speed
-        print("####  nexus to   #########")
-        print("from" + self.room.name)
-        print(self.get_position(relative_to=self.room).x)
-        print(self.position.x)
-        print("to")
-        print(self.ship.equipment["nexus"].get_position(relative_to=self.room).x)
-        print(self.ship.equipment["nexus"].position.x)
-        print("distance" + str(distance_along))  #######TO FIX
+        #print("####  nexus to   #########")
+        #print("from" + self.room.name)
+        #print(self.get_position(relative_to=self.room).x)
+        #print(self.position.x)
+        #print("to")
+        #print(self.ship.equipment["nexus"].get_position(relative_to=self.room).x)
+        #print(self.ship.equipment["nexus"].position.x)
+        #print("distance" + str(distance_along))  #######TO FIX
         if duration != 0.0:
             if distance_along < 0:
                 s.append(Func(setattr, self.animator, "state", "left"))
@@ -214,16 +223,26 @@ class Crew(Entity):
             s.append(Func(self.animate_y, equipment.position.y, duration=duration, curve=curve.linear))
             s.append(duration)
 
+    def move_to_nexus(self,s ):
+        distance_along = self.ship.equipment["nexus"].get_position(relative_to=self.room).x - self.get_position(relative_to=self.room).x 
+        duration = abs(distance_along) / self.speed
+        # print(distance_along)
+        # print("now there:")
+        if distance_along < 0:
+            s.append(Func(setattr, self.animator, "state", "left"))
+        elif distance_along > 0:
+            s.append(Func(setattr, self.animator, "state", "right"))
+        s.append(Func(self.animate_x, self.ship.equipment["nexus"].get_position(relative_to=self.room).x, duration=duration, curve=curve.linear))
+        #self.position.x = self.ship.equipment["nexus"].position.x  #######################################
+        s.append(duration)
 
-
- 
     def move_to(self, equipment, post_walk=[]):
 
         pos_old_room = self.position
-        print("### main #########")
-        print(pos_old_room)
-        print("from" + self.room.name)
-        print("to" + equipment.room.name)
+        #print("### main #########")
+        #print(pos_old_room)
+        #print("from " + self.room.name)
+        #print("to   " + equipment.room.name)
 
         # change space to the same room as the equipment
         if self.parent != equipment.room:
@@ -232,17 +251,21 @@ class Crew(Entity):
             self.world_position = wp
 
         s = Sequence()
+
+        #print ("AAA" + self.room.name)
    
-        # if in centirgufe (and out to somehwre else), first move along x to centrifuge
+        # if in centirgufe  first move along x to centrifuge
+        # but only if going in a different room (i.e. if stating in the Gym or the Quarters then don't )
         if (self.room.name == "gym") or (self.room.name == "sleeping"):
             if (equipment.room.name != self.room.name):
-                print("CENTRIFUGE")
-                self.mv_alongx_nexus_from(equipment, s)
+                #print("OUt of CENTRIFUGE rooms ")
+                self.move_to_nexus(s)
+                
     
         #only if in different room
         # # move in y from current position to centre line
         if self.room != equipment.room:
-            self.mv_y2ctr(equipment, s)       #original step 1
+            self.mv_y2ctr(equipment, s)       #original SIMON step 1
      
         if (equipment.room.name == "gym") or (equipment.room.name == "sleeping"): 
             if (equipment.room.name != self.room.name):
@@ -253,20 +276,26 @@ class Crew(Entity):
             self.mv_alongx(equipment, s)
         else:
             # move along x to equipment
-            self.mv_alongx(equipment, s)     #original step 2
+            self.mv_alongx(equipment, s)     #original SIMON step 2
             # move from center to equipment
-            self.mv_ctr2y(equipment, s)      #original step 3
+            self.mv_ctr2y(equipment, s)      #original SIMON step 3
 
         s.append(Func(setattr, self.animator, "state", "right"))
         s.append(Func(self.pause_all_animations))
 
 
-        for pw in post_walk:
-            s.append(pw)
+        #for pw in post_walk:
+        #     s.append(pw)
 
         # set new room
-        s.append(Func(setattr, self, "room", equipment.room))
+        # s.append(Func(setattr, self, "room", equipment.room))
 
+        #for arga in s.args:
+        #    print (arga)
+        
+        self.room = equipment.room      #updating the vcharacter room
+
+        #print ("BBB" + self.room.name)
         s.start()
 
 if __name__ == "__main__":
