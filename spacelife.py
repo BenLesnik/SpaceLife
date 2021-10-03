@@ -225,6 +225,12 @@ def input(key):
         ares.make_active("engineer")
     elif key == "4":
         ares.make_active("biologist")
+    elif key == "+":
+        camera.fov -= 1
+    elif key == "-":
+        camera.fov += 1
+    elif key == "*":
+        camera.fov = 10
 
 def update():
     global ares
