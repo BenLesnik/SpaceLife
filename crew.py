@@ -10,7 +10,7 @@ from util import updateHealthBarColor
 class Crew(Entity):
 
     def __init__(self, name, ship=None, room=None, active=True, x=0, y=0):
-        super().__init__(x=x, y=y, always_on_top=True, collider="mesh")
+        super().__init__(x=x, y=y, always_on_top=True, collider="box")
         self.z = -2
         self.name = name
         self.active = active
