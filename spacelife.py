@@ -51,6 +51,7 @@ engine.add_engine("nozzle", x=-4.5, y=-0.1)
 store_room = ares.make_room("store_room", x = 5, parent= ares)
 store_room.add_box("box1", x=-1, y=-0.3)
 store_room.add_box("box2", x=-1.5, y=-0.3)
+store_room.add_computer("computer", x=0, y=0.6)
 store_room.add_crew("electrician")
 
 safe_room = ares.make_room("safe_room", x = 10, parent= ares)
@@ -89,6 +90,7 @@ cafeteria.add_crew("security")
 
 bridge_top = ares.make_room("bridge_top", x=26, y=1.7, parent= ares)
 bridge_top.add_bridge_chair("commanders_chair")
+bridge_top.add_computer("computer", x=-1.5, y=0.6)
 bridge_top.add_crew("commander")
 bridge_top.add_crew("radio_operator", y=-0.5)
 

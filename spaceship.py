@@ -89,6 +89,9 @@ class Room(Entity):
     def add_bridge_chair(self, name, x=0, y=0):
         return Equipment(name, texture="assets/bridge_chair", ship=self.ship, room=self, x=x, y=y, scale_x = 0.2, scale_y = 0.2)
 
+    def add_computer(self, name, x=0, y=0):
+        return Equipment(name, texture="assets/computer", ship=self.ship, room=self, x=x, y=y, scale_x = 0.18, scale_y = 0.18)
+
 class Spaceship(Entity):
 
     def __init__(self):
