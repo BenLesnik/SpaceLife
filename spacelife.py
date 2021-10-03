@@ -10,7 +10,7 @@ parser.add_argument('-w', dest='warning_time', type=float, default=0.5, help='Se
 parser.add_argument('-v', dest='volume', type=float, default=1.0, help='Set the warning siren volume')
 
 parser.add_argument('-ft', dest='flare_start', type=float, default=2.5, help='Set the time the flare event occurs')
-parser.add_argument('-fd', dest='flare_duration', type=float, default=0.5, help='Set how long the flare event occurs')
+parser.add_argument('-fd', dest='flare_duration', type=float, default=0.8, help='Set how long the flare event occurs')
 parser.add_argument('-nf', dest='flare', action='store_false', help='Disable the Solar flare event')
 
 parser.add_argument('-t', dest='time', type=float, default=1.0, help='Set the current mission duration time')
@@ -135,88 +135,9 @@ ares.make_active("commander")
 ####################################
 # InfoBox
 
-intro = """
-Welcome to the Ares - Space Apps Challenge 2021
+from infoBox import*   #vclean up to make logic followup more easy
 
-Your job to to keep the crew alive and healthy on their 28 week 
-mission to Mars.
-
-Click on a health bar to get more information.
-"""
-
-# Ship Info
-
-ship_oxygen_info = """
-Oxygen is vital for the crew to breath, but
-as there is no oxygen in space, the crew need
-to bring it with them.
-"""
-ship_fuel_info = """
-Fuel is needed to leave orbit around the Earth
-and for decellerating once the ship arrives at
-Mars to put it into orbit.
-"""
-ship_food_info = """
-The crew need to bring all of the food with them
-except what they can grow in the greenhouse.
-
-Click on a plant in the greenhouse to start
-harvesting vegetables they have grown (food will increase).
-"""
-ship_damage_info = """
-The ship can be damaged by micrometeorites and 
-from gamma radiation as it will be travelling outside the
-Earth's protective magnetosphere.
-"""
-ship_radiation_info = """
-There are many sources of radiation in space, such as
-gamma rays and solar flare events.
-
-The ship has a warning alarm to inform the crew of incoming
-dangerous solar flares, but it can only give them a few 
-minutes warning.
-"""
-ship_mission_duration_info = """
-This shows the duration of the mission in weeks.
-"""
-
-# Crew Info
-
-crew_stress_info = """
- Space is a dangerous environment and travelling through it
-can be a stressful experience.
-
-To reduce stress make sure your crew regularly eat and relax
-in the cafeteria.
-"""
-crew_fatigue_info = """
-Earth and Mars are a long distance apart. Make sure that 
-the crew is well rested during the long journey.
-
-Send a crew member to bed in the sleeping quarters to reduce
-their fatigue.
-"""
-crew_bone_density_info = """"
-The zero-G environment of deep space can cause bone
-and muscle wastage.
-
-To compensate make sure that your crew members exercise
-regularly in the gym.
-
-But do not leave them too long or they will get fatigued!
-"""
-crew_mood_info = """
-
-"""
-crew_radiation_info = """
-During a solar flare the crew needs to shelter in the
-Safe Room to avoid high radiation exposure.
-
-They can reduce their exposure by visiting the medical bay
-for anti-radiation drugs.
-"""
-
-info_box = Text(intro, x= 0.05, y=0.48, background=True)
+info_box = Text(intro, x= 0.05, y=0.48)#, background=True)
 
 
 ####################################
@@ -234,7 +155,8 @@ stats_round = 0
 
 timeline = HealthBar(x=-0.85, y=0.48, scale_x=0.72, scale_y=.025, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
 timeline.value=1
-
+timeline.on_mouse_enter = Func(setattr, info_box, "text", intro)
+timeline.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 #############################
 # Ship statistics
@@ -243,28 +165,28 @@ Text(text="SHIP: ARES", x = stats_ship_x, y=stats_y_top,background=False)
 
 Text(text="Oxygen", x= stats_ship_x, y=stats_y_top - stats_y_space, background=False)
 ship_oxygen = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
-ship_oxygen.tooltip = Tooltip('oxygen')
-ship_oxygen.on_click = Func(setattr, info_box, "text", ship_oxygen_info)
+ship_oxygen.on_mouse_enter = Func(setattr, info_box, "text", ship_oxygen_info)
+ship_oxygen.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Fuel", x= stats_ship_x , y=stats_y_top - 2*stats_y_space,background=False)
 ship_fuel = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
-ship_fuel.tooltip = Tooltip('fuel')
-ship_fuel.on_click = Func(setattr, info_box, "text", ship_fuel_info)
+ship_fuel.on_mouse_enter = Func(setattr, info_box, "text", ship_fuel_info)
+ship_fuel.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Food", x= stats_ship_x , y=stats_y_top - 3*stats_y_space,background=False)
 ship_food = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
-ship_food.tooltip = Tooltip('food')
-ship_food.on_click = Func(setattr, info_box, "text", ship_food_info)
+ship_food.on_mouse_enter = Func(setattr, info_box, "text", ship_food_info)
+ship_food.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Damage",  x= stats_ship_x , y=stats_y_top - 4*stats_y_space,background=False)
 ship_damage = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-ship_damage.tooltip = Tooltip('damage')
-ship_damage.on_click = Func(setattr, info_box, "text", ship_damage_info)
+ship_damage.on_mouse_enter = Func(setattr, info_box, "text", ship_damage_info)
+ship_damage.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Radiation",  x= stats_ship_x , y=stats_y_top - 5*stats_y_space,background=False)
 ship_radiation = HealthBar(x=stats_ship_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
-ship_radiation.tooltip = Tooltip('radiation')
-ship_radiation.on_click = Func(setattr, info_box, "text", ship_radiation_info)
+ship_radiation.on_mouse_enter = Func(setattr, info_box, "text", ship_radiation_info)
+ship_radiation.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 ######################
 # Crew statistics
@@ -272,29 +194,29 @@ crew_label = Text(text="CREW: ", x = stats_crew_x, y=stats_y_top,background=Fals
 
 Text(text="Stress", x= stats_crew_x, y=stats_y_top - stats_y_space, background=False)
 crew_stress = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - stats_y_space, scale_x = 0.15, roundness=stats_round)
-crew_stress.tooltip = Tooltip('stress')
-crew_stress.on_click = Func(setattr, info_box, "text", crew_stress_info)
+crew_stress.on_mouse_enter = Func(setattr, info_box, "text", crew_stress_info)
+crew_stress.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Fatigue",  x= stats_crew_x, y=stats_y_top - 2*stats_y_space, background=False)
 crew_fatigue = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 2*stats_y_space, scale_x = 0.15, roundness=stats_round)
-crew_fatigue.tooltip = Tooltip('fatigue')
-crew_fatigue.on_click = Func(setattr, info_box, "text", crew_fatigue_info)
+crew_fatigue.on_mouse_enter = Func(setattr, info_box, "text", crew_fatigue_info)
+crew_fatigue.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Bone Density", x= stats_crew_x, y=stats_y_top - 3*stats_y_space, background=False)
 crew_bone_density = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 3*stats_y_space, scale_x = 0.15, roundness=stats_round)
-crew_bone_density.tooltip = Tooltip('bone density')
-crew_bone_density.on_click = Func(setattr, info_box, "text", crew_bone_density_info)
+crew_bone_density.on_mouse_enter = Func(setattr, info_box, "text", crew_bone_density_info)
+crew_bone_density.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Mood", x= stats_crew_x, y=stats_y_top - 4*stats_y_space, background=False)
 crew_mood = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 4*stats_y_space, scale_x = 0.15, roundness=stats_round)
-crew_mood.tooltip = Tooltip('Mood')
 crew_mood.value=15
-crew_mood.on_click = Func(setattr, info_box, "text", crew_mood_info)
+crew_mood.on_mouse_enter = Func(setattr, info_box, "text", crew_mood_info)
+crew_mood.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 Text(text="Radiation", x= stats_crew_x, y=stats_y_top - 5 *stats_y_space, background=False)
 crew_radiation = HealthBar(x = stats_crew_x + stats_x_space, y=stats_y_top - 5*stats_y_space, scale_x = 0.15, roundness=stats_round)
-crew_radiation.tooltip = Tooltip('radiation')
-crew_radiation.on_click = Func(setattr, info_box, "text", crew_radiation_info)
+crew_radiation.on_mouse_enter = Func(setattr, info_box, "text", crew_radiation_info)
+crew_radiation.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 # siren warning text
 warning_text = """WARNING: SOLAR FLARE
