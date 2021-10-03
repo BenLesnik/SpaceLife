@@ -9,9 +9,9 @@ from equipment import Equipment
 
 class Room(Entity):
 
-    def __init__(self, name, ship, length=4, y=0, rotation=0, parent=None):
+    def __init__(self, name, ship, length=4, x=0, y=0, rotation=0, parent=None):
 
-        super().__init__(x=0, y=y)
+        super().__init__(x=x, y=y)
 
         self.name = name
         self.ship = ship
@@ -20,7 +20,7 @@ class Room(Entity):
 
         if parent is not None:
             self.parent = parent
-            self.x = 0.0
+            self.x = x#0.0
         else:
             # first room
             if len(self.ship.rooms) == 0:
@@ -28,11 +28,11 @@ class Room(Entity):
                 self.x = 0.0
             else:
                 if self.ship.rooms[-1].mid.rotation_z != 0.0:
-                    self.parent = self.ship.rooms[-1]
-                    self.x = 3.0 # width of centrifuge (2.0) + origin to one size aka width/2 (1.0)
+                 #   self.parent = self.ship.rooms[-1]
+                    self.x = x#3.0 # width of centrifuge (2.0) + origin to one size aka width/2 (1.0)
                 else:
-                    self.parent = self.ship.rooms[-1]
-                    self.x = length
+                   # self.parent = self.ship.rooms[-1]
+                    self.x = x#length
 
         # self.label = Text(name.replace("_", " ").upper(), scale=5, z=-0.1, color=color.white, origin = (0.0, 0.0), rotation_z=rotation, parent=self)
         # self.top = Entity(parent=self, model='quad', color=color.gray, collider="box", x=2.6, scale_x=.2, scale_y=1.5)
@@ -40,7 +40,7 @@ class Room(Entity):
         # self.bottom = Entity(parent=self, model='quad', color=color.red, collider="box", x=-2.6, scale_x=.2, scale_y=1.5)
 
         if self.mid.rotation_z != 0.0:
-            self.x = 3.0 # width of centrifuge (2.0) + origin to one size aka width/2 (1.0)
+            self.x = x #3.0 # width of centrifuge (2.0) + origin to one size aka width/2 (1.0)
 
         if glob.glob(f"assets/{name}.*"):
             self.mid.texture = f"assets/{name}"
@@ -108,8 +108,8 @@ class Spaceship(Entity):
         self.damage = 0.0
         self.radiation = 5.0
     
-    def make_room(self, name, length=5.0, y=0, rotation=0, parent=None):
-        return Room(name, self, length, y, rotation, parent=parent)
+    def make_room(self, name, length=5.0, x= 0, y=0, rotation=0, parent=None):
+        return Room(name, self, length, x,  y, rotation, parent=parent)
 
     def make_active(self, name):
         self.active = self.crew[name]
