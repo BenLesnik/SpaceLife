@@ -46,7 +46,7 @@ This shows the duration of the mission in weeks.
 # Crew Info
 
 crew_stress_info = """
- Space is a dangerous environment and travelling through it
+Space is a dangerous environment and travelling through it
 can be a stressful experience.
 
 To reduce stress make sure your crew regularly eat and relax

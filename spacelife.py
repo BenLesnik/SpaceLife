@@ -123,7 +123,7 @@ ares.make_active("commander")
 
 from infoBox import*   #vclean up to make logic followup more easy
 
-info_box = Text(intro, x= 0.05, y=0.48, background=True)
+info_box = Text(intro, x= 0.05, y=0.48)#, background=True)
 
 
 ####################################
@@ -141,7 +141,8 @@ stats_round = 0
 
 timeline = HealthBar(x=-0.85, y=0.48, scale_x=0.72, scale_y=.025, bar_color=color.lime.tint(-.25), roundness=0, max_value=28)
 timeline.value=1
-
+timeline.on_mouse_enter = Func(setattr, info_box, "text", intro)
+timeline.on_mouse_exit = Func(setattr, info_box, "text", "")
 
 #############################
 # Ship statistics
