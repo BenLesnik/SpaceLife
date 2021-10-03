@@ -56,6 +56,9 @@ class Room(Entity):
     def add_chair(self, name, x=0, y=0):
         return Equipment(name, texture="assets/chair", ship=self.ship, room=self, x=x, y=y, scale=0.2)
 
+    def add_nexus(self, name, x=0, y=0): 
+        return Equipment(name, texture="assets/nexus", ship=self.ship, room=self, x=x, y=y, scale=0.002)
+
     def add_sofa(self, name, x=0, y=0):
         return Equipment(name, texture="assets/sofa", ship=self.ship, room=self, x=x, y=y, scale_x = 1.2, scale_y = 1.2)
 
