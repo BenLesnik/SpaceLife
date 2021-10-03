@@ -60,16 +60,16 @@ class Room(Entity):
         return Equipment(name, texture="assets/nexus", ship=self.ship, room=self, x=x, y=y, scale=0.002)
 
     def add_sofa(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/sofa", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/sofa", ship=self.ship, room=self, x=x, y=y, scale_x = 1.2, scale_y = 1.2)
 
     def add_table(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/table", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/table", ship=self.ship, room=self, x=x, y=y, scale_x = 1.5, scale_y = 1.5)
 
     def add_stool(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/stool", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/stool", ship=self.ship, room=self, x=x, y=y, scale_x = 1.2, scale_y = 1.2)
 
     def add_plant(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/plant1", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/plant1", ship=self.ship, room=self, x=x, y=y, scale_x = 1, scale_y = 1)
 
     def add_treadmill(self, name, x=0, y=0):
         return Equipment(name, texture="assets/treadmill", ship=self.ship, room=self, x=x, y=y, scale=0.2)
@@ -81,10 +81,16 @@ class Room(Entity):
         return Equipment(name, texture="assets/box", ship=self.ship, room=self, x=x, y=y)
 
     def add_motor(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/motor", ship=self.ship, room=self, x=x, y=y)
+        return Equipment(name, texture="assets/motor", ship=self.ship, room=self, x=x, y=y, scale_x=1, scale_y=1)
     
     def add_engine(self, name, x=0, y=0):
-        return Equipment(name, texture="assets/engineactual", ship=self.ship, room=self, x=x, y=y, scale_x = 0.2, scale_y = 0.1)
+        return Equipment(name, texture="assets/engineactual", ship=self.ship, room=self, x=x, y=y, scale_x = 1, scale_y = 1)
+
+    def add_bridge_chair(self, name, x=0, y=0):
+        return Equipment(name, texture="assets/bridge_chair", ship=self.ship, room=self, x=x, y=y, scale_x = 0.2, scale_y = 0.2)
+
+    def add_computer(self, name, x=0, y=0):
+        return Equipment(name, texture="assets/computer", ship=self.ship, room=self, x=x, y=y, scale_x = 0.18, scale_y = 0.18)
 
 class Spaceship(Entity):
 
