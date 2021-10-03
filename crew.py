@@ -39,6 +39,10 @@ class Crew(Entity):
 
         self.overall_health = HealthBar(x=-1.3, y=2.1, scale_x=2.5, scale_y=0.5, parent=self)
         self.overall_health.show_text = False
+        self.set_health_color()
+
+        self.active_blinker = self.overall_health.blink(duration=1.0, loop=True)
+        self.active_blinker.pause()
 
         left_images = "assets/left"
         right_images = "assets/right"
@@ -84,7 +88,10 @@ class Crew(Entity):
         self.ship.make_active(self.name)
 
     def calculate_health(self):
-        return (self.bone_density + (100.0 - self.stress)  + (100.0 - self.fatigue)  + (100.0 - self.radiation)) * 0.25
+        return (0.05 * self.bone_density + 0.1 * (100.0 - self.stress)  + 0.05 * (100.0 - self.fatigue)  + 0.8 * (100.0 - self.radiation))
+
+    def set_health_color(self):
+        updateHealthBarColor(self.overall_health, good_level = 80.0, bad_level = 50.0)
 
     def update(self):
         
@@ -133,8 +140,7 @@ class Crew(Entity):
         self.health = self.calculate_health()
         if self.overall_health.value != int(self.health):
             self.overall_health.value = int(self.health)
-
-        updateHealthBarColor(self.overall_health, good_level = 80.0, bad_level = 20.0)
+            self.set_health_color()
 
     def mv_y2ctr(self, equipment, s):
         distance_centre = self.world_position.y - self.ship.world_position.y

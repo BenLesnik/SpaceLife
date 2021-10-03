@@ -356,7 +356,7 @@ def update():
     crew_overview_int = int(ares.active.health)
     if crew_overview.value != crew_overview_int:
         crew_overview.value = crew_overview_int
-        updateHealthBarColor(crew_overview, good_level = 80.0, bad_level = 40.0)
+        updateHealthBarColor(crew_overview, good_level = 80.0, bad_level = 50.0)
 
 app.run()   
 

@@ -123,9 +123,12 @@ class Spaceship(Entity):
     def make_active(self, name):
         self.active = self.crew[name]
         self.active.active = True
+        self.active.active_blinker.resume()
         for c in self.crew.values():
             if c is not self.active:
                 c.active = False
+                c.active_blinker.pause()
+                c.set_health_color()
 
     def sound_warning(self, state, warning_text):
 
